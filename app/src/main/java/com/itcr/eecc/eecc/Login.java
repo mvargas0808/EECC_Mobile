@@ -10,6 +10,7 @@ package com.itcr.eecc.eecc;
 
         import android.app.Activity;
         import android.content.Context;
+        import android.content.Intent;
         import android.net.ConnectivityManager;
         import android.net.NetworkInfo;
         import android.os.AsyncTask;
@@ -136,6 +137,8 @@ public class Login extends Activity implements OnClickListener {
                 if(result.length()!=0){
                     Log.d("JSON:", result.get(0).toString());
                     mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
+                    Intent i = new Intent(Login.this, EvaluationMenu.class);
+                    startActivity(i);
                 }
                 else{
                     Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
