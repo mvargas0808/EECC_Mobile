@@ -26,7 +26,12 @@ package com.itcr.eecc.eecc;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
+        import DataBase.DataBaseManager;
+
 public class Login extends Activity implements OnClickListener {
+
+    // AGREGAR ESTO PARA TRABAJAR CON LA BASE DE DATOS
+    private DataBaseManager manager = new DataBaseManager(this);
 
     private EditText user, pass;
     private Button mSubmit;
