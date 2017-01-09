@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "eeccp1";
+    private static final String DB_NAME = "eecc";
     private static final int DB_SCHEME_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -42,6 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(DataBaseManager.CREATE_TABLE_STRUCTURETYPES);
         db.execSQL(DataBaseManager.CREATE_TABLE_TOKENS);
         db.execSQL(DataBaseManager.CREATE_TABLE_USERS);
+        db.execSQL(DataBaseManager.CREATE_TABLE_CONTACTO);
+        db.execSQL(DataBaseManager.CREATE_TABLE_USUARIO);
     }
 
     @Override

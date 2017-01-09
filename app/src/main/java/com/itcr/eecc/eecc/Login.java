@@ -23,6 +23,7 @@ package com.itcr.eecc.eecc;
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import java.sql.DatabaseMetaData;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
@@ -31,7 +32,8 @@ package com.itcr.eecc.eecc;
 public class Login extends Activity implements OnClickListener {
 
     // AGREGAR ESTO PARA TRABAJAR CON LA BASE DE DATOS
-    private DataBaseManager manager = new DataBaseManager(this);
+
+    private DataBaseManager manager;
 
     private EditText user, pass;
     private Button mSubmit;
@@ -49,6 +51,7 @@ public class Login extends Activity implements OnClickListener {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        manager = new DataBaseManager(this);
 
         // setup input fields
         user = (EditText) findViewById(R.id.inputUsername);
@@ -75,7 +78,9 @@ public class Login extends Activity implements OnClickListener {
                         new AttemptLogin().execute();
                     }
                     else {
-                        Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), ProjectForm.class);
+                        startActivity(i);
                     }
                     break;
                 default:
