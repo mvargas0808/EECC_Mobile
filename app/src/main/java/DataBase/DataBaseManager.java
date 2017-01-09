@@ -16,6 +16,7 @@ public class DataBaseManager {
     private SQLiteDatabase db;
     public DataBaseManager(Context context) {
         helper = new DBHelper(context);
+        db = helper.getWritableDatabase();
     }
 
     public void openConnection(){
@@ -94,6 +95,51 @@ public class DataBaseManager {
 
     // Table: users
     public static final String CREATE_TABLE_USERS = "CREATE TABLE Users (UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (50) NOT NULL, Lastname VARCHAR (50) NOT NULL, Email VARCHAR (60) NOT NULL, LoginDate DATE NOT NULL, Enabled BIT NOT NULL);";
+
+
+    public Cursor getStructureTypeNames(){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM StructureTypes WHERE Enabled = '1' ", null);
+        return cursor;
+    }
+
+    public Cursor getProvinces(){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM Provinces", null);
+        return cursor;
+    }
+
+    public Cursor getCantons(String provinceId){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM Cantons WHERE ProvinceId = "+provinceId, null);
+        return cursor;
+    }
+
+    public Cursor getDistricts(String cantonId){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM Districts WHERE CantonId = "+cantonId, null);
+        return cursor;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //SECCIÓN DE PRUEBAS
