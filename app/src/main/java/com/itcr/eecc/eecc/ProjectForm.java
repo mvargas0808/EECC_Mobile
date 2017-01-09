@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +36,12 @@ public class ProjectForm extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DataBaseManager manager;
-    Spinner spProvince, spCanton, spDistrict;
-    Button btnGetDate;
-    TextView tvDate;
+    Spinner spProvince, spCanton, spDistrict, spStructuretype;
+    Button btnGetDate, btnCreateProject, btnCancelProject;
+    TextView tvDate, tvRequiereProject, tvRequiereComponent, tvRequiereStructure;
+    EditText txtProjectName, txtComponent, txtStructure;
     DialogFragment newFragment;
-    ElementKey ekProvincias;
-    ElementKey ekCantons;
-    ElementKey ekDistricts;
+    ElementKey ekProvincias, ekCantons, ekDistricts, ekStructureType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +70,75 @@ public class ProjectForm extends AppCompatActivity
 
         manager = new DataBaseManager(this);
         btnGetDate = (Button) findViewById(R.id.btn_getDate);
+        btnCreateProject = (Button) findViewById(R.id.btn_createProject);
+        btnCancelProject = (Button) findViewById(R.id.btn_cancelProyect);
         tvDate = (TextView) findViewById(R.id.tv_date);
+        tvRequiereProject = (TextView) findViewById(R.id.tv_requiere_project);
+        tvRequiereComponent = (TextView) findViewById(R.id.tv_requiere_component);
+        tvRequiereStructure = (TextView) findViewById(R.id.tv_requiere_structure);
+        txtProjectName = (EditText) findViewById(R.id.txt_projectName);
+        txtComponent = (EditText) findViewById(R.id.txt_component);
+        txtStructure = (EditText) findViewById(R.id.txt_structure);
         spProvince = (Spinner) findViewById(R.id.sp_province);
         spCanton = (Spinner) findViewById(R.id.sp_canton);
         spDistrict = (Spinner) findViewById(R.id.sp_district);
+        spStructuretype = (Spinner) findViewById(R.id.sp_structuretype);
         newFragment = new DatePickerFragment();
 
         loadStructureTypeSpinner();
         loadProvinceSpinner();
-
     }
 
     public void showPickerDate(View v){
         newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public void createProject(View v){
+        manager.openConnection();
+        if(validFields()){
+            long value = manager.createProject(
+                    txtProjectName.getText().toString(),
+                    tvDate.getText().toString().equals("aaaa-mm-dd") ? "0000-00-00" : tvDate.getText().toString(),
+                    txtComponent.getText().toString(),
+                    txtStructure.getText().toString(),
+                    ekDistricts.getKey(spDistrict.getSelectedItem().toString()),
+                    ekStructureType.getKey(spStructuretype.getSelectedItem().toString()),
+                    0,
+                    0);
+            if(value == -1){
+                Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(),"Todo fue un exito "+value, Toast.LENGTH_LONG).show();
+            }
+        }
+        manager.closeConnection();
+    }
+
+    private boolean validFields(){
+        cleanMessges();
+        boolean state = true;
+        if(txtProjectName.getText().toString().trim().equals("")) {
+            tvRequiereProject.setVisibility(View.VISIBLE);
+            state = false;
+        } if (txtComponent.getText().toString().trim().equals("")) {
+            tvRequiereComponent.setVisibility(View.VISIBLE);
+            state = false;
+        } if (txtStructure.getText().toString().trim().equals("")) {
+            tvRequiereStructure.setVisibility(View.VISIBLE);
+            state = false;
+        }
+        return state;
+    }
+
+    private void  cleanMessges(){
+        tvRequiereProject.setVisibility(View.GONE);
+        tvRequiereComponent.setVisibility(View.GONE);
+        tvRequiereStructure.setVisibility(View.GONE);
+
+    }
+
+    public void cancelProject(View v){
+
     }
 
     private void loadProvinceSpinner(){
@@ -112,9 +168,7 @@ public class ProjectForm extends AppCompatActivity
 
             }
         });
-
         loadCantonSpinner(ekProvincias.getKey(spProvince.getSelectedItem().toString()));
-
     }
 
     private void loadCantonSpinner(String provinceId){
@@ -144,8 +198,7 @@ public class ProjectForm extends AppCompatActivity
 
             }
         });
-
-                loadDistrictSpiner(ekCantons.getKey(spCanton.getSelectedItem().toString()));
+        loadDistrictSpiner(ekCantons.getKey(spCanton.getSelectedItem().toString()));
     }
 
     private void loadDistrictSpiner(String cantonId){
@@ -169,32 +222,18 @@ public class ProjectForm extends AppCompatActivity
     private void loadStructureTypeSpinner(){
         Cursor cursor = manager.getStructureTypeNames();
         List<String> structureNameArray = new ArrayList<String>();
+        ekStructureType = new ElementKey();
 
         if (cursor.moveToFirst()) {
             do {
+                ekStructureType.addElement(cursor.getString(cursor.getColumnIndex("StructureTypeId")),
+                        cursor.getString(cursor.getColumnIndex("Name")));
                 structureNameArray.add(cursor.getString(cursor.getColumnIndex("Name")));
             } while(cursor.moveToNext());
         }
         manager.closeConnection();
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, structureNameArray);
-
-        Spinner mySpiner = (Spinner) findViewById(R.id.sp_structuretype);
-        mySpiner.setAdapter(myAdapter);
-
-        /*
-        Spinner mySpiner = (Spinner) findViewById(R.id.sp_structuretype);
-        mySpiner.setAdapter(myAdapter);
-        mySpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
+        ArrayAdapter<String> structureAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, structureNameArray);
+        spStructuretype.setAdapter(structureAdapter);
     }
 
     @Override

@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by Bryan on 1/7/2017.
  */
@@ -121,6 +124,56 @@ public class DataBaseManager {
         return cursor;
     }
 
+    public long createProject(
+            String projectName,
+            String buildingDate,
+            String componentDescription,
+            String generalDescription,
+            String districtId,
+            String structureTypeId,
+            float latitude,
+            float longitude){
+
+        ContentValues values = new ContentValues();
+        values.put("Name", projectName);
+        values.put("ComponentDescription", componentDescription);
+        values.put("StructureUseDescription", generalDescription);
+        values.put("Latitude", 0);
+        values.put("Longitude", 0);
+        values.put("CreationDate", getCurrentDate());
+        values.put("StructureCreationDate", buildingDate);
+        values.put("Token", "null");
+        values.put("Enabled", 1);
+        values.put("UserId", getUserId());
+        values.put("StructureTypeId", structureTypeId);
+        values.put("DistrictId", districtId);
+        long value = db.insert("Projects", null, values);
+        return value;
+    }
+
+    public Cursor getUserLogin(){
+        Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE Enabled = 1", null);
+        return cursor;
+    }
+
+    public String getUserId(){
+        Cursor cursor = getUserLogin();
+        if (cursor.moveToFirst()) {
+            do {
+                return cursor.getString(cursor.getColumnIndex("UserId"));
+            } while(cursor.moveToNext());
+        } else {
+            return "-1";
+        }
+
+    }
+
+    private String getCurrentDate(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(c.getTime());
+    }
+
 
 
 
@@ -193,30 +246,5 @@ public class DataBaseManager {
 
         //db.execSQL("UPDATE Usuario SET Nombre = "+newvonombre+" Where ContactoId = 1; SELECT 1;");
     }
-/*
-    public void createProject(
-            String userEmail,
-            String projectName,
-            String buildingDate,
-            String componentDescription,
-            String generalDescription,
-            int districtId,
-            String structureType,
-            float latitude,
-            float longitude){
 
-        ContentValues values = new ContentValues();
-        values.put("Name", projectName);
-        values.put("ComponentDescription", componentDescription);
-        values.put("StructureUseDescription", generalDescription);
-        values.put("Latitude", latitude);
-        values.put("Longitude", longitude);
-        values.put("CreationDate", );
-        values.put("StructureCreationDate", );
-        values.put("Token", null);
-        values.put("Enabled", 1);
-        values.put("UserId", 1);
-        values.put("StructureTypeId", 1);
-        values.put("DistrictId", 10101);
-    }*/
 }

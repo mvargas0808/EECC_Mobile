@@ -40,11 +40,20 @@
                 android:id="@+id/txt_projectName" />
 
             <TextView
+                android:text="Campo requerido"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_requiere_project"
+                android:textColor="@color/FFFE0000" />
+
+            <TextView
                 android:text="Provincia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="30dp" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -120,6 +129,14 @@
                 android:id="@+id/txt_component" />
 
             <TextView
+                android:text="Campo requerido"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_requiere_component"
+                android:textColor="@color/FFFE0000" />
+
+            <TextView
                 android:text="Uso general de la estructura"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,8 +154,17 @@
                 android:id="@+id/txt_structure"
                 android:singleLine="false" />
 
+            <TextView
+                android:text="Campo requerido"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_requiere_structure"
+                android:textColor="@color/FFFE0000" />
+
             <Button
                 android:text="Crear proyecto"
+                android:onClick="createProject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_createProject" />
