@@ -148,7 +148,6 @@ public class DataBaseManager {
         values.put("Longitude", 0);
         values.put("CreationDate", getCurrentDate());
         values.put("StructureCreationDate", buildingDate);
-        values.put("Token", "null");
         values.put("Enabled", 1);
         values.put("UserEmail", getUserEmail());
         values.put("UserId", getUserId());
@@ -183,13 +182,73 @@ public class DataBaseManager {
         } else {
             return "-1";
         }
-
     }
 
     private String getCurrentDate(){
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(c.getTime());
+    }
+
+
+
+    public String createEvaluationProject(String projectId){
+        ContentValues values = new ContentValues();
+        values.put("CreationDate", getCurrentDate());
+        values.put("Enabled", 1);
+        values.put("ProjectId", projectId);
+        long value = db.insert("Evaluations", null, values);
+        return String.valueOf(value);
+    }
+
+    public long createEvaluationToken(String tokenId){
+        ContentValues values = new ContentValues();
+        values.put("CreationDate", getCurrentDate());
+        values.put("Enabled", 1);
+        values.put("TokenId", tokenId);
+        long value = db.insert("Evaluations", null, values);
+        return value;
+    }
+
+    public String createProjectToken(String token){
+        String tokenId = getIdToken(token);
+        if(tokenId.equals("-1")){
+            ContentValues values = new ContentValues();
+            values.put("Token", token);
+            values.put("Enabled", 1);
+            long tokenResultId = db.insert("Tokens", null, values);
+            long evaluationId = createEvaluationToken(String.valueOf(tokenResultId));
+            return String.valueOf(evaluationId);
+        } else {
+            return getEvaluationIdbyToken(tokenId);
+        }
+    }
+
+    public String getEvaluationIdbyProject(String projectId){
+        Cursor cursor = db.rawQuery("SELECT EvaluationId FROM Evaluations WHERE ProjectId = '"+projectId+"' AND Enabled = 1", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("EvaluationId"));
+        } else {
+            return "-1";
+        }
+    }
+
+    public String getEvaluationIdbyToken(String tokenId){
+        Cursor cursor = db.rawQuery("SELECT EvaluationId FROM Evaluations WHERE TokenId = '"+tokenId+"' AND Enabled = 1", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("EvaluationId"));
+        } else {
+            return "-1";
+        }
+    }
+
+    public String getIdToken(String token){
+        Cursor cursor = db.rawQuery("SELECT TokenId FROM Tokens WHERE Token = '"+token+"' AND Enabled = 1", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("TokenId"));
+        } else {
+            return "-1";
+        }
     }
 
 

@@ -65,11 +65,69 @@ public class ProjectList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.pid)).getText()
+                String projectId = ((TextView) view.findViewById(R.id.pid)).getText()
                         .toString();
-                Toast.makeText(getApplicationContext(), "Este fue" + pid, Toast.LENGTH_SHORT).show();
+                manager.openConnection();
+                String evaluationId = manager.getEvaluationIdbyProject(projectId);
+                if(evaluationId.equals("-1")){
+                    alertMessageCreateEvaluation(projectId);
+                } else {
+                    alertMessageGoEvaluation(evaluationId);
+                }
+                manager.closeConnection();
             }
         });
+    }
+
+    public void alertMessageCreateEvaluation(String projectId){
+        final String projectIdFinal = projectId;
+        Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("¿Desea crear una nueva evaluación en el sistema?");
+        builder1.setCancelable(false);
+
+        builder1.setPositiveButton(
+                "Crear",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        manager.openConnection();
+                        String evaluationId = manager.createEvaluationProject(projectIdFinal);
+                        if(evaluationId.equals("-1")){
+                            Toast.makeText(getApplicationContext(), "ERROR: Evaluación no creada ", Toast.LENGTH_LONG).show();
+                        } else {
+                            //Cambiar de pantalla a la evaluación
+                            Toast.makeText(getApplicationContext(), "SE CAMBIO DE PANTALLA ", Toast.LENGTH_LONG).show();
+                        }
+                        manager.closeConnection();
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Cancelar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void alertMessageGoEvaluation(String evaluationId){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("INFORMACIÓN IMPORTANTE\nLe recordamos que usted tiene una evaluación en proceso");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton(
+                "Ir a la evaluación",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getApplicationContext(), "SE CAMBIO DE PANTALLA ", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     public void insertToken(View v){
@@ -81,9 +139,17 @@ public class ProjectList extends AppCompatActivity {
         final EditText tokenInputDialog = (EditText) mView.findViewById(R.id.tokenInputDialog);
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Evaluar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
-                        Toast.makeText(getApplicationContext(), "Este fue " + tokenInputDialog.getText().toString(), Toast.LENGTH_SHORT).show();
+                        //This is the evaluatioin value
+                        manager.openConnection();
+                        if(!tokenInputDialog.getText().toString().trim().equals("")){
+                            String result = manager.createProjectToken(tokenInputDialog.getText().toString());
+                            Toast.makeText(getApplicationContext(), "Este fue el id de la evaluacion " + result, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "ERROR Token invalido", Toast.LENGTH_LONG).show();
+                        }
+                        manager.closeConnection();
                     }
                 })
 
