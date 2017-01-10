@@ -94,7 +94,7 @@ public class DataBaseManager {
     public static final String CREATE_TABLE_STRUCTURETYPES = "CREATE TABLE StructureTypes (StructureTypeId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR(40) NOT NULL, Enabled BIT NOT NULL);";
 
     // Table: tokens
-    public static final String CREATE_TABLE_TOKENS = "CREATE TABLE Tokens (TokenId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Token VARCHAR(50) NOT NULL, Enabled BIT NOT NULL);";
+    public static final String CREATE_TABLE_TOKENS = "CREATE TABLE Tokens (TokenId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Token VARCHAR(50) NOT NULL, UserEmail VARCHAR (60) NOT NULL, Enabled BIT NOT NULL);";
 
     // Table: users
     public static final String CREATE_TABLE_USERS = "CREATE TABLE Users (UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (50) NOT NULL, Lastname VARCHAR (50) NOT NULL, Email VARCHAR (60) NOT NULL, LoginDate DATE NOT NULL, Enabled BIT NOT NULL);";
@@ -127,6 +127,12 @@ public class DataBaseManager {
     public Cursor getProjectList(){
         openConnection();
         Cursor cursor = db.rawQuery("SELECT * FROM Projects WHERE UserEmail = '"+getUserEmail().toString()+"' AND Enabled = '1'", null);
+        return cursor;
+    }
+
+    public Cursor getTokenList(){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM Tokens WHERE UserEmail = '"+getUserEmail().toString()+"' AND Enabled = '1'", null);
         return cursor;
     }
 
@@ -215,6 +221,7 @@ public class DataBaseManager {
         if(tokenId.equals("-1")){
             ContentValues values = new ContentValues();
             values.put("Token", token);
+            values.put("UserEmail", getUserEmail());
             values.put("Enabled", 1);
             long tokenResultId = db.insert("Tokens", null, values);
             long evaluationId = createEvaluationToken(String.valueOf(tokenResultId));

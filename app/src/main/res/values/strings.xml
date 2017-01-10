@@ -32,7 +32,7 @@
     <string name="text_Evaluation">Evaluaciones</string>
     <string name="button_simplified">Evaluación Simplificada</string>
     <string name="button_manual">Evaluación Manual</string>
-    <string name="radio_flexion" >Flexión</string>
+    <string name="radio_flexion">Flexión</string>
     <string name="radio_flexocompresion">Flexocompresión</string>
 
 </resources>
