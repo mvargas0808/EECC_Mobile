@@ -29,7 +29,7 @@ public class StructuralIndex extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        JSONObject json = null;
+        JSONObject json;
         String value = null;
         try {
             json = new JSONObject(intent.getStringExtra("data"));

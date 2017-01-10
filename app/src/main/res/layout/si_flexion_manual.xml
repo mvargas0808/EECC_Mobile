@@ -23,7 +23,7 @@
         android:gravity="center">
 
         <ImageView
-            android:src="@drawable/iaa_1"
+            android:src="@drawable/ial_1"
             android:layout_height="35dp"
             android:layout_rowSpan="2"
             android:background="#FFFF"
@@ -47,19 +47,19 @@
             android:gravity="center"/>
 
         <ImageView
-            android:src="@drawable/iaa_2"
+            android:src="@drawable/ial_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FFFF"
             android:layout_margin="1dp" />
         <ImageView
-            android:src="@drawable/iaa_3"
+            android:src="@drawable/ial_3"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:background="#FFFF"
             android:layout_margin="1dp" />
         <ImageView
-            android:src="@drawable/iaa_4"
+            android:src="@drawable/ial_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FFFF"
@@ -79,7 +79,7 @@
             android:layout_margin="1dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat11" />
+            android:id="@+id/ial11" />
         <TextView android:text="1"
             android:background="#FFFF"
             android:layout_margin="1dp"
@@ -87,7 +87,7 @@
             android:layout_width="64dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat12" />
+            android:id="@+id/ial12" />
         <TextView android:text="2"
             android:layout_width="61dp"
             android:background="#FFFF"
@@ -95,7 +95,7 @@
             android:layout_height="26dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat13" />
+            android:id="@+id/ial13" />
         <TextView android:text="1"
             android:layout_rowSpan="2"
             android:layout_height="54dp"
@@ -104,7 +104,7 @@
             android:layout_width="76dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat14" />
+            android:id="@+id/ial14" />
 
         <TextView android:text="&lt;= 8 mm"
             android:layout_height="26dp"
@@ -119,7 +119,7 @@
             android:layout_height="26dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat21" />
+            android:id="@+id/ial21" />
         <TextView android:text="2"
             android:layout_width="64dp"
             android:background="#FFFF"
@@ -127,7 +127,7 @@
             android:layout_height="26dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat22" />
+            android:id="@+id/ial22" />
         <TextView android:text="3"
             android:layout_width="61dp"
             android:background="#FFFF"
@@ -135,7 +135,7 @@
             android:layout_height="26dp"
             android:gravity="center"
             android:onClick="setLongitudinal"
-            android:id="@+id/iat23" />
+            android:id="@+id/ial23" />
 
 
     </GridLayout>
