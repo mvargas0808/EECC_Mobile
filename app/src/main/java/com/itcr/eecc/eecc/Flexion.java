@@ -303,7 +303,7 @@ public class Flexion extends Activity implements View.OnClickListener{
                     Intent finishCalculation = new Intent(Flexion.this, EvaluationMenu.class);
                     startActivity(finishCalculation);
                 } else {
-                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Transversal",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Evaluacion Simplificada",Toast.LENGTH_LONG).show();
                 }
                 break;
             default:
