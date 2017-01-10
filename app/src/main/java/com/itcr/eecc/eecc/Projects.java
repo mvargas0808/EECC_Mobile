@@ -26,6 +26,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -74,10 +77,7 @@ public class Projects extends AppCompatActivity
         btnCreateNewProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Methods.changeScreen(appContext, ProjectForm.class);
-
-                Methods.changeScreen(appContext, EvaluationMenu.class);
-
+                Methods.changeScreen(appContext, ProjectForm.class);
             }
         });
 
@@ -141,8 +141,16 @@ public class Projects extends AppCompatActivity
                         if(evaluationId.equals("-1")){
                             Toast.makeText(getApplicationContext(), "ERROR: Evaluación no creada ", Toast.LENGTH_LONG).show();
                         } else {
-                            //Cambiar de pantalla a la evaluación
-                            Toast.makeText(getApplicationContext(), "SE CAMBIO DE PANTALLA ", Toast.LENGTH_LONG).show();
+                            JSONObject json = new JSONObject();
+                            try {
+                                //Cambiar de pantalla a la evaluación
+                                json.put("evaluationId",evaluationId);
+                                Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class, "json", json);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
                         manager.closeConnection();
                         dialog.cancel();
@@ -160,7 +168,8 @@ public class Projects extends AppCompatActivity
         alert11.show();
     }
 
-    public void alertMessageGoEvaluation(String evaluationId){
+    public void alertMessageGoEvaluation(String pEvaluationId){
+        final String evaluationId = pEvaluationId;
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("INFORMACIÓN IMPORTANTE\nLe recordamos que usted tiene una evaluación en proceso");
         builder1.setCancelable(false);
@@ -168,7 +177,15 @@ public class Projects extends AppCompatActivity
                 "Ir a la evaluación",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getApplicationContext(), "SE CAMBIO DE PANTALLA ", Toast.LENGTH_LONG).show();
+
+                        JSONObject json = new JSONObject();
+                        try {
+                            //Cambiar de pantalla a la evaluación
+                            json.put("evaluationId",evaluationId);
+                            Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class, "json", json);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.cancel();
                     }
                 });
@@ -190,8 +207,19 @@ public class Projects extends AppCompatActivity
                         //This is the evaluatioin value
                         manager.openConnection();
                         if(!tokenInputDialog.getText().toString().trim().equals("")){
-                            String result = manager.createProjectToken(tokenInputDialog.getText().toString());
-                            Toast.makeText(getApplicationContext(), "Este fue el id de la evaluacion " + result, Toast.LENGTH_SHORT).show();
+                            String evaluationId = manager.createProjectToken(tokenInputDialog.getText().toString());
+                            Toast.makeText(getApplicationContext(), "Este fue el id de la evaluacion " + evaluationId, Toast.LENGTH_SHORT).show();
+
+                            JSONObject json = new JSONObject();
+                            try {
+                                //Cambiar de pantalla a la evaluación
+                                json.put("evaluationId",evaluationId);
+                                Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class, "json", json);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
                         } else {
                             Toast.makeText(getApplicationContext(), "ERROR Token invalido", Toast.LENGTH_LONG).show();
                         }

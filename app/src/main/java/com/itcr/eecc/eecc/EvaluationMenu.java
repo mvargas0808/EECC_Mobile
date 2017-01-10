@@ -28,6 +28,18 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        JSONObject json = null;
+        String evaluationId = "";
+        try {
+            json = new JSONObject(intent.getStringExtra("json"));
+            evaluationId =  json.get("evaluationId").toString();
+            Toast.makeText(getApplicationContext(), "Evaluation ID " + evaluationId, Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.evaluation_menu);
 
 
