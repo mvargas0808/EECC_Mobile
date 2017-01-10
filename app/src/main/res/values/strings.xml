@@ -16,6 +16,7 @@
     <string name="text_login">Iniciar Sesión</string>
     <string name="text_password">Contraseña</string>
     <string name="text_username">Usuario</string>
+
     <string name="title_activity_project_form">ProjectForm</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -23,4 +24,15 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_projects">Projects</string>
+
+    <string name="button_CID">Índ. Daño por Corrosión</string>
+    <string name="button_SI">Índice Estructural</string>
+    <string name="button_SDI">Índ. Daño Estructural</string>
+    <string name="button_Report">Reporte</string>
+    <string name="text_Evaluation">Evaluaciones</string>
+    <string name="button_simplified">Evaluación Simplificada</string>
+    <string name="button_manual">Evaluación Manual</string>
+    <string name="radio_flexion" >Flexión</string>
+    <string name="radio_flexocompresion">Flexocompresión</string>
+
 </resources>

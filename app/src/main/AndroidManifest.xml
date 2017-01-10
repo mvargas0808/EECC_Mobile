@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".ProjectForm"
             android:label="@string/title_activity_project_form"
@@ -30,6 +31,22 @@
             android:name=".Projects"
             android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".EvaluationMenu"
+            android:label="@string/text_Evaluation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".CorrosionIndex"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".StructuralIndex"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
     </application>
 

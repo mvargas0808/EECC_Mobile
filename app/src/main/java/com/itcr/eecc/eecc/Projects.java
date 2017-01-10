@@ -74,8 +74,10 @@ public class Projects extends AppCompatActivity
         btnCreateNewProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Methods.changeScreen(appContext, ProjectForm.class);
-                //Methods.changeScreen(getApplicationContext(), ProjectForm.class);
+                //Methods.changeScreen(appContext, ProjectForm.class);
+
+                Methods.changeScreen(appContext, EvaluationMenu.class);
+
             }
         });
 

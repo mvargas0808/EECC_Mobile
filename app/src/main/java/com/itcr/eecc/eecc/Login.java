@@ -168,8 +168,10 @@ public class Login extends Activity implements OnClickListener {
                 if(result.length()!=0){
                     Log.d("JSON:", result.get(0).toString());
                     mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
+
                     Methods.changeScreen(appContext,Projects.class);
                     finish();
+
                 }
                 else{
                     Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
