@@ -31,11 +31,6 @@
             android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
-            android:name=".ProjectList"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
     </application>
 
 </manifest>

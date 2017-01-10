@@ -3,6 +3,7 @@ package com.itcr.eecc.eecc;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,21 +47,14 @@ public class ProjectForm extends AppCompatActivity
     DialogFragment newFragment;
     ElementKey ekProvincias, ekCantons, ekDistricts, ekStructureType;
 
+    Context appContext = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -89,6 +84,15 @@ public class ProjectForm extends AppCompatActivity
 
         loadStructureTypeSpinner();
         loadProvinceSpinner();
+
+
+        btnCancelProject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Methods.changeScreen(appContext, Projects.class);
+                finish();
+            }
+        });
     }
 
     public void showPickerDate(View v){
@@ -110,7 +114,9 @@ public class ProjectForm extends AppCompatActivity
             if(value == -1){
                 Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getApplicationContext(),"Todo fue un exito "+value, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
+                Methods.changeScreen(appContext,Projects.class);
+                finish();
             }
         }
         manager.closeConnection();
