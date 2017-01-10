@@ -1,12 +1,10 @@
 package com.itcr.eecc.eecc;
 
-/**
- * Created by Michael on 07/01/2017.
- */
 
         import org.json.JSONArray;
         import org.json.JSONException;
         import org.json.JSONObject;
+        import org.w3c.dom.Text;
 
         import android.app.Activity;
         import android.content.Context;
@@ -23,18 +21,35 @@ package com.itcr.eecc.eecc;
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import java.sql.DatabaseMetaData;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
+        import Common.Methods;
+        import DataBase.DataBaseManager;
+
 public class Login extends Activity implements OnClickListener {
+
+    // AGREGAR ESTO PARA TRABAJAR CON LA BASE DE DATOS
+
+    private DataBaseManager manager;
 
     private EditText user, pass;
     private Button mSubmit;
     TextView mTextView;
 
+    Context appContext = this;
+
+
+
     JSONParser jsonParser = new JSONParser();
 
-    private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+    //Michael
+    //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+
+    //William
+    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -44,6 +59,7 @@ public class Login extends Activity implements OnClickListener {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        manager = new DataBaseManager(this);
 
         // setup input fields
         user = (EditText) findViewById(R.id.inputUsername);
@@ -66,19 +82,34 @@ public class Login extends Activity implements OnClickListener {
         if(getConectionState()){
             switch (v.getId()) {
                 case R.id.buttonLogin:
-                    if(validateEmail(user.getText().toString())){
-                        new AttemptLogin().execute();
+                    if(!isInputEmpty("inputUsername") && !isInputEmpty("inputPassword")){
+
+                        if(validateEmail(user.getText().toString())){
+                            new AttemptLogin().execute();
+
+                        }
+                        else {
+                            Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
+
+                            //Intent i = new Intent(appContext, ProjectForm.class);
+                            //Intent i = new Intent(getApplicationContext(), ProjectForm.class);
+                            //startActivity(i);
+                        }
+
+                    } else {
+                        Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
-                    }
+
+
                     break;
                 default:
                     break;
             }
         }
-        else
+        else {
             Toast.makeText(Login.this,"Error conexión a Internet",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
@@ -137,8 +168,10 @@ public class Login extends Activity implements OnClickListener {
                 if(result.length()!=0){
                     Log.d("JSON:", result.get(0).toString());
                     mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
-                    Intent i = new Intent(Login.this, EvaluationMenu.class);
-                    startActivity(i);
+
+                    Methods.changeScreen(appContext,Projects.class);
+                    finish();
+
                 }
                 else{
                     Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
@@ -152,4 +185,32 @@ public class Login extends Activity implements OnClickListener {
 
 
     }
+
+
+
+
+    // Returns if a text input is empty
+    public  boolean isInputEmpty(String pInputId){
+        EditText editInput = null;
+
+        switch (pInputId){
+            case "inputUsername":
+                editInput = (EditText) findViewById(R.id.inputUsername);
+                break;
+            case "inputPassword":
+                editInput = (EditText) findViewById(R.id.inputPassword);
+                break;
+        }
+
+        if(editInput == null){
+            return true;
+        } else {
+            return editInput.getText().toString().equals("");
+        }
+
+    }
+
+
+
+
 }
