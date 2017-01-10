@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center" >
+
+    <RelativeLayout android:layout_width="247dp"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:text="@string/button_SI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSI"
+            android:layout_below="@+id/buttonCDI"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="45dp"
+            android:layout_alignStart="@+id/buttonCDI"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:text="@string/button_SDI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSDI"
+            android:layout_below="@+id/buttonSI"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_alignStart="@+id/buttonSI"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:text="@string/button_Report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonReport"
+            android:layout_below="@+id/buttonSDI"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="49dp"
+            android:layout_alignStart="@+id/buttonSDI"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:text="@string/button_CID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCDI"
+            android:layout_marginTop="69dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</LinearLayout>

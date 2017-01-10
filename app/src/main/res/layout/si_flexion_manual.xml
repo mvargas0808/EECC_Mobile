@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="Flexion Manual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3" />
+    <GridLayout
+        android:rowCount="4"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#009284" >
+
+        <ImageView
+            android:id="@+id/iaa1"
+            android:src="@drawable/iaa_1"
+            android:layout_height="35dp"
+            android:layout_rowSpan="2"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_width="62dp"
+            android:onClick="showToast"/>
+
+
+        <TextView android:text="Cercos"
+            android:layout_columnSpan="3"
+            android:layout_width="200dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"/>
+
+        <TextView android:text="Sin cercos"
+            android:layout_rowSpan="2"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:layout_width="76dp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/iaa2"
+            android:src="@drawable/iaa_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFF"
+            android:layout_margin="1dp" />
+        <ImageView
+            android:id="@+id/iaa3"
+            android:src="@drawable/iaa_3"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFF"
+            android:layout_margin="1dp" />
+        <ImageView
+            android:id="@+id/iaa4"
+            android:src="@drawable/iaa_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFF"
+            android:layout_margin="1dp" />
+        <TextView android:text="> 8 mm"
+            android:layout_height="26dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_width="62dp"
+            android:gravity="center"/>
+        <TextView android:text="1"
+            android:layout_width="71dp"
+            android:layout_height="26dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"/>
+        <TextView android:text="1"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="26dp"
+            android:layout_width="64dp"
+            android:gravity="center"/>
+        <TextView android:text="2"
+            android:layout_width="61dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="26dp"
+            android:gravity="center"/>
+        <TextView android:text="1"
+            android:layout_rowSpan="2"
+            android:layout_height="54dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_width="76dp"
+            android:gravity="center"/>
+
+        <TextView android:text=" 8 mm"
+            android:layout_height="26dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_width="62dp"
+            android:gravity="center"/>
+        <TextView android:text="2"
+            android:layout_width="71dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="26dp"
+            android:gravity="center"/>
+        <TextView android:text="2"
+            android:layout_width="64dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="26dp"
+            android:gravity="center"/>
+        <TextView android:text="3"
+            android:layout_width="61dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="26dp"
+            android:gravity="center"/>
+
+
+    </GridLayout>
+
+</LinearLayout>
