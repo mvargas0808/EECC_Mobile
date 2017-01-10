@@ -34,10 +34,11 @@
             android:id="@+id/btn_create_new" />
 
         <Button
+            android:onClick="insertToken"
             android:text="Utilizar un proyecto existente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button10" />
+            android:id="@+id/btn_use_project" />
 
     </LinearLayout>
 

@@ -1,10 +1,15 @@
 package com.itcr.eecc.eecc;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -21,6 +26,7 @@ public class ProjectList extends AppCompatActivity {
     ArrayList<HashMap<String, String>> productsList;
     private static final String TAG_PID = "pid";
     private static final String TAG_NAME = "name";
+    Button btnUseProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,7 @@ public class ProjectList extends AppCompatActivity {
         setContentView(R.layout.activity_project_list);
         manager = new DataBaseManager(this);
         productsList = new ArrayList<HashMap<String, String>>();
+        btnUseProject = (Button) findViewById(R.id.btn_use_project);
         loadProjectList();
     }
 
@@ -63,5 +70,31 @@ public class ProjectList extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Este fue" + pid, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void insertToken(View v){
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
+        View mView = layoutInflaterAndroid.inflate(R.layout.token_input_dialog_box, null);
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
+        alertDialogBuilderUserInput.setView(mView);
+
+        final EditText tokenInputDialog = (EditText) mView.findViewById(R.id.tokenInputDialog);
+        alertDialogBuilderUserInput
+                .setCancelable(false)
+                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogBox, int id) {
+                        Toast.makeText(getApplicationContext(), "Este fue " + tokenInputDialog.getText().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+
+                .setNegativeButton("Cancelar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                dialogBox.cancel();
+                            }
+                        });
+
+        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.show();
     }
 }
