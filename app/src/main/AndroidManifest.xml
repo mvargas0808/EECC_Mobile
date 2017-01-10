@@ -23,7 +23,14 @@
         <activity
             android:name=".ProjectForm"
             android:label="@string/title_activity_project_form"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Projects"
+            android:label="@string/title_activity_projects"
+
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

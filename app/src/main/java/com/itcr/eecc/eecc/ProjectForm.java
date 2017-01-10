@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import Common.ElementKey;
+import Common.Methods;
 import DataBase.DataBaseManager;
 
 public class ProjectForm extends AppCompatActivity
@@ -235,18 +236,14 @@ public class ProjectForm extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_projects) {
+            Methods.changeScreen(this, Projects.class);
+            finish();
+        } else if (id == R.id.nav_upload) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_logout) {
+            Methods.changeScreen(this,Login.class);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
