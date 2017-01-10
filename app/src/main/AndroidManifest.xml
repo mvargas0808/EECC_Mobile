@@ -24,9 +24,11 @@
         <activity
             android:name=".CorrosionIndex">
         </activity>
-
         <activity
             android:name=".StructuralIndex">
+        </activity>
+        <activity
+            android:name=".Flexion">
         </activity>
 
     </application>

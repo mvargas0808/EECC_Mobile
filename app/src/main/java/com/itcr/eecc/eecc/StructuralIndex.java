@@ -49,16 +49,8 @@ public class StructuralIndex extends Activity implements View.OnClickListener {
                 buttonSimplified.setOnClickListener(this);
                 //radioType.setOnCheckedChangeListener(this);
                 break;
-            case "S_Flexion":
-                setContentView(R.layout.si_flexion_simplified);
-                break;
             case "S_Flexocompresion":
                 setContentView(R.layout.si_flexocompresion_simplified);
-                break;
-            case "M_Flexion":
-                setContentView(R.layout.si_flexion_manual);
-                iaa1 = (ImageView) findViewById(R.id.iaa1);
-                //iaa1.setOnClickListener(this);
                 break;
             case "M_Flexocompresion":
                 setContentView(R.layout.si_flexocompresion_manual);
@@ -76,7 +68,7 @@ public class StructuralIndex extends Activity implements View.OnClickListener {
             case R.id.buttonSimplified:
                 switch (checkedRadio){
                     case R.id.radioFlexion:
-                        startSubEvaluation(StructuralIndex.class, "S_Flexion");
+                        startSubEvaluation(Flexion.class, "S_Flexion");
                         break;
                     case R.id.radioFlexocompresion:
                         startSubEvaluation(StructuralIndex.class, "S_Flexocompresion");
@@ -86,7 +78,7 @@ public class StructuralIndex extends Activity implements View.OnClickListener {
             case R.id.buttonManual:
                 switch (checkedRadio){
                     case R.id.radioFlexion:
-                        startSubEvaluation(StructuralIndex.class, "M_Flexion");
+                        startSubEvaluation(Flexion.class, "M_Flexion");
                         break;
                     case R.id.radioFlexocompresion:
                         startSubEvaluation(StructuralIndex.class, "M_Flexocompresion");
@@ -118,9 +110,9 @@ public class StructuralIndex extends Activity implements View.OnClickListener {
     public void showToast(View v){
         switch (v.getId()) {
 
-            case R.id.iaa1:
-                Toast.makeText(StructuralIndex.this,"soy "+v.getId(),Toast.LENGTH_SHORT).show();
-                break;
+            //case R.id.iaa1:
+            //    Toast.makeText(StructuralIndex.this,"soy "+v.getId(),Toast.LENGTH_SHORT).show();
+            //    break;
         }
     }
 
