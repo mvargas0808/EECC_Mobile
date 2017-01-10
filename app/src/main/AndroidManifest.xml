@@ -20,22 +20,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ProjectForm"
             android:label="@string/title_activity_project_form"
-<<<<<<< HEAD
-
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Projects"
             android:label="@string/title_activity_projects"
-
             android:theme="@style/AppTheme.NoActionBar" />
 
-=======
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ProjectList"></activity>
->>>>>>> 4149d62c2f76e75ed0cf6676390a6f9c0de4bf08
+        <activity
+            android:name=".ProjectList"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>

@@ -82,7 +82,6 @@ public class Login extends Activity implements OnClickListener {
         if(getConectionState()){
             switch (v.getId()) {
                 case R.id.buttonLogin:
-<<<<<<< HEAD
                     if(!isInputEmpty("inputUsername") && !isInputEmpty("inputPassword")){
 
                         if(validateEmail(user.getText().toString())){
@@ -99,23 +98,6 @@ public class Login extends Activity implements OnClickListener {
 
                     } else {
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
-=======
-                    if(validateEmail(user.getText().toString())){
-                        new AttemptLogin().execute();
-                    }
-                    else {
-
-                        EditText inputUsername = (EditText) findViewById(R.id.inputUsername);
-                        String pru = inputUsername.getText().toString();
-                        if (pru.equals("pro")){
-                            Intent i = new Intent(getApplicationContext(), ProjectForm.class);
-                            startActivity(i);
-                        } else {
-                            Intent i = new Intent(getApplicationContext(), ProjectList.class);
-                            startActivity(i);
-                        }
-                        //Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
->>>>>>> 4149d62c2f76e75ed0cf6676390a6f9c0de4bf08
                     }
 
 
