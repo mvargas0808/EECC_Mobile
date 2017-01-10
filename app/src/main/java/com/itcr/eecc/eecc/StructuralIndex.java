@@ -31,25 +31,25 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
     private Button buttonManual, buttonSimplified;
     private RadioGroup radioType;
     private ImageView iaa1;
+    private String evaluationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        
         Intent intent = getIntent();
         JSONObject json;
-        String value = null;
+        String activityType = null;
         try {
             json = new JSONObject(intent.getStringExtra("data"));
-            value =  json.get("activityType").toString();
+            activityType =  json.get("activityType").toString();
+            evaluationId =  json.get("evaluationId").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("JSON:", value);
+        Log.d("JSON:", activityType);
 
-        switch (value) {
+        switch (activityType) {
             case "EvaluationType":
                 setContentView(R.layout.structural_index_type);
                 buttonManual = (Button) findViewById(R.id.buttonManual);
@@ -69,8 +69,6 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
                 break;
         }
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,9 +81,6 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
     }
 
     @Override
@@ -129,6 +124,7 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         JSONObject obj = new JSONObject();
         try {
             obj.put("activityType",pActivityType);
+            obj.put("evaluationId", evaluationId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

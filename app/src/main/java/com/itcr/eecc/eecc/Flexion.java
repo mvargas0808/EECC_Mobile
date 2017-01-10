@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 import Common.Methods;
 
+import static com.itcr.eecc.eecc.R.styleable.NavigationView;
+
 /**
  * Created by Michael on 09/01/2017.
  */
@@ -36,7 +38,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
     private ArrayList<Integer> simplifiedValues;
     private float structuralIndex;
     private Button buttonNext;
-
+    private String evaluationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         try {
             json = new JSONObject(intent.getStringExtra("data"));
             activityType =  json.get("activityType").toString();
+            evaluationId =  json.get("evaluationId").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -114,6 +117,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         JSONObject obj = new JSONObject();
         try {
             obj.put("activityType",pActivityType);
+            obj.put("evaluationId", evaluationId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -157,7 +161,6 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             default:
                 break;
         }
-        Log.d("***********************", "setLongitudinal: "+ longitudinalValues.toString());
     }
 
     public void setLongitudinalValues(int pIndex, int pRow, int pColumn) {
@@ -311,8 +314,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                     structuralIndex = (getLongitudinalValues().get(0) + getTransverseValues().get(0))/2;
 
                     Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_SHORT).show();
-                    Intent finishCalculation = new Intent(Flexion.this, EvaluationMenu.class);
-                    startActivity(finishCalculation);
+                    finishCalculation();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Transversal",Toast.LENGTH_LONG).show();
                 }
@@ -322,15 +324,26 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                     structuralIndex = simplifiedValues.get(0);
 
                     Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_SHORT).show();
-                    Intent finishCalculation = new Intent(Flexion.this, EvaluationMenu.class);
-                    startActivity(finishCalculation);
+                    finishCalculation();
                 } else {
-                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Evaluacion Simplificada",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Evaluación Simplificada",Toast.LENGTH_LONG).show();
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    public void finishCalculation(){
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("evaluationId", evaluationId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Intent returnToMenu = new Intent(Flexion.this, EvaluationMenu.class);
+        returnToMenu.putExtra("json", obj.toString());
+        startActivity(returnToMenu);
     }
 
     public ArrayList<Integer> getLongitudinalValues() {
