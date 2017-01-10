@@ -41,9 +41,12 @@
             android:name=".CorrosionIndex"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
             android:name=".StructuralIndex"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".Flexion"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

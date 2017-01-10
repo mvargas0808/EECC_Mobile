@@ -35,4 +35,6 @@
     <string name="radio_flexion" >Flexión</string>
     <string name="radio_flexocompresion">Flexocompresión</string>
 
+    <string name="button_next">Siguiente</string>
+
 </resources>
