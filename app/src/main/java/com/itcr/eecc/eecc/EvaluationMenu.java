@@ -81,8 +81,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
                 startSubEvaluation(StructuralIndex.class, "EvaluationType");
                 break;
             case R.id.buttonSDI:
-                Intent sdi = new Intent(EvaluationMenu.this, Login.class);
-                startActivity(sdi);
+                startSubEvaluation(StructuralDamage.class, "SDI");
                 break;
             case R.id.buttonReport:
                 Intent report = new Intent(EvaluationMenu.this, Login.class);
