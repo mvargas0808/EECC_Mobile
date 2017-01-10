@@ -65,7 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="30dp" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -77,7 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="30dp" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -89,7 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="showPickerDate"
-                android:id="@+id/btn_getDate" />
+                android:id="@+id/btn_getDate"
+                android:layout_marginTop="30dp" />
 
             <TextView
                 android:text="aaaa-mm-dd"
@@ -104,7 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="30dp" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -116,7 +120,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="30dp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -141,7 +146,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="30dp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -167,7 +173,8 @@
                 android:onClick="createProject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_createProject" />
+                android:id="@+id/btn_createProject"
+                android:layout_marginTop="30dp" />
 
             <Button
                 android:text="Cancelar"

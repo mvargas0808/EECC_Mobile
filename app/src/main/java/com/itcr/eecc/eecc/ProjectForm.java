@@ -36,6 +36,7 @@ public class ProjectForm extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DataBaseManager manager;
+
     Spinner spProvince, spCanton, spDistrict, spStructuretype;
     Button btnGetDate, btnCreateProject, btnCancelProject;
     TextView tvDate, tvRequiereProject, tvRequiereComponent, tvRequiereStructure;

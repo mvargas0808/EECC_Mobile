@@ -7,6 +7,7 @@ package com.itcr.eecc.eecc;
         import org.json.JSONArray;
         import org.json.JSONException;
         import org.json.JSONObject;
+        import org.w3c.dom.Text;
 
         import android.app.Activity;
         import android.content.Context;
@@ -78,9 +79,17 @@ public class Login extends Activity implements OnClickListener {
                         new AttemptLogin().execute();
                     }
                     else {
+
+                        EditText inputUsername = (EditText) findViewById(R.id.inputUsername);
+                        String pru = inputUsername.getText().toString();
+                        if (pru.equals("pro")){
+                            Intent i = new Intent(getApplicationContext(), ProjectForm.class);
+                            startActivity(i);
+                        } else {
+                            Intent i = new Intent(getApplicationContext(), ProjectList.class);
+                            startActivity(i);
+                        }
                         //Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), ProjectForm.class);
-                        startActivity(i);
                     }
                     break;
                 default:

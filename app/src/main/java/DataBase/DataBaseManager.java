@@ -79,7 +79,7 @@ public class DataBaseManager {
     public static final String CREATE_TABLE_INDICATORNAMES = "CREATE TABLE IndicatorNames (IndicatorNameId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Row INTEGER NOT NULL, Col INTEGER NOT NULL, Description VARCHAR(150) NOT NULL, Enabled BIT NOT NULL);";
 
     // Table: projects
-    public static final String CREATE_TABLE_PROJECTS = "CREATE TABLE Projects (ProjectId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR(60) NOT NULL, ComponentDescription VARCHAR(1000) NOT NULL, StructureUseDescription VARCHAR(1000) NOT NULL, Latitude DECIMAL(13,10) NOT NULL, Longitude DECIMAL(13,10) NOT NULL, CreationDate DATE NOT NULL, StructureCreationDate DATE NULL, Token VARCHAR(50) NULL, Enabled BIT NOT NULL, UserId INTEGER NOT NULL, StructureTypeId INTEGER NOT NULL, DistrictId INTEGER NOT NULL, FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION, FOREIGN KEY (StructureTypeId) REFERENCES StructureTypes (StructureTypeId) ON DELETE NO ACTION ON UPDATE NO ACTION, FOREIGN KEY (DistrictId) REFERENCES Districts (DistrictId) ON DELETE NO ACTION ON UPDATE NO ACTION);";
+    public static final String CREATE_TABLE_PROJECTS = "CREATE TABLE Projects (ProjectId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (60) NOT NULL, ComponentDescription VARCHAR (1000) NOT NULL, StructureUseDescription VARCHAR (1000) NOT NULL, Latitude DECIMAL (13, 10) NOT NULL, Longitude DECIMAL (13, 10) NOT NULL, CreationDate DATE NOT NULL, StructureCreationDate DATE, Token VARCHAR (50), Enabled BIT NOT NULL, UserEmail VARCHAR (60) NOT NULL, UserId INTEGER NOT NULL, StructureTypeId INTEGER NOT NULL, DistrictId INTEGER NOT NULL, FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION, FOREIGN KEY (StructureTypeId) REFERENCES StructureTypes (StructureTypeId) ON DELETE NO ACTION ON UPDATE NO ACTION, FOREIGN KEY (DistrictId) REFERENCES Districts (DistrictId) ON DELETE NO ACTION ON UPDATE NO ACTION);";
 
     // Table: provinces
     public static final String CREATE_TABLE_PROVINCES = "CREATE TABLE Provinces (ProvinceId INTEGER NOT NULL PRIMARY KEY , ProvinceName VARCHAR(30) NOT NULL, CountryId INTEGER NOT NULL, FOREIGN KEY (CountryId) REFERENCES Countries (CountryId) ON DELETE NO ACTION ON UPDATE NO ACTION);";
@@ -124,6 +124,12 @@ public class DataBaseManager {
         return cursor;
     }
 
+    public Cursor getProjectList(){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM Projects WHERE UserEmail = '"+getUserEmail().toString()+"' AND Enabled = '1'", null);
+        return cursor;
+    }
+
     public long createProject(
             String projectName,
             String buildingDate,
@@ -144,6 +150,7 @@ public class DataBaseManager {
         values.put("StructureCreationDate", buildingDate);
         values.put("Token", "null");
         values.put("Enabled", 1);
+        values.put("UserEmail", getUserEmail());
         values.put("UserId", getUserId());
         values.put("StructureTypeId", structureTypeId);
         values.put("DistrictId", districtId);
@@ -156,11 +163,22 @@ public class DataBaseManager {
         return cursor;
     }
 
-    public String getUserId(){
+    private String getUserId(){
         Cursor cursor = getUserLogin();
         if (cursor.moveToFirst()) {
             do {
                 return cursor.getString(cursor.getColumnIndex("UserId"));
+            } while(cursor.moveToNext());
+        } else {
+            return "-1";
+        }
+    }
+
+    private String getUserEmail(){
+        Cursor cursor = getUserLogin();
+        if (cursor.moveToFirst()) {
+            do {
+                return cursor.getString(cursor.getColumnIndex("Email"));
             } while(cursor.moveToNext());
         } else {
             return "-1";
@@ -229,7 +247,6 @@ public class DataBaseManager {
         openConnection();
         //Cursor c = db.query("Contacto", campos, "Enabled=?", args, null, null, null);
         Cursor c = db.rawQuery(" SELECT * FROM Contacto WHERE Enabled = '1' ", null);
-        System.out.println("--------------------------------------------------------------");
 
 
 
