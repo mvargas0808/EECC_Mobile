@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 public class Methods extends AppCompatActivity {
 
@@ -90,5 +91,19 @@ public class Methods extends AppCompatActivity {
     }
 
 
+
+    public static double convertStringToDecimal(String pNumber){
+        DecimalFormat precision = new DecimalFormat("0.00");
+        double number = Double.parseDouble(pNumber);
+        return Double.parseDouble(precision.format(number));
+    }
+
+    public static String convertIntToString(int pNumber){
+        return Integer.toString(pNumber);
+    }
+
+    public static String convertDoubleToString(double pNumber){
+        return Double.toString(pNumber);
+    }
 
 }

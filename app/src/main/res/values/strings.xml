@@ -38,7 +38,17 @@
     <string name="button_next">Siguiente</string>
 
     <!--        Structural Damage Index     -->
+    <string name="SDI_ScreenTitle">Índice de Daño Estructural</string>
     <string name="slightFailureConsequence">Leve</string>
     <string name="importantFailureConsequence">Importante</string>
+
+    <string name="corrosionIndexName">Índice de corrosión</string>
+    <string name="structuralIndexName">Índice estructural</string>
+    <string name="structuralDamageIndexName">IDE</string>
+    <string name="interventionUrgency">Urgencia de intervención</string>
+
+
+    <!--        Corrosion Index     -->
+    <string name="CI_ScreenTitle">Índice de Corrosión</string>
 
 </resources>
