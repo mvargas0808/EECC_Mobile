@@ -20,10 +20,9 @@
         android:fitsSystemWindows="true"
         tools:context="com.itcr.eecc.eecc.StructuralIndex">
 
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical" 
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
@@ -31,25 +30,265 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView5" />
-    </LinearLayout>
+    
+
+    <GridLayout
+        android:rowCount="5"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#009284"
+        android:gravity="center">
+
+        <TextView android:text="Índice de Armado Transversal"
+            android:layout_rowSpan="2"
+            android:layout_width="76dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="match_parent" />
+
+        <TextView android:text="Vigas planas (h &lt; b)"
+            android:layout_columnSpan="2"
+            android:layout_width="137dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+
+        <TextView android:text="Vigas de canto y viguetas"
+            android:layout_columnSpan="2"
+            android:layout_width="wrap_content"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+
+        <TextView android:text="Sección de apoyo"
+            android:layout_width="67dp"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="32dp" />
+
+        <TextView android:text="Sección de vano"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="32dp"
+            android:layout_width="67dp" />
+
+        <TextView android:text="Sección de apoyo"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="32dp"
+            android:layout_width="67dp" />
+
+        <TextView android:text="Sección de vano"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:layout_height="32dp"
+            android:layout_width="67dp" />
+
+        <TextView android:text="Sin cercos"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:layout_width="76dp"
+            android:gravity="center"/>
+
+        <TextView android:text="---"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:id="@+id/si11"
+            android:layout_width="67dp" />
+
+        <TextView android:text="---"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:id="@+id/si12" />
+
+        <TextView android:text="I"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_width="67dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_height="35dp"
+            android:id="@+id/si13" />
+
+        <TextView android:text="II"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:layout_height="35dp"
+            android:id="@+id/si14" />
+
+        <TextView android:text="Alta densidad de cercos"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:layout_width="76dp"
+            android:gravity="center"/>
+
+        <TextView android:text="II"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:id="@+id/si21"
+            android:layout_width="67dp" />
+
+        <TextView android:text="III"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:id="@+id/si22"
+            android:layout_width="67dp" />
 
 
+        <TextView android:text="III"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:id="@+id/si23" />
+
+        <TextView android:text="IV"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:id="@+id/si24"
+            android:layout_width="67dp" />
+
+        <TextView android:text="Baja densidad de cercos"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:layout_width="67dp" />
+
+        <TextView android:text="III"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:id="@+id/si31" />
+
+        <TextView android:text="IV"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:id="@+id/si32" />
+
+        <TextView android:text="IV"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:id="@+id/si33" />
+
+        <TextView android:text="IV"
+            android:background="#FFFF"
+            android:layout_margin="1dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:onClick="setSimplified"
+            android:layout_width="67dp"
+            android:id="@+id/si34" />
+
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
+        <Button
+            android:text="@string/button_cancel"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:id="@+id/buttonCancel"
+            android:layout_width="170dp"
+            android:layout_alignBaseline="@+id/buttonSimplifiedCalc"
+            android:layout_alignBottom="@+id/buttonSimplifiedCalc"
+            android:layout_toEndOf="@+id/buttonSimplifiedCalc"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"/>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <Button
+            android:text="@string/button_evaluateIE"
+            android:layout_below="@+id/simplifiedIndex"
+            android:onClick="setStructuralIndex"
+            android:id="@+id/buttonSimplifiedCalc"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"/>
 
-            <!--include android:id="@+id/toolbar" layout="@layout/toolbar" /-->
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="26dp"
+            android:id="@+id/simplifiedIndex"
+            android:layout_marginStart="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/buttonCancel" />
+
+        <TextView
+            android:text="Índice Simplificado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/buttonCancel"
+            android:layout_marginEnd="19dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+  
+<android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <!--include android:id="@+id/toolbar" layout="@layout/toolbar" /-->
 
         </android.support.design.widget.AppBarLayout>
 

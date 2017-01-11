@@ -1,5 +1,7 @@
 package com.itcr.eecc.eecc;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,9 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +26,13 @@ import java.util.ArrayList;
 
 import Common.Methods;
 
+import static com.itcr.eecc.eecc.R.styleable.NavigationView;
+
 /**
  * Created by Michael on 09/01/2017.
  */
 
-public class Flexion extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
+public class Flexocompresion extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private ArrayList<Integer> longitudinalValues;
     private ArrayList<Integer> transverseValues;
     private ArrayList<Integer> simplifiedValues;
@@ -49,18 +56,18 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         }
         // switch for choose wich layout should start
         switch (activityType) {
-            case "S_Flexion":
-                setContentView(R.layout.si_flexion_simplified);
+            case "S_Flexocompresion":
+                setContentView(R.layout.si_flexocompresion_simplified);
                 simplifiedValues = new ArrayList<>();
                 break;
-            case "M_Flexion":
-                setContentView(R.layout.si_flexion_manual);
+            case "M_Flexocompresion":
+                setContentView(R.layout.si_flexocompresion_manual);
                 longitudinalValues = new ArrayList<>();
                 buttonNext = (Button) findViewById(R.id.buttonLongitudinal);
                 buttonNext.setOnClickListener(this);
                 break;
-            case "M_Flexion_Second":
-                setContentView(R.layout.si_flexion_manual_second);
+            case "M_Flexocompresion_Second":
+                setContentView(R.layout.si_flexocompresion_manual_second);
                 transverseValues = new ArrayList<>();
                 break;
             default:
@@ -89,9 +96,9 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.buttonLongitudinal:
                 if(!longitudinalValues.isEmpty()){
-                    nextSubEvaluation(Flexion.class, "M_Flexion_Second");
+                    nextSubEvaluation(Flexocompresion.class, "M_Flexocompresion_Second");
                 } else {
-                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Longitudinal",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexocompresion.this,"Debe seleccionar el Índice de Armado Longitudinal",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.buttonCancel:
@@ -104,7 +111,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
 
 
     public void changeScreen(Class pClass, String pMessageKey, JSONObject pJsonMessageValue) {
-        Intent intent = new Intent(Flexion.this, pClass);
+        Intent intent = new Intent(Flexocompresion.this, pClass);
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         intent.putExtra("longitudinalValues", getLongitudinalValues());
         startActivity(intent);
@@ -134,20 +141,11 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             case R.id.ial12:
                 setLongitudinalValues(indexValue, 1, 2);
                 break;
-            case R.id.ial13:
-                setLongitudinalValues(indexValue, 1, 3);
-                break;
-            case R.id.ial14:
-                setLongitudinalValues(indexValue, 1, 4);
-                break;
             case R.id.ial21:
                 setLongitudinalValues(indexValue, 2, 1);
                 break;
             case R.id.ial22:
                 setLongitudinalValues(indexValue, 2, 2);
-                break;
-            case R.id.ial23:
-                setLongitudinalValues(indexValue, 2, 3);
                 break;
             default:
                 break;
@@ -172,7 +170,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                 setTransverseValues(1, 1, 1);
                 break;
             case R.id.iat12:
-                setTransverseValues(2, 1, 2);
+                setTransverseValues(1, 1, 2);
                 break;
             case R.id.iat13:
                 setTransverseValues(2, 1, 3);
@@ -184,7 +182,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                 setTransverseValues(2, 2, 1);
                 break;
             case R.id.iat22:
-                setTransverseValues(3, 2, 2);
+                setTransverseValues(2, 2, 2);
                 break;
             case R.id.iat23:
                 setTransverseValues(3, 2, 3);
@@ -224,16 +222,16 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
 
         switch (v.getId()) {
             case R.id.si11:
-                setSimplifiedValues(0, 1, 1);
+                setSimplifiedValues(1, 1, 1);
                 break;
             case R.id.si12:
-                setSimplifiedValues(0, 1, 2);
+                setSimplifiedValues(2, 1, 2);
                 break;
             case R.id.si13:
-                setSimplifiedValues(1, 1, 3);
+                setSimplifiedValues(3, 1, 3);
                 break;
             case R.id.si14:
-                setSimplifiedValues(2, 1, 4);
+                setSimplifiedValues(4, 1, 4);
                 break;
             case R.id.si21:
                 setSimplifiedValues(2, 2, 1);
@@ -242,22 +240,10 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                 setSimplifiedValues(3, 2, 2);
                 break;
             case R.id.si23:
-                setSimplifiedValues(3, 2, 3);
+                setSimplifiedValues(4, 2, 3);
                 break;
             case R.id.si24:
                 setSimplifiedValues(4, 2, 4);
-                break;
-            case R.id.si31:
-                setSimplifiedValues(3, 3, 1);
-                break;
-            case R.id.si32:
-                setSimplifiedValues(4, 3, 2);
-                break;
-            case R.id.si33:
-                setSimplifiedValues(4, 3, 3);
-                break;
-            case R.id.si34:
-                setSimplifiedValues(4, 3, 4);
                 break;
             default:
                 break;
@@ -280,20 +266,20 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                     longitudinalValues = getIntent().getIntegerArrayListExtra("longitudinalValues"); /*Cambiar a float*/
                     structuralIndex = Math.max(getLongitudinalValues().get(0), getTransverseValues().get(0));
 
-                    Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexocompresion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
                     finishCalculation();
                 } else {
-                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Transversal",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexocompresion.this,"Debe seleccionar el Índice de Armado Transversal",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.buttonSimplifiedCalc:
                 if(!simplifiedValues.isEmpty()){
                     structuralIndex = simplifiedValues.get(0);
 
-                    Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexocompresion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
                     finishCalculation();
                 } else {
-                    Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Evaluación Simplificada",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Flexocompresion.this,"Debe seleccionar el Índice de Evaluación Simplificada",Toast.LENGTH_LONG).show();
                 }
                 break;
             default:
@@ -308,7 +294,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Intent returnToMenu = new Intent(Flexion.this, EvaluationMenu.class);
+        Intent returnToMenu = new Intent(Flexocompresion.this, EvaluationMenu.class);
         returnToMenu.putExtra("json", obj.toString());
         startActivity(returnToMenu);
     }

@@ -22,9 +22,6 @@
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:auto="http://schemas.android.com/apk/res-auto"
-
-
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -46,7 +43,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:src="@drawable/iaa_1"
+                    android:src="@drawable/ial_1"
                     android:layout_height="35dp"
                     android:layout_rowSpan="2"
                     android:background="#FFFF"
@@ -70,19 +67,19 @@
                     android:gravity="center"/>
 
                 <ImageView
-                    android:src="@drawable/iaa_2"
+                    android:src="@drawable/ial_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#FFFF"
                     android:layout_margin="1dp" />
                 <ImageView
-                    android:src="@drawable/iaa_3"
+                    android:src="@drawable/ial_3"
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:background="#FFFF"
                     android:layout_margin="1dp" />
                 <ImageView
-                    android:src="@drawable/iaa_4"
+                    android:src="@drawable/ial_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#FFFF"
@@ -102,7 +99,7 @@
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat11" />
+                    android:id="@+id/ial11" />
                 <TextView android:text="1"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
@@ -110,7 +107,7 @@
                     android:layout_width="64dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat12" />
+                    android:id="@+id/ial12" />
                 <TextView android:text="2"
                     android:layout_width="61dp"
                     android:background="#FFFF"
@@ -118,7 +115,7 @@
                     android:layout_height="26dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat13" />
+                    android:id="@+id/ial13" />
                 <TextView android:text="1"
                     android:layout_rowSpan="2"
                     android:layout_height="54dp"
@@ -127,7 +124,7 @@
                     android:layout_width="76dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat14" />
+                    android:id="@+id/ial14" />
 
                 <TextView android:text="&lt;= 8 mm"
                     android:layout_height="26dp"
@@ -142,7 +139,7 @@
                     android:layout_height="26dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat21" />
+                    android:id="@+id/ial21" />
                 <TextView android:text="2"
                     android:layout_width="64dp"
                     android:background="#FFFF"
@@ -150,7 +147,7 @@
                     android:layout_height="26dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat22" />
+                    android:id="@+id/ial22" />
                 <TextView android:text="3"
                     android:layout_width="61dp"
                     android:background="#FFFF"
@@ -158,7 +155,7 @@
                     android:layout_height="26dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/iat23" />
+                    android:id="@+id/ial23" />
 
 
             </GridLayout>
@@ -167,38 +164,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:text="Índice Armado Longitudinal"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:text="@string/button_cancel"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView9"
-                    android:layout_weight="1" />
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="170dp"
+                    android:layout_alignBaseline="@+id/buttonLongitudinal"
+                    android:layout_alignBottom="@+id/buttonLongitudinal"
+                    android:layout_toEndOf="@+id/buttonLongitudinal"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@android:color/white"/>
+
+                <Button
+                    android:text="@string/button_next"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonLongitudinal"
+                    android:layout_below="@+id/longitudinalIndex"
+                    android:layout_marginTop="41dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
                     android:layout_width="64dp"
                     android:layout_height="26dp"
                     android:id="@+id/longitudinalIndex"
-                    android:layout_weight="1"
+                    android:layout_marginStart="25dp"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/textView9"
-                    android:layout_marginStart="31dp"
-                    />
+                    android:layout_alignStart="@+id/buttonCancel" />
 
-                <Button
-                    android:text="@string/button_next"
+                <TextView
+                    android:text="Índice Armado Longitudinal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/buttonLongitudinal"
-                    android:layout_below="@+id/longitudinalIndex"
-                    android:layout_alignEnd="@+id/longitudinalIndex"
-                    android:layout_marginTop="41dp" />
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/buttonCancel"
+                    android:layout_marginEnd="19dp" />
+
             </RelativeLayout>
 
-        </LinearLayout>
-
-
-
-
+</LinearLayout>
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -228,5 +236,3 @@
         app:menu="@menu/drawer" />
 
 </android.support.v4.widget.DrawerLayout>
-
-

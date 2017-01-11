@@ -24,6 +24,8 @@ import Common.Methods;
 public class EvaluationMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
+    private String evaluationId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,6 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
 
         Intent intent = getIntent();
         JSONObject json = null;
-        String evaluationId = "";
         try {
             json = new JSONObject(intent.getStringExtra("json"));
             evaluationId =  json.get("evaluationId").toString();
@@ -104,6 +105,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
         JSONObject obj = new JSONObject();
         try {
             obj.put("activityType",pActivityType);
+            obj.put("evaluationId", evaluationId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,24 +17,159 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.itcr.eecc.eecc.StructuralIndex">
+        tools:context="com.itcr.eecc.eecc.Flexion">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:text="Flexo Manual"
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
 
 
+            <TextView
+                android:text="Flexocompresion Manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <GridLayout
+                android:rowCount="4"
+                android:columnCount="3"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#009284"
+                android:gravity="center">
+
+                <ImageView
+                    android:src="@drawable/ial_1"
+                    android:layout_height="35dp"
+                    android:layout_rowSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"/>
 
 
+                <TextView android:text="λ = espaciado de cercos / ϕ armadura principal"
+                    android:layout_columnSpan="2"
+                    android:layout_width="200dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center"/>
 
+                <TextView android:text="λ &lt;= 10"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="27dp"
+                    android:layout_width="76dp"
+                    android:gravity="center"/>
+
+                <TextView android:text="λ &gt; 10"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="35dp"
+                    android:layout_width="76dp"
+                    android:gravity="center"/>
+
+                <TextView android:text="&gt; 8 "
+                    android:layout_height="26dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"
+                    android:gravity="center"/>
+
+                <TextView android:text="1"
+                    android:layout_height="26dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"
+                    android:gravity="center"
+                    android:onClick="setLongitudinal"
+                    android:id="@+id/ial11" />
+
+                <TextView android:text="2"
+                    android:layout_height="26dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"
+                    android:gravity="center"
+                    android:onClick="setLongitudinal"
+                    android:id="@+id/ial12" />
+
+                <TextView android:text="&lt;= 8 "
+                    android:layout_height="26dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"
+                    android:gravity="center"/>
+
+                <TextView android:text="2"
+                    android:layout_height="26dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"
+                    android:gravity="center"
+                    android:onClick="setLongitudinal"
+                    android:id="@+id/ial21" />
+
+                <TextView android:text="3"
+                    android:layout_height="26dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="62dp"
+                    android:gravity="center"
+                    android:onClick="setLongitudinal"
+                    android:id="@+id/ial22" />
+
+            </GridLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:text="@string/button_cancel"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="170dp"
+                    android:layout_alignBaseline="@+id/buttonLongitudinal"
+                    android:layout_alignBottom="@+id/buttonLongitudinal"
+                    android:layout_toEndOf="@+id/buttonLongitudinal"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@android:color/white"/>
+
+                <Button
+                    android:text="@string/button_next"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonLongitudinal"
+                    android:layout_below="@+id/longitudinalIndex"
+                    android:layout_marginTop="41dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="26dp"
+                    android:id="@+id/longitudinalIndex"
+                    android:layout_marginStart="25dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/buttonCancel" />
+
+                <TextView
+                    android:text="Índice Armado Longitudinal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/buttonCancel"
+                    android:layout_marginEnd="19dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
