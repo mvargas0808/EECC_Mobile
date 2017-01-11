@@ -10,34 +10,34 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import android.view.MenuItem;
-
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import Common.Methods;
 
+/**
+ * Created by Michael on 09/01/2017.
+ */
 
-public class StructuralIndex extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-
-    private Button buttonManual, buttonSimplified;
-    private RadioGroup radioType;
-    private ImageView iaa1;
+public class Flexion extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
+    private ArrayList<Integer> longitudinalValues;
+    private ArrayList<Integer> transverseValues;
+    private Button buttonNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        longitudinalValues = new ArrayList<>();
         Intent intent = getIntent();
         JSONObject json = null;
         String value = null;
@@ -50,26 +50,21 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         Log.d("JSON:", value);
 
         switch (value) {
-            case "EvaluationType":
-                setContentView(R.layout.structural_index_type);
-                buttonManual = (Button) findViewById(R.id.buttonManual);
-                buttonSimplified = (Button) findViewById(R.id.buttonSimplified);
-                radioType = (RadioGroup)findViewById(R.id.radioType);
-                buttonManual.setOnClickListener(this);
-                buttonSimplified.setOnClickListener(this);
-                //radioType.setOnCheckedChangeListener(this);
+            case "S_Flexion":
+                setContentView(R.layout.si_flexion_simplified);
                 break;
-            case "S_Flexocompresion":
-                setContentView(R.layout.si_flexocompresion_simplified);
+            case "M_Flexion":
+                setContentView(R.layout.si_flexion_manual);
+                buttonNext = (Button) findViewById(R.id.buttonLongitudinal);
+                // register listeners
+                buttonNext.setOnClickListener(this);
                 break;
-            case "M_Flexocompresion":
-                setContentView(R.layout.si_flexocompresion_manual);
+            case "M_Flexion_Second":
+                setContentView(R.layout.si_flexion_manual_second);
                 break;
             default:
                 break;
         }
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,43 +78,22 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
     }
 
     @Override
     public void onClick(View v) {
-        radioType = (RadioGroup)findViewById(R.id.radioType);
-        int checkedRadio = radioType.getCheckedRadioButtonId();
         switch (v.getId()) {
-            case R.id.buttonSimplified:
-                switch (checkedRadio){
-                    case R.id.radioFlexion:
-                        startSubEvaluation(Flexion.class, "S_Flexion");
-                        break;
-                    case R.id.radioFlexocompresion:
-                        startSubEvaluation(StructuralIndex.class, "S_Flexocompresion");
-                        break;
-                }
-                break;
-            case R.id.buttonManual:
-                switch (checkedRadio){
-                    case R.id.radioFlexion:
-                        startSubEvaluation(Flexion.class, "M_Flexion");
-                        break;
-                    case R.id.radioFlexocompresion:
-                        startSubEvaluation(StructuralIndex.class, "M_Flexocompresion");
-                        break;
-                }
+            case R.id.buttonLongitudinal:
+                startSubEvaluation(Flexion.class, "M_Flexion_Second");
                 break;
             default:
                 break;
         }
     }
 
+
     public void changeScreen(Class pClass, String pMessageKey, JSONObject pJsonMessageValue) {
-        Intent intent = new Intent(StructuralIndex.this, pClass);
+        Intent intent = new Intent(Flexion.this, pClass);
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         startActivity(intent);
     }
@@ -135,6 +109,52 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         changeScreen(pClass, "data", obj);
     }
 
+    public void setLongitudinal(View v){
+        TextView texto = (TextView) findViewById(v.getId());
+        int indexValue = Integer.parseInt(texto.getText().toString());
+
+        switch (v.getId()) {
+            case R.id.iat11:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 1, 1);
+                break;
+            case R.id.iat12:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 1, 2);
+                break;
+            case R.id.iat13:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 1, 3);
+                break;
+            case R.id.iat14:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 1, 4);
+                break;
+            case R.id.iat21:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 2, 1);
+                break;
+            case R.id.iat22:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 2, 2);
+                break;
+            case R.id.iat23:
+                Toast.makeText(Flexion.this,"soy "+texto.getText(),Toast.LENGTH_SHORT).show();
+                setLongitudinalValues(indexValue, 2, 3);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setLongitudinalValues(int pIndex, int pRow, int pColumn) {
+        this.longitudinalValues.clear();
+        this.longitudinalValues.add(pIndex);
+        this.longitudinalValues.add(pRow);
+        this.longitudinalValues.add(pColumn);
+        TextView longitudinalIndex = (TextView) findViewById(R.id.longitudinalIndex);
+        longitudinalIndex.setText(Integer.toString(pIndex));
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -156,14 +176,4 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void showToast(View v){
-        switch (v.getId()) {
-
-            //case R.id.iaa1:
-            //    Toast.makeText(StructuralIndex.this,"soy "+v.getId(),Toast.LENGTH_SHORT).show();
-            //    break;
-        }
-    }
-
 }
