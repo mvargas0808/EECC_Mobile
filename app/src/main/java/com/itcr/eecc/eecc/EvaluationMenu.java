@@ -25,13 +25,15 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
 
+    String evaluationId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
         JSONObject json = null;
-        String evaluationId = "";
+
         try {
             json = new JSONObject(intent.getStringExtra("json"));
             evaluationId =  json.get("evaluationId").toString();
@@ -81,7 +83,8 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
                 startSubEvaluation(StructuralIndex.class, "EvaluationType");
                 break;
             case R.id.buttonSDI:
-                startSubEvaluation(StructuralDamage.class, "SDI");
+                //startSubEvaluation(StructuralDamage.class, "SDI");
+                startSubEvaluation(StructuralDamage.class, evaluationId);
                 break;
             case R.id.buttonReport:
                 Intent report = new Intent(EvaluationMenu.this, Login.class);

@@ -26,15 +26,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import Common.Constants;
 import Common.Methods;
+import DataBase.DataBaseManager;
 
 public class StructuralDamage extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private JSONObject jsonIDEValues = new JSONObject();
     ArrayList<ArrayList<ArrayList<JSONObject>>> tableValues = loadTableValues();
+    JSONObject prevActivityParams;
 
     Switch onOffSwitch;
     HorizontalScrollView tableHorizontalScrollView;
@@ -42,6 +45,9 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
     Button btnCalculateIDE;
 
     Context appContext = this;
+    DataBaseManager manager;
+
+    boolean existPrevIDEEvaluation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,12 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        manager = new DataBaseManager(this);
+        prevActivityParams = Methods.getJsonParamFromPreviousScreen(getIntent(), "data");
+
+        existPrevIDEEvaluation = false;
+        loadPreviousEvaluations();
+        loadPreviousIDEEvaluation();
 
         tableHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.tableHorizontalScrollView);
         onOffSwitch = (Switch) findViewById(R.id.on_off_switch);
@@ -103,6 +115,103 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
 
 
 
+    }
+
+    // Loads a previous IDE Evaluation if it exists on database
+    public void loadPreviousIDEEvaluation(){
+
+        if(prevActivityParams != null) {
+
+            try {
+                String evaluationId = prevActivityParams.get("activityType").toString();
+
+                manager.openConnection();
+                jsonIDEValues = manager.loadPreviousIDEEvaluation(evaluationId);
+                manager.closeConnection();
+
+                if(jsonIDEValues != null){
+                    existPrevIDEEvaluation = true;
+
+                    setRadioChecked(jsonIDEValues.getString("FailConsequence"));
+
+                    loadValueToTextView(Double.toString(jsonIDEValues.getDouble("corrosionIndex")),"IC");
+                    loadValueToTextView(Double.toString(jsonIDEValues.getDouble("structuralIndex")),"IE");
+                    loadValueToTextView(jsonIDEValues.getString("IDE"),"IDE");
+
+                } else {
+                    existPrevIDEEvaluation = false;
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            Toast.makeText(appContext, "No se obtuvo EvaluationID del menú de evaluaciones", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void loadPreviousEvaluations(){
+
+        if(prevActivityParams != null) {
+
+
+            String evaluationId = null;
+
+            try {
+
+                evaluationId = prevActivityParams.get("activityType").toString();
+
+                manager.openConnection();
+
+                long structuralIndexId = manager.loadStructuralIndexToIDE(evaluationId);
+                long corrosionIndexId = manager.loadCorrosionIndexToIDE(evaluationId);
+
+                Toast.makeText(appContext, "IE: " + structuralIndexId + " IC: " + corrosionIndexId, Toast.LENGTH_LONG).show();
+
+                manager.closeConnection();
+
+                if(structuralIndexId != -1){
+                    loadValueToTextView(Long.toString(structuralIndexId), "IE");
+                }
+
+                if (corrosionIndexId != -1){
+                    loadValueToTextView(Long.toString(corrosionIndexId), "IC");
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        } else {
+            Toast.makeText(appContext, "No se obtuvo EvaluationID del menú de evaluaciones", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // Loads values on edit text from the screen
+    public void loadValueToTextView(String pValue, String pIndexName){
+
+        EditText editText;
+
+        switch (pIndexName){
+            case "IC":
+                editText = (EditText) findViewById(R.id.et_corrosionIndex);
+                editText.setText(pValue);
+                break;
+
+            case "IE":
+                editText = (EditText) findViewById(R.id.et_structuralIndex);
+                editText.setText(pValue);
+                break;
+
+            case "IDE":
+                editText = (EditText) findViewById(R.id.et_structuralDamageIndex);
+                editText.setText(pValue);
+                break;
+        }
     }
 
     public ArrayList<ArrayList<ArrayList<JSONObject>>> loadTableValues () {
@@ -871,9 +980,88 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
                 String failureConsequence = jsonIDEValues.getString("FailConsequence");
                 int IDE_Row = jsonIDEValues.getInt("IDE_Row");
                 int IDE_Column = jsonIDEValues.getInt("IDE_Column");
-                int evaluationId = 0;
+                //int evaluationId = 0;
 
-                Toast.makeText(appContext, "Guardar IDE en DB", Toast.LENGTH_LONG).show();
+                if(prevActivityParams != null) {
+                    String evaluationId = prevActivityParams.get("activityType").toString();
+
+                    //Toast.makeText(appContext, "Guardar IDE en DB", Toast.LENGTH_LONG).show();
+
+
+                    manager.openConnection();
+
+
+                    long ideInformationId = manager.getIDEInformationId(IDE_Row, IDE_Column, failureConsequence);
+
+                    /*
+                    *  if existPrevIDEEvaluation is true, the data will be updated
+                    *  else the data will be inserted
+                    */
+
+                    if(!existPrevIDEEvaluation) {
+
+                        long IDE_Id = manager.insertStructuralDamageIndex(IDE,structuralIndex,corrosionIndex,evaluationId);
+
+                        if(IDE_Id != -1){
+
+                            long ideInsertResult = manager.insertRalatedIDEInformation(IDE_Id,ideInformationId);
+
+                            //Toast.makeText(appContext, "NEW: infoID: " + ideInformationId + " IDE_ID " + IDE_Id + "Related " + relatedIDEInfo_Id, Toast.LENGTH_LONG).show();
+
+                            if (ideInsertResult != -1){
+                                Toast.makeText(appContext, Constants.SUCCESS_INSERT_EVALUATION, Toast.LENGTH_LONG).show();
+                                String jsonString = "{'evaluationId':"+evaluationId+"}";
+                                Methods.changeScreenAndSendJson(appContext,EvaluationMenu.class,"json",new JSONObject(jsonString));
+                            } else {
+                                Toast.makeText(appContext, Constants.ERROR_INSERT_EVALUATION, Toast.LENGTH_LONG).show();
+                            }
+
+                        } else {
+                            Toast.makeText(appContext, Constants.ERROR_INSERT_EVALUATION, Toast.LENGTH_LONG).show();
+                        }
+
+
+
+
+                    } else {
+
+                        long disableResult = manager.disableRelatedIDEInformation(evaluationId);
+
+                        if (disableResult != -1){
+
+                            long updateResult = manager.updateStructuralDamageIndex(IDE, structuralIndex, corrosionIndex, evaluationId, IDE_Row, IDE_Column, failureConsequence);
+
+                            if (updateResult != -1){
+                                Toast.makeText(appContext, Constants.SUCCESS_UPDATE_EVALUATION, Toast.LENGTH_LONG).show();
+                                String jsonString = "{'evaluationId':"+evaluationId+"}";
+                                Methods.changeScreenAndSendJson(appContext,EvaluationMenu.class,"json",new JSONObject(jsonString));
+                            } else {
+                                Toast.makeText(appContext, Constants.ERROR_UPDATE_EVALUATION, Toast.LENGTH_LONG).show();
+                            }
+
+                        } else {
+                            Toast.makeText(appContext, Constants.ERROR_UPDATE_EVALUATION, Toast.LENGTH_LONG).show();
+                        }
+
+                        /*long IDE_Id = manager.updateStructuralDamageIndex(IDE,structuralIndex,corrosionIndex,evaluationId);
+
+                        long relatedIDEInfo_Id = manager.updateRalatedIDEInformation(IDE_Id,ideInformationId);
+
+                        Toast.makeText(appContext, "NEW: infoID: " + ideInformationId + " IDE_ID " + IDE_Id + "Related " + relatedIDEInfo_Id, Toast.LENGTH_LONG).show();
+                        */
+                    }
+
+
+
+                    manager.closeConnection();
+
+                } else {
+                    Toast.makeText(appContext, "No se obtuvo EvaluationID del menú de evaluaciones", Toast.LENGTH_LONG).show();
+                }
+
+
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
