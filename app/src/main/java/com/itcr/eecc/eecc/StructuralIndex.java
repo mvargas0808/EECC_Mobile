@@ -59,12 +59,6 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
                 buttonSimplified.setOnClickListener(this);
                 //radioType.setOnCheckedChangeListener(this);
                 break;
-            case "S_Flexocompresion":
-                setContentView(R.layout.si_flexocompresion_simplified);
-                break;
-            case "M_Flexocompresion":
-                setContentView(R.layout.si_flexocompresion_manual);
-                break;
             default:
                 break;
         }
@@ -94,7 +88,7 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
                         startSubEvaluation(Flexion.class, "S_Flexion");
                         break;
                     case R.id.radioFlexocompresion:
-                        startSubEvaluation(StructuralIndex.class, "S_Flexocompresion");
+                        startSubEvaluation(Flexocompresion.class, "S_Flexocompresion");
                         break;
                 }
                 break;
@@ -104,7 +98,7 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
                         startSubEvaluation(Flexion.class, "M_Flexion");
                         break;
                     case R.id.radioFlexocompresion:
-                        startSubEvaluation(StructuralIndex.class, "M_Flexocompresion");
+                        startSubEvaluation(Flexocompresion.class, "M_Flexocompresion");
                         break;
                 }
                 break;
@@ -151,15 +145,6 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void showToast(View v){
-        switch (v.getId()) {
-
-            //case R.id.iaa1:
-            //    Toast.makeText(StructuralIndex.this,"soy "+v.getId(),Toast.LENGTH_SHORT).show();
-            //    break;
-        }
     }
 
 }

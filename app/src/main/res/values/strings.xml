@@ -36,5 +36,6 @@
     <string name="radio_flexocompresion">Flexocompresión</string>
 
     <string name="button_next">Siguiente</string>
-    <string name="button_calculate">Calcular</string>
+    <string name="button_evaluateIE">Evaluar IE</string>
+    <string name="button_cancel">Cancelar</string>
 </resources>

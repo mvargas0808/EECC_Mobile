@@ -229,32 +229,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="Índice Simplificado"
-            android:layout_width="wrap_content"
+
+        <Button
+            android:text="@string/button_cancel"
             android:layout_height="wrap_content"
-            android:id="@+id/textView9"
-            android:layout_weight="1" />
+            android:id="@+id/buttonCancel"
+            android:layout_width="170dp"
+            android:layout_alignBaseline="@+id/buttonSimplifiedCalc"
+            android:layout_alignBottom="@+id/buttonSimplifiedCalc"
+            android:layout_toEndOf="@+id/buttonSimplifiedCalc"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:text="@string/button_evaluateIE"
+            android:layout_below="@+id/simplifiedIndex"
+            android:onClick="setStructuralIndex"
+            android:id="@+id/buttonSimplifiedCalc"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:layout_width="64dp"
             android:layout_height="26dp"
             android:id="@+id/simplifiedIndex"
-            android:layout_weight="1"
+            android:layout_marginStart="25dp"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/textView9"
-            android:layout_marginStart="31dp"
-            />
+            android:layout_alignStart="@+id/buttonCancel" />
 
-        <Button
-            android:text="@string/button_calculate"
+        <TextView
+            android:text="Índice Simplificado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/simplifiedIndex"
-            android:layout_alignEnd="@+id/simplifiedIndex"
-            android:layout_marginTop="41dp"
-            android:onClick="setStructuralIndex"
-            android:id="@+id/buttonSimplifiedCalc" />
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/buttonCancel"
+            android:layout_marginEnd="19dp" />
+
     </RelativeLayout>
 
 

@@ -49,6 +49,10 @@
             android:name=".Flexion"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".Flexocompresion"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
 
     </application>
