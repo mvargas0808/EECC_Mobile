@@ -31,14 +31,15 @@
         <activity
             android:name=".EvaluationMenu"
             android:label="@string/text_Evaluation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CorrosionIndex"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StructuralIndex"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".LoadProject"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoadProject" />
+        <activity android:name=".ProjectInformation"></activity>
     </application>
 
 </manifest>

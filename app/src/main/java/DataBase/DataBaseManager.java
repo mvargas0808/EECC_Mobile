@@ -196,8 +196,6 @@ public class DataBaseManager {
         return df.format(c.getTime());
     }
 
-
-
     public String createEvaluationProject(String projectId){
         ContentValues values = new ContentValues();
         values.put("CreationDate", getCurrentDate());
@@ -255,6 +253,21 @@ public class DataBaseManager {
             return cursor.getString(cursor.getColumnIndex("TokenId"));
         } else {
             return "-1";
+        }
+    }
+
+    public Cursor getProjectInformation(String projectId){
+        Cursor cursor =  db.rawQuery("SELECT proj.*, proj.Name AS ProjectName, us.Name AS UserName, us.Lastname, stru.Name AS StructureName, dis.DistrictName, can.CantonName, can.CantonId, prov.ProvinceName, prov.ProvinceId  FROM projects proj"
+        + " INNER JOIN structuretypes stru ON proj.StructureTypeId = stru.StructureTypeId AND stru.Enabled = 1"
+        + " INNER JOIN districts dis ON proj.DistrictId = dis.DistrictId"
+        + " INNER JOIN cantons can ON dis.CantonId = can.CantonId"
+        + " INNER JOIN provinces prov ON can.ProvinceId = prov.ProvinceId"
+        + " INNER JOIN users us ON proj.UserId = us.UserId AND us.Enabled = 1"
+        + " WHERE proj.ProjectId = '"+projectId+"'", null);
+        if (cursor.moveToFirst()) {
+            return cursor;
+        } else {
+            return null;
         }
     }
 
