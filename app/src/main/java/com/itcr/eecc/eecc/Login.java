@@ -25,6 +25,7 @@ package com.itcr.eecc.eecc;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
+        import Common.Constants;
         import Common.Methods;
         import DataBase.DataBaseManager;
 
@@ -45,10 +46,10 @@ public class Login extends Activity implements OnClickListener {
     JSONParser jsonParser = new JSONParser();
 
     //Michael
-    private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
 
     //William
-    //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
 
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -164,21 +165,30 @@ public class Login extends Activity implements OnClickListener {
         }
 
         protected void onPostExecute(JSONObject json) {
+
+
             // dismiss the dialog after getting all products
             try {
-                JSONArray result = (JSONArray)json.get("result");
-                Log.d("Lenght", ""+result.length());
-                if(result.length()!=0){
-                    Log.d("JSON:", result.get(0).toString());
-                    mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
 
-                    Methods.changeScreen(appContext,Projects.class);
-                    finish();
 
+                if(json != null){
+                    JSONArray result = (JSONArray)json.get("result");
+                    Log.d("Lenght", ""+result.length());
+                    if(result.length()!=0){
+                        Log.d("JSON:", result.get(0).toString());
+                        //mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
+
+                        Methods.changeScreen(appContext,Projects.class);
+                        finish();
+
+                    }
+                    else{
+                        Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(Login.this, Constants.ERROR_LOGGING_CONNECTION,Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
-                }
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

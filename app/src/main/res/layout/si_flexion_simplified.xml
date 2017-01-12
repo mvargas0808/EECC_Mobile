@@ -20,12 +20,7 @@
         android:fitsSystemWindows="true"
         tools:context="com.itcr.eecc.eecc.StructuralIndex">
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:layout_gravity="center">
+
 
             <LinearLayout
                 android:orientation="vertical"
@@ -34,6 +29,12 @@
             android:gravity="center"
                 android:layout_gravity="center">
 
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_gravity="center">
 
                 <GridLayout
             android:rowCount="5"
@@ -44,20 +45,22 @@
             android:background="#009284"
             android:gravity="center"
             android:layout_marginTop="0dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="5dp">
+                    android:layout_marginRight="15dp"
+                    >
 
             <TextView android:text="Índice de Armado Transversal"
                 android:layout_rowSpan="2"
                 android:layout_width="152dp"
-                android:background="#FFFF"
+                android:textColor="@color/white"
+                android:textStyle="normal|bold"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_height="57dp" />
 
             <TextView android:text="Vigas planas (h &lt; b)"
                 android:layout_columnSpan="2"
-                android:background="#FFFF"
+                android:textColor="@color/white"
+                android:textStyle="normal|bold"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_height="wrap_content"
@@ -66,41 +69,52 @@
             <TextView android:text="Vigas de canto y viguetas"
                 android:layout_columnSpan="2"
                 android:layout_width="wrap_content"
-                android:background="#FFFF"
+                android:textColor="@color/white"
+                android:textStyle="normal|bold"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_height="wrap_content" />
 
             <TextView android:text="Sección de apoyo"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_width="78dp"
                 android:layout_height="35dp" />
 
             <TextView android:text="Sección de vano"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_width="78dp"
                 android:layout_height="35dp" />
 
             <TextView android:text="Sección de apoyo"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_width="78dp"
                 android:layout_height="35dp" />
 
             <TextView android:text="Sección de vano"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:layout_width="78dp"
                 android:layout_height="35dp" />
 
             <TextView android:text="Sin cercos"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:layout_height="50dp"
                 android:gravity="center"
@@ -143,7 +157,9 @@
                 android:layout_width="78dp" />
 
             <TextView android:text="Alta densidad de cercos"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:layout_height="50dp"
                 android:layout_width="152dp"
@@ -187,7 +203,9 @@
                 android:layout_width="78dp" />
 
             <TextView android:text="Baja densidad de cercos"
-                android:background="#FFFF"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textStyle="normal|italic"
                 android:layout_margin="1dp"
                 android:layout_height="50dp"
                 android:gravity="center"
@@ -231,6 +249,8 @@
 
         </GridLayout>
 
+                </HorizontalScrollView>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -248,15 +268,17 @@
                 android:layout_alignBottom="@+id/buttonSimplifiedCalc"
                 android:layout_toEndOf="@+id/buttonSimplifiedCalc"
                 android:layout_marginStart="20dp"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="@android:color/white"/>
+                android:layout_marginRight="5dp"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                />
 
             <Button
                 android:text="@string/button_evaluateIE"
                 android:layout_below="@+id/simplifiedIndex"
                 android:onClick="setStructuralIndex"
                 android:id="@+id/buttonSimplifiedCalc"
-                android:layout_width="170dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:layout_marginStart="16dp"
@@ -284,7 +306,7 @@
 
 
     </LinearLayout>
-        </HorizontalScrollView>
+
 
         <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

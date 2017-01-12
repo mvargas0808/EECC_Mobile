@@ -45,33 +45,40 @@
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
-                    android:layout_height="63dp" />
+                    android:layout_height="68dp" />
 
 
                 <TextView android:text="λ = espaciado de cercos / ϕ armadura principal"
                     android:layout_columnSpan="2"
-                    android:background="#FFFF"
                     android:layout_margin="1dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"
                     android:gravity="center"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_width="294dp" />
 
                 <TextView android:text="λ &lt;= 10"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="30dp"
                     android:layout_width="146dp" />
 
                 <TextView android:text="λ &gt; 10"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="30dp"
                     android:layout_width="146dp" />
 
                 <TextView android:text="&gt; 8 "
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
                     android:gravity="center"
@@ -96,7 +103,9 @@
                     android:layout_height="50dp" />
 
                 <TextView android:text="&lt;= 8 "
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
                     android:gravity="center"
@@ -138,12 +147,12 @@
                     android:layout_alignBottom="@+id/buttonLongitudinal"
                     android:layout_toEndOf="@+id/buttonLongitudinal"
                     android:layout_marginStart="20dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="@android:color/white"/>
+                    android:padding="20dp"
+                    android:textColor="@color/black"/>
 
                 <Button
                     android:text="@string/button_next"
-                    android:layout_width="170dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonLongitudinal"
                     android:layout_below="@+id/longitudinalIndex"
