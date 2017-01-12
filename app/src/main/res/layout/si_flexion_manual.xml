@@ -50,40 +50,50 @@
 
                 <TextView android:text="Cercos"
                     android:layout_columnSpan="3"
-                    android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
-                    android:layout_width="202dp" />
+                    android:layout_width="202dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"/>
 
                 <TextView android:text="Sin cercos"
                     android:layout_rowSpan="2"
-                    android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_width="76dp"
                     android:gravity="center"
-                    android:layout_height="37dp" />
+                    android:layout_height="37dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"/>
 
                 <ImageView
                     android:src="@drawable/ial_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp" />
+                    android:layout_margin="1dp"
+                    android:background="@color/white"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"/>
                 <ImageView
                     android:src="@drawable/ial_3"
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
-                    android:background="#FFFF"
+                    android:background="@color/white"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp" />
                 <ImageView
                     android:src="@drawable/ial_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#FFFF"
+                    android:background="@color/white"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp" />
 
                 <TextView android:text="&gt; 8 mm"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
                     android:gravity="center"
@@ -125,7 +135,9 @@
 
                 <TextView android:text="&lt;= 8 mm"
                     android:layout_height="36dp"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
                     android:gravity="center"/>
@@ -173,12 +185,12 @@
                     android:layout_alignBottom="@+id/buttonLongitudinal"
                     android:layout_toEndOf="@+id/buttonLongitudinal"
                     android:layout_marginStart="20dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="@android:color/white"/>
+                    android:padding="20dp"
+                    android:textColor="@color/black"/>
 
                 <Button
                     android:text="@string/button_next"
-                    android:layout_width="170dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonLongitudinal"
                     android:layout_below="@+id/longitudinalIndex"

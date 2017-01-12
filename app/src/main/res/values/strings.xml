@@ -17,7 +17,7 @@
     <string name="text_password">Contraseña</string>
     <string name="text_username">Usuario</string>
 
-    <string name="title_activity_projects">Projects</string>
+    <string name="title_activity_projects">Proyectos</string>
 
     <string name="button_CID">Índ. Daño por Corrosión</string>
     <string name="button_SI">Índice Estructural</string>
@@ -28,7 +28,7 @@
     <string name="button_manual">Evaluación Manual</string>
     <string name="radio_flexion">Flexión</string>
     <string name="radio_flexocompresion">Flexocompresión</string>
-    <string name="title_activity_project_form">ProjectForm</string>
+    <string name="title_activity_project_form">Nuevo Proyecto</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

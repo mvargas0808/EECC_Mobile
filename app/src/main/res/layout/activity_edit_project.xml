@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.itcr.eecc.eecc.ProjectForm">
+        tools:context="com.itcr.eecc.eecc.EditProject">
 
         <!--include layout="@layout/content_project_form" /-->
 
@@ -31,7 +31,8 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context="com.itcr.eecc.eecc.ProjectForm"
+            tools:context="com.itcr.eecc.eecc.EditProject"
+
             >
             <!--tools:showIn="@layout/app_bar_project_form"-->
 
@@ -196,7 +197,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_saveEdit"
-                        android:layout_marginTop="30dp" />
+                        android:layout_marginTop="30dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold"/>
 
                     <Button
                         android:text="Cancelar"
@@ -226,6 +230,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:visibility="invisible"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 

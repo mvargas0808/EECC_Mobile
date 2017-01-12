@@ -1,64 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/inputPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonLogin"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPassword" >
-    </EditText>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:gravity="center"
-        android:text="Resultado"
+        android:text="Evaluación de Estructuras de Concreto por Corrosión"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_height="220dp"
+        android:textColor="@color/colorPrimaryDark" />
 
 
-    <EditText
-        android:id="@+id/inputUsername"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewPassword"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
-    <requestFocus/>
-    </EditText>
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/textViewPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="22dp"
-        android:text="@string/text_password"
-        android:layout_above="@+id/inputPassword"
-        android:layout_alignStart="@+id/inputPassword" />
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="@string/text_username"
+            android:layout_above="@+id/inputUsername"
+            android:layout_alignStart="@+id/textViewPassword" />
 
-    <TextView
-        android:id="@+id/textViewUsername"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/inputUsername"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_above="@+id/textViewPassword"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textEmailAddress" >
+            <requestFocus/>
+        </EditText>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_username"
-        android:layout_above="@+id/inputUsername"
-        android:layout_alignStart="@+id/textViewPassword" />
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+
+        <TextView
+            android:id="@+id/textViewPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="@string/text_password"
+            android:layout_above="@+id/inputPassword"
+            android:layout_alignStart="@+id/inputPassword" />
+
+
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_above="@+id/buttonLogin"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPassword" >
+        </EditText>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="@string/text_login"
         android:layout_marginBottom="134dp"
         android:layout_alignParentBottom="true"
@@ -67,4 +105,4 @@
         android:textColor="@android:color/white"
         android:layout_toEndOf="@+id/textViewPassword" />
 
-</RelativeLayout>
+</LinearLayout>

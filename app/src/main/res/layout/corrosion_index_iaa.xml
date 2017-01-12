@@ -33,11 +33,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:textColor="?attr/editTextColor"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="normal|bold"
-                android:layout_marginLeft="4dp" />
+                android:textSize="18sp"
+                android:gravity="center" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -450,7 +451,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_calculateIC"
-                    android:onClick="evaluateIC"/>
+                    android:onClick="evaluateIC"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"/>
 
             </LinearLayout>
 

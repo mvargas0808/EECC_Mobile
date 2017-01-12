@@ -22,6 +22,8 @@ public class Constants extends AppCompatActivity {
     * ERROR MESSAGES
     ---------------------*/
 
+    public static String ERROR_LOGGING_CONNECTION = "Error: No se pudo establecer conexión";
+
     public static String ERROR_LOAD_TABLE_DATA = "Se produjo un error cargando los datos de la tabla";
     public static String ERROR_EVALUATIONID_FROM_EVA_MENU = "No se obtuvo EvaluationID del menú de evaluaciones";
 

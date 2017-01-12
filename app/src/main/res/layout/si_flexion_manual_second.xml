@@ -23,16 +23,11 @@
 
 
 
-        <HorizontalScrollView
 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
 
             <LinearLayout
                 android:orientation="vertical" android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
             android:gravity="center"
             android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
@@ -40,20 +35,27 @@
                 android:paddingRight="15dp">
 
 
+                <HorizontalScrollView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
             <GridLayout
                 android:rowCount="6"
                 android:columnCount="5"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#009284"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="100dp">
 
                 <TextView android:text="Índice de Armado Transversal"
                     android:layout_rowSpan="3"
-                    android:background="#FFFF"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_width="98dp"
@@ -61,7 +63,8 @@
 
                 <TextView android:text="Diámetro principal del armado"
                     android:layout_columnSpan="4"
-                    android:background="#FFFF"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_width="399dp" />
@@ -84,34 +87,44 @@
 
                 <TextView android:text="Alta cuantía"
                     android:layout_width="98dp"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="32dp" />
 
                 <TextView android:text="Baja cuantía"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="32dp"
                     android:layout_width="98dp" />
 
                 <TextView android:text="Alta cuantía"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="32dp"
                     android:layout_width="98dp" />
 
                 <TextView android:text="Baja cuantía"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="32dp"
                     android:layout_width="98dp" />
 
                 <TextView android:text="1"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
                     android:layout_width="98dp"
@@ -154,7 +167,9 @@
                     android:layout_width="98dp" />
 
                 <TextView android:text="2"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
                     android:layout_width="98dp"
@@ -197,7 +212,9 @@
                     android:layout_width="98dp" />
 
                 <TextView android:text="3"
-                    android:background="#FFFF"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|italic"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
                     android:layout_width="98dp"
@@ -241,6 +258,7 @@
 
             </GridLayout>
 
+                </HorizontalScrollView>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -257,12 +275,12 @@
                     android:layout_alignBottom="@+id/buttonTransverse"
                     android:layout_toEndOf="@+id/buttonTransverse"
                     android:layout_marginStart="20dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="@android:color/white"/>
+                    android:padding="20dp"
+                    android:textColor="@color/black"/>
 
                 <Button
                     android:text="@string/button_evaluateIE"
-                    android:layout_width="170dp"
+                    android:layout_width="135dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonTransverse"
                     android:layout_marginTop="60dp"
@@ -294,7 +312,7 @@
             </RelativeLayout>
 
     </LinearLayout>
-        </HorizontalScrollView>
+
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"

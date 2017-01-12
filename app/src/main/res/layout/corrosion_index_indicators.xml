@@ -28,7 +28,7 @@
         android:weightSum="1">
 
         <TextView
-            android:text="Indicadores de Corrosión"
+            android:text=""
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -925,7 +925,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:text="Índ. de Daño por Corrosión (IDC)"
@@ -961,13 +962,17 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
         <Button
             android:text="Siguiente"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_GoToIAA"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:textStyle="normal|bold"
              />
 
         </LinearLayout>

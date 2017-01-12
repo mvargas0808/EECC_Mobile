@@ -98,14 +98,23 @@
                     android:text="Crear nuevo proyecto"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:id="@+id/btn_create_new" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/btn_create_new"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold" />
 
                 <Button
                     android:onClick="insertToken"
                     android:text="Utilizar un proyecto existente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btn_use_project" />
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/btn_use_project"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"
+                    android:background="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
