@@ -10,43 +10,46 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+
 import android.view.MenuItem;
+
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import Common.Methods;
 
-/**
- * Created by Michael on 08/01/2017.
- */
 
 public class StructuralIndex extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Button buttonManual, buttonSimplified;
     private RadioGroup radioType;
+    private ImageView iaa1;
+    private String evaluationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        
         Intent intent = getIntent();
-        JSONObject json = null;
-        String value = null;
+        JSONObject json;
+        String activityType = null;
         try {
             json = new JSONObject(intent.getStringExtra("data"));
-            value =  json.get("activityType").toString();
+            activityType =  json.get("activityType").toString();
+            evaluationId =  json.get("evaluationId").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("JSON:", value);
+        Log.d("JSON:", activityType);
 
-        switch (value) {
+        switch (activityType) {
             case "EvaluationType":
                 setContentView(R.layout.structural_index_type);
                 buttonManual = (Button) findViewById(R.id.buttonManual);
@@ -56,23 +59,9 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
                 buttonSimplified.setOnClickListener(this);
                 //radioType.setOnCheckedChangeListener(this);
                 break;
-            case "S_Flexion":
-                setContentView(R.layout.si_flexion_simplified);
-                break;
-            case "S_Flexocompresion":
-                setContentView(R.layout.si_flexocompresion_simplified);
-                break;
-            case "M_Flexion":
-                setContentView(R.layout.si_flexion_manual);
-                break;
-            case "M_Flexocompresion":
-                setContentView(R.layout.si_flexocompresion_manual);
-                break;
             default:
                 break;
         }
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,9 +75,6 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
     }
 
     @Override
@@ -99,20 +85,20 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
             case R.id.buttonSimplified:
                 switch (checkedRadio){
                     case R.id.radioFlexion:
-                        startSubEvaluation(StructuralIndex.class, "S_Flexion");
+                        startSubEvaluation(Flexion.class, "S_Flexion");
                         break;
                     case R.id.radioFlexocompresion:
-                        startSubEvaluation(StructuralIndex.class, "S_Flexocompresion");
+                        startSubEvaluation(Flexocompresion.class, "S_Flexocompresion");
                         break;
                 }
                 break;
             case R.id.buttonManual:
                 switch (checkedRadio){
                     case R.id.radioFlexion:
-                        startSubEvaluation(StructuralIndex.class, "M_Flexion");
+                        startSubEvaluation(Flexion.class, "M_Flexion");
                         break;
                     case R.id.radioFlexocompresion:
-                        startSubEvaluation(StructuralIndex.class, "M_Flexocompresion");
+                        startSubEvaluation(Flexocompresion.class, "M_Flexocompresion");
                         break;
                 }
                 break;
@@ -125,6 +111,7 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(StructuralIndex.this, pClass);
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         startActivity(intent);
+        finish();
     }
 
     // start the corresponding SubEvaluation
@@ -132,11 +119,13 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         JSONObject obj = new JSONObject();
         try {
             obj.put("activityType",pActivityType);
+            obj.put("evaluationId", evaluationId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         changeScreen(pClass, "data", obj);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -158,4 +147,5 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

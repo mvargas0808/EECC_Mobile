@@ -20,36 +20,285 @@
         android:fitsSystemWindows="true"
         tools:context="com.itcr.eecc.eecc.StructuralIndex">
 
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_gravity="center">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:text="Flexion Simplified"
-            android:layout_width="match_parent"
+            <LinearLayout
+                android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView5" />
+            android:gravity="center"
+                android:layout_gravity="center">
+
+
+                <GridLayout
+            android:rowCount="5"
+            android:columnCount="5"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#009284"
+            android:gravity="center"
+            android:layout_marginTop="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp">
+
+            <TextView android:text="Índice de Armado Transversal"
+                android:layout_rowSpan="2"
+                android:layout_width="152dp"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_height="57dp" />
+
+            <TextView android:text="Vigas planas (h &lt; b)"
+                android:layout_columnSpan="2"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="158dp" />
+
+            <TextView android:text="Vigas de canto y viguetas"
+                android:layout_columnSpan="2"
+                android:layout_width="wrap_content"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+
+            <TextView android:text="Sección de apoyo"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_width="78dp"
+                android:layout_height="35dp" />
+
+            <TextView android:text="Sección de vano"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_width="78dp"
+                android:layout_height="35dp" />
+
+            <TextView android:text="Sección de apoyo"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_width="78dp"
+                android:layout_height="35dp" />
+
+            <TextView android:text="Sección de vano"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:layout_width="78dp"
+                android:layout_height="35dp" />
+
+            <TextView android:text="Sin cercos"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_width="152dp" />
+
+            <TextView android:text="---"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si11"
+                android:layout_width="78dp" />
+
+            <TextView android:text="---"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si12"
+                android:layout_width="78dp" />
+
+            <TextView android:text="I"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:layout_height="50dp"
+                android:id="@+id/si13"
+                android:layout_width="78dp" />
+
+            <TextView android:text="II"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:layout_height="50dp"
+                android:id="@+id/si14"
+                android:layout_width="78dp" />
+
+            <TextView android:text="Alta densidad de cercos"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:layout_width="152dp"
+                android:gravity="center"/>
+
+            <TextView android:text="II"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si21"
+                android:layout_width="78dp" />
+
+            <TextView android:text="III"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si22"
+                android:layout_width="78dp" />
+
+
+            <TextView android:text="III"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:layout_width="78dp"
+                android:id="@+id/si23" />
+
+            <TextView android:text="IV"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si24"
+                android:layout_width="78dp" />
+
+            <TextView android:text="Baja densidad de cercos"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_width="152dp" />
+
+            <TextView android:text="III"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si31"
+                android:layout_width="78dp"
+                android:layout_height="50dp" />
+
+            <TextView android:text="IV"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si32"
+                android:layout_width="78dp" />
+
+            <TextView android:text="IV"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si33"
+                android:layout_width="78dp" />
+
+            <TextView android:text="IV"
+                android:background="#FFFF"
+                android:layout_margin="1dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:onClick="setSimplified"
+                android:id="@+id/si34"
+                android:layout_width="78dp" />
+
+        </GridLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+
+            <Button
+                android:text="@string/button_cancel"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonCancel"
+                android:layout_width="170dp"
+                android:layout_alignBaseline="@+id/buttonSimplifiedCalc"
+                android:layout_alignBottom="@+id/buttonSimplifiedCalc"
+                android:layout_toEndOf="@+id/buttonSimplifiedCalc"
+                android:layout_marginStart="20dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"/>
+
+            <Button
+                android:text="@string/button_evaluateIE"
+                android:layout_below="@+id/simplifiedIndex"
+                android:onClick="setStructuralIndex"
+                android:id="@+id/buttonSimplifiedCalc"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="26dp"
+                android:id="@+id/simplifiedIndex"
+                android:layout_marginStart="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/buttonCancel" />
+
+            <TextView
+                android:text="Índice Simplificado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/buttonCancel"
+                android:layout_marginEnd="19dp" />
+
+        </RelativeLayout>
+
+
     </LinearLayout>
-
-
-
-
+        </HorizontalScrollView>
 
         <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            <!--include android:id="@+id/toolbar" layout="@layout/toolbar" /-->
+        <!--include android:id="@+id/toolbar" layout="@layout/toolbar" /-->
 
         </android.support.design.widget.AppBarLayout>
 
