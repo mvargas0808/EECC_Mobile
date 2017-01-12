@@ -32,7 +32,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:textColor="?attr/editTextColor"
+                android:textStyle="normal|bold"
+                android:layout_marginLeft="4dp" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -47,37 +52,41 @@
                     android:columnCount="3"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:layout_width="380dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="360dp"
+                    android:layout_height="match_parent"
                     android:background="#009284"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="95dp"
                     android:paddingTop="10dp"
                     android:gravity="center">
 
 
 
                     <TextView android:text="Designación"
-                        android:background="#FFFF"
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold" />
                     <TextView android:text="Descripción del ambiente"
                         android:layout_columnSpan="2"
-                        android:background="#FFFF"
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold" />
 
 
                     <TextView android:text="1. Sin riesgo de corrosión"
                         android:layout_columnSpan="3"
-                        android:background="#FFFF"
+                        android:background="@color/colorPrimary"
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="380dp" />
+                        android:layout_width="360dp"
+                        android:textStyle="normal|italic"
+                        android:textColor="@color/white" />
 
 
 
@@ -91,7 +100,8 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp"
+                        android:paddingBottom="49dp" />
                     <TextView android:text="Para hormigones en masa, todos los ambientes excepto donde hay acciones de deshielo, abrasión o ataques químicos"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -100,17 +110,19 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
 
 
                     <TextView android:text="2. Corrosión inducida por carbonatación"
                         android:layout_columnSpan="3"
-                        android:background="#FFFF"
+                        android:background="@color/colorPrimary"
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="380dp" />
+                        android:layout_width="360dp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic" />
 
 
 
@@ -124,7 +136,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Seco o permanentemente húmedo"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -133,7 +145,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
 
                     <!--          ROW     3     -->
@@ -145,7 +157,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Húmedo, raramente seco"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -154,7 +166,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
                     <!--          ROW     4     -->
 
@@ -165,7 +177,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Humedad moderada"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -174,7 +186,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
                     <!--          ROW     5     -->
 
@@ -185,7 +197,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Ciclos húmedos y secos"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -194,17 +206,19 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
 
 
                     <TextView android:text="3. Corrosión inducida por cloruros de origen distinto del marino"
                         android:layout_columnSpan="3"
-                        android:background="#FFFF"
+                        android:background="@color/colorPrimary"
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="380dp" />
+                        android:layout_width="360dp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic" />
 
 
 
@@ -217,7 +231,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Moderadamente húmedo"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -226,7 +240,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
                     <!--          ROW     7     -->
 
@@ -237,7 +251,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Húmedo, raramente seco"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -246,7 +260,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
                     <!--          ROW     8     -->
 
@@ -257,7 +271,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Ciclos húmedos y secos"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -266,16 +280,18 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
 
                     <TextView android:text="4. Corrosión inducida por cloruros de origen marino."
                         android:layout_columnSpan="3"
-                        android:background="#FFFF"
+                        android:background="@color/colorPrimary"
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="380dp" />
+                        android:layout_width="360dp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic" />
 
 
 
@@ -287,8 +303,9 @@
                         android:onClick="setIAA"
                         android:layout_margin="1dp"
                         android:gravity="center"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent" />
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="33dp" />
                     <TextView android:text="Exposición a la acción de la sal contenida en el aire pero no en contacto con el agua de mar"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -297,7 +314,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
                     <!--          ROW     10     -->
 
@@ -308,7 +325,7 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp" />
                     <TextView android:text="Permanentemente sumergidas"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -317,7 +334,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
                     <!--          ROW     11     -->
 
@@ -328,7 +345,8 @@
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_width="120dp" />
+                        android:layout_width="100dp"
+                        android:paddingBottom="16dp" />
                     <TextView android:text="Zonas expuestas a la acción de la marea o salpicaduras"
                         android:layout_columnSpan="2"
                         android:background="#FFFF"
@@ -337,7 +355,7 @@
                         android:layout_margin="1dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_width="260dp" />
+                        android:layout_width="256dp" />
 
 
                 </GridLayout>
