@@ -11,6 +11,7 @@ package com.itcr.eecc.eecc;
         import android.content.Intent;
         import android.net.ConnectivityManager;
         import android.net.NetworkInfo;
+        import android.nfc.tech.NfcA;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.util.Log;
@@ -170,10 +171,21 @@ public class Login extends Activity implements OnClickListener {
                 Log.d("Lenght", ""+result.length());
                 if(result.length()!=0){
                     Log.d("JSON:", result.get(0).toString());
-                    mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
+                    String Name, LastName, Email;
+                    Name = ((JSONObject)result.get(0)).get("Name").toString();
+                    LastName = ((JSONObject)result.get(0)).get("Lastname").toString();
+                    Email = ((JSONObject)result.get(0)).get("Email").toString();
+                    mTextView.setText("Email: - " + Email);
+                    int response = createUser(Name, LastName, Email);
 
-                    Methods.changeScreen(appContext,Projects.class);
-                    finish();
+                    if(response == 1){
+                        Methods.changeScreen(appContext,Projects.class);
+                        Toast.makeText(getApplicationContext(),"Todo fue un éxito ", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
+                    }
 
                 }
                 else{
@@ -190,7 +202,18 @@ public class Login extends Activity implements OnClickListener {
     }
 
 
+    public int createUser(String pName, String pLastName, String pEmail){
+        manager.openConnection();
 
+        long value = manager.createUser(pName, pLastName, pEmail);
+
+        manager.closeConnection();
+        if(value == -1){
+            return -1;
+        }
+        return 1;
+
+    }
 
     // Returns if a text input is empty
     public  boolean isInputEmpty(String pInputId){

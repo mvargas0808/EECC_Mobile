@@ -898,6 +898,38 @@ public class DataBaseManager {
         return 1;
     }
 
+    public int createUser(String pName, String pLastName, String pEmail){
+        ContentValues insertValues = new ContentValues();
+        long result;
+
+        if(disableUsers() == -1){
+            return -1;
+        }
+
+        insertValues.put("Name",pName);
+        insertValues.put("LastName",pLastName);
+        insertValues.put("Email",pEmail);
+        insertValues.put("LoginDate",getCurrentDate());
+        insertValues.put("Enabled",1);
+        result = db.insert("users", null, insertValues);
+        if(result == -1){
+            return -1;
+        }
+        return 1;
+    }
+
+    //{"Name":"William","Lastname":"Borges","Email":"wb@gmail.com","Result":"1"}
+
+    public int disableUsers(){
+        long result;
+        ContentValues updateValues = new ContentValues();
+        updateValues.put("Enabled", 0);
+        result = db.update("users",updateValues,"",null);
+        if(result == -1){
+            return -1;
+        }
+        return 1;
+    }
 
 
 
