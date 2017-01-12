@@ -24,6 +24,8 @@ import Common.Methods;
 public class EvaluationMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
+    private String evaluationIdJson;
+    private String projectId;
 
     String evaluationId = "";
 
@@ -36,7 +38,8 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
 
         try {
             json = new JSONObject(intent.getStringExtra("json"));
-            evaluationId =  json.get("evaluationId").toString();
+            evaluationIdJson =  json.get("evaluationId").toString();
+            projectId = json.get("ProjectId").toString();
             Toast.makeText(getApplicationContext(), "Evaluation ID " + evaluationId, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();

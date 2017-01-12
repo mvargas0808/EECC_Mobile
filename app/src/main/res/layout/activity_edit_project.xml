@@ -204,9 +204,10 @@
 
                     <Button
                         android:text="Cancelar"
+                        android:onClick="cancelProject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_cancelProyect" />
+                        android:id="@+id/btn_cancelProyectEdit" />
 
                 </LinearLayout>
             </ScrollView>

@@ -112,6 +112,8 @@ public class ProjectInformation extends AppCompatActivity implements NavigationV
         manager.closeConnection();
     }
 
+
+
     public void alertMessageCreateEvaluation(String projectId){
         final String projectIdFinal = projectId;
         Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
