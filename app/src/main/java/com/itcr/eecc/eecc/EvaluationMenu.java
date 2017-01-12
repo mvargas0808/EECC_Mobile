@@ -98,7 +98,6 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(EvaluationMenu.this, pClass);
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         startActivity(intent);
-        finish();
     }
 
     // start the corresponding SubEvaluation

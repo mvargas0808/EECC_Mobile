@@ -28,10 +28,6 @@
         android:gravity="center">
 
 
-        <TextView android:text="Flexion Manual DOS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
         <GridLayout
             android:rowCount="6"
             android:columnCount="5"
@@ -39,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#009284"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="60dp">
 
             <TextView android:text="Índice de Armado Transversal"
                 android:layout_rowSpan="3"
@@ -233,7 +230,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
 
             <Button
                 android:text="@string/button_cancel"
@@ -252,7 +250,7 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/buttonTransverse"
-                android:layout_marginTop="41dp"
+                android:layout_marginTop="60dp"
                 android:onClick="setStructuralIndex"
                 android:layout_marginStart="16dp"
                 android:layout_below="@+id/transverseIndex"
@@ -266,7 +264,8 @@
                 android:id="@+id/transverseIndex"
                 android:layout_marginStart="25dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/buttonCancel" />
+                android:layout_alignStart="@+id/buttonCancel"
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:text="Índice Armado Transversal"
@@ -274,7 +273,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toStartOf="@+id/buttonCancel"
-                android:layout_marginEnd="19dp" />
+                android:layout_marginEnd="19dp"
+                android:layout_marginTop="20dp" />
 
         </RelativeLayout>
 

@@ -29,11 +29,6 @@
             android:gravity="center">
 
 
-            <TextView
-                android:text="Flexion Manual"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <GridLayout
                 android:rowCount="4"
                 android:columnCount="5"
@@ -41,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#009284"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="100dp">
 
                 <ImageView
                     android:src="@drawable/ial_1"
@@ -163,7 +159,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <Button
                     android:text="@string/button_cancel"
@@ -183,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonLongitudinal"
                     android:layout_below="@+id/longitudinalIndex"
-                    android:layout_marginTop="41dp"
+                    android:layout_marginTop="60dp"
                     android:layout_marginStart="16dp"
                     android:layout_alignParentStart="true"
                     android:background="@color/colorPrimaryDark"
@@ -202,8 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/buttonCancel"
-                    android:layout_marginEnd="19dp" />
+                    android:layout_toStartOf="@+id/buttonCancel" />
 
             </RelativeLayout>
 

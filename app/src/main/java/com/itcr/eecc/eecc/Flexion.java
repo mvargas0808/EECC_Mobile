@@ -100,6 +100,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                 break;
             case R.id.buttonCancel:
                 finishCalculation();
+                finish();
                 break;
             default:
                 break;
@@ -112,7 +113,6 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         intent.putExtra("longitudinalValues", getLongitudinalValues());
         startActivity(intent);
-        finish();
     }
 
     // next to the corresponding SubEvaluation
@@ -287,6 +287,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
 
                     Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
                     saveValidations();
+                    finish();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Transversal",Toast.LENGTH_LONG).show();
                 }
@@ -297,6 +298,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
 
                     Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
                     saveValidationsSimplified();
+                    finish();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Evaluación Simplificada",Toast.LENGTH_LONG).show();
                 }
@@ -315,11 +317,10 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                 transverseValues.get(0), transverseValues.get(1), transverseValues.get(2),
                 "Flexión", Long.parseLong(evaluationId));
         if(value == -1){
-            Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
-            finish();
         }
         manager.closeConnection();
     }
@@ -331,11 +332,10 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                 structuralIndex, simplifiedValues.get(0), simplifiedValues.get(1), simplifiedValues.get(2),
                 "Flexión", Long.parseLong(evaluationId));
         if(value == -1){
-            Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
-            finish();
         }
         manager.closeConnection();
     }
@@ -351,7 +351,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             if(value == 1){
                 saveStructuralIndex();
             } else {
-                Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
             }
         }
         manager.closeConnection();
@@ -368,7 +368,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             if(value == 1){
                 saveStructuralIndexSimplified();
             } else {
-                Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
             }
         }
         manager.closeConnection();
@@ -386,7 +386,6 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         Intent returnToMenu = new Intent(Flexion.this, EvaluationMenu.class);
         returnToMenu.putExtra("json", obj.toString());
         startActivity(returnToMenu);
-        finish();
     }
 
     public ArrayList<Integer> getLongitudinalValues() {
