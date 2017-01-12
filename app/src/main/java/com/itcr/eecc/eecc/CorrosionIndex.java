@@ -681,6 +681,10 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             carbonationDepth = null;
             carbonationDepth = new JSONObject(jsonString);
+
+            TextView indicatorTextView = (TextView) findViewById(R.id.iat1value);
+            indicatorTextView.setText(Integer.toString(pValue));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -693,6 +697,10 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             chlorideLevel = null;
             chlorideLevel = new JSONObject(jsonString);
+
+            TextView indicatorTextView = (TextView) findViewById(R.id.iat2value);
+            indicatorTextView.setText(Integer.toString(pValue));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -704,6 +712,10 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             cracking = null;
             cracking = new JSONObject(jsonString);
+
+            TextView indicatorTextView = (TextView) findViewById(R.id.iat3value);
+            indicatorTextView.setText(Integer.toString(pValue));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -715,6 +727,10 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             resistivity = null;
             resistivity = new JSONObject(jsonString);
+
+            TextView indicatorTextView = (TextView) findViewById(R.id.iat4value);
+            indicatorTextView.setText(Integer.toString(pValue));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -726,6 +742,10 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             sectionLoss = null;
             sectionLoss = new JSONObject(jsonString);
+
+            TextView indicatorTextView = (TextView) findViewById(R.id.iat5value);
+            indicatorTextView.setText(Integer.toString(pValue));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -737,6 +757,10 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             intensity = null;
             intensity = new JSONObject(jsonString);
+
+            TextView indicatorTextView = (TextView) findViewById(R.id.iat6value);
+            indicatorTextView.setText(Integer.toString(pValue));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
