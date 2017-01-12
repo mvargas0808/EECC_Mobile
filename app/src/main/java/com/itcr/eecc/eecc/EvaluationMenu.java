@@ -25,6 +25,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
     private String evaluationId;
+    private String projectId;
 
 
     @Override
@@ -36,6 +37,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
         try {
             json = new JSONObject(intent.getStringExtra("json"));
             evaluationId =  json.get("evaluationId").toString();
+            projectId = json.get("ProjectId").toString();
             Toast.makeText(getApplicationContext(), "Evaluation ID " + evaluationId, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();

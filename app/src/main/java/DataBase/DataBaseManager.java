@@ -528,6 +528,35 @@ public class DataBaseManager {
     }
 
 
+    public Cursor getReportInformation(String evaluationId){
+        Cursor cursor = db.rawQuery(" SELECT str.EvaluationType, indcnam.Description AS IndicatorDescription, iaainf.Description AS IaaDescription, iatinf.Description AS IatDescription, ialinf.Description AS IalDescription, esinf.Description AS EsDescription, ideinf.Description AS IdeDescription, ialinf.ElementType AS IalElementType, esinf.ElementType AS EsElementType,"
+                +" eva.*, ifnull(cdi.ISC, -1) AS ISC, ifnull(str.IE, -1) AS IE, ifnull(strdamage.IDE, -1) AS IDE, pro.Name AS ProjectName FROM evaluations eva"
+                +" INNER JOIN projects pro ON pro.ProjectId = eva.ProjectId AND pro.Enabled = 1"
+                +" LEFT JOIN corrosiondamageindexes cdi ON cdi.EvaluationId = eva.EvaluationId AND cdi.Enabled = 1"
+                +" LEFT JOIN idcindicators idcin ON cdi.CorrosionDamageIndexId = idcin.CorrosionDamageIndexId AND idcin.Enabled = 1"
+                +" LEFT JOIN indicatornames indcnam ON indcnam.IndicatorNameId = idcin.IndicatorNameId AND  indcnam.Enabled = 1"
+                +" LEFT JOIN iaainformation iaainf ON iaainf.IAAInformationId = cdi.IAAIndicatorId AND iaainf.Enabled = 1"
+                +" LEFT JOIN structuralindexes str ON str.EvaluationId = eva.EvaluationId AND str.Enabled = 1"
+                +" LEFT JOIN iat inat ON inat.StructuralIndexId = str.StructuralIndexId AND inat.Enabled = 1"
+                +" LEFT JOIN iatinformation iatinf ON iatinf.IATInformationId = inat.IATInformationId AND iatinf.Enabled = 1"
+                +" LEFT JOIN ial inal ON inal.StructuralIndexId = str.StructuralIndexId AND inal.Enabled = 1"
+                +" LEFT JOIN ialinformation ialinf ON ialinf.IALInformationId = inal.IALInformationId AND ialinf.Enabled = 1"
+                +" LEFT JOIN es ens ON ens.StructuralIndexId = str.StructuralIndexId AND ens.Enabled = 1"
+                +" LEFT JOIN esinformation esinf ON esinf.ESInformationId = ens.ESInformationId AND esinf.Enabled = 1"
+                +" LEFT JOIN structuraldamageindexes strdamage ON strdamage.EvaluationId = eva.EvaluationId AND strdamage.Enabled = 1"
+                +" LEFT JOIN ide inde ON inde.StructuralDamageIndexId = strdamage.StructuralDamageIndexId AND inde.Enabled = 1"
+                +" LEFT JOIN ideinformation ideinf ON ideinf.IDEInformationId = inde.IDEInformationId AND ideinf.Enabled = 1"
+                +" WHERE eva.EvaluationId = '"+evaluationId+"'"
+                +" GROUP BY (indcnam.Description)"
+                +" LIMIT 6;", null);
+        if (cursor.moveToFirst()) {
+            return cursor;
+        } else {
+            return null;
+        }
+    }
+
+
 
 
 

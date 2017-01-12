@@ -92,6 +92,8 @@ public class ProjectInformation extends AppCompatActivity {
         manager.closeConnection();
     }
 
+
+
     public void alertMessageCreateEvaluation(String projectId){
         final String projectIdFinal = projectId;
         Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
