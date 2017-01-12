@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import Common.Methods;
 import DataBase.DataBaseManager;
 
-/**
- * Created by Michael on 09/01/2017.
- */
 
 public class Flexion extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private ArrayList<Integer> longitudinalValues;
