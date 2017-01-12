@@ -39,7 +39,8 @@
             android:name=".StructuralIndex"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoadProject" />
-        <activity android:name=".ProjectInformation"></activity>
+        <activity android:name=".ProjectInformation" />
+        <activity android:name=".EditProject"></activity>
     </application>
 
 </manifest>

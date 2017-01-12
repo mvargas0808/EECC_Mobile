@@ -2,6 +2,7 @@ package com.itcr.eecc.eecc;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -43,7 +44,6 @@ public class Projects extends AppCompatActivity
 
     Button btnUseProject;
     Button btnCreateNewProject;
-
     Context appContext = this;
 
     @Override
@@ -109,86 +109,16 @@ public class Projects extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // getting values from selected ListItem
-                String projectId = ((TextView) view.findViewById(R.id.pid)).getText()
+                try {
+                    String projectId = ((TextView) view.findViewById(R.id.pid)).getText()
                         .toString();
-                manager.openConnection();
-                String evaluationId = manager.getEvaluationIdbyProject(projectId);
-                if(evaluationId.equals("-1")){
-                    alertMessageCreateEvaluation(projectId);
-                } else {
-                    alertMessageGoEvaluation(evaluationId);
+                    Methods.changeScreenAndSendJson(appContext, ProjectInformation.class,
+                            "Data", new JSONObject("{'ProjectId':"+projectId+"}"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                manager.closeConnection();
             }
         });
-    }
-
-    public void alertMessageCreateEvaluation(String projectId){
-        final String projectIdFinal = projectId;
-        Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("¿Desea crear una nueva evaluación en el sistema?");
-        builder1.setCancelable(false);
-
-        builder1.setPositiveButton(
-                "Crear",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        manager.openConnection();
-                        String evaluationId = manager.createEvaluationProject(projectIdFinal);
-                        if(evaluationId.equals("-1")){
-                            Toast.makeText(getApplicationContext(), "ERROR: Evaluación no creada ", Toast.LENGTH_LONG).show();
-                        } else {
-                            JSONObject json = new JSONObject();
-                            try {
-                                //Cambiar de pantalla a la evaluación
-                                json.put("evaluationId",evaluationId);
-                                Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class, "json", json);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                        manager.closeConnection();
-                        dialog.cancel();
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "Cancelar",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
-
-    public void alertMessageGoEvaluation(String pEvaluationId){
-        final String evaluationId = pEvaluationId;
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("INFORMACIÓN IMPORTANTE\nLe recordamos que usted tiene una evaluación en proceso");
-        builder1.setCancelable(false);
-        builder1.setPositiveButton(
-                "Ir a la evaluación",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        JSONObject json = new JSONObject();
-                        try {
-                            //Cambiar de pantalla a la evaluación
-                            json.put("evaluationId",evaluationId);
-                            Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class, "json", json);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
     }
 
     public void insertToken(View v){
@@ -216,8 +146,6 @@ public class Projects extends AppCompatActivity
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
                         } else {
                             Toast.makeText(getApplicationContext(), "ERROR Token invalido", Toast.LENGTH_LONG).show();
                         }

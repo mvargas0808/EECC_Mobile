@@ -163,6 +163,30 @@ public class DataBaseManager {
         return value;
     }
 
+    public long editProject(
+            String projectName,
+            String buildingDate,
+            String componentDescription,
+            String generalDescription,
+            String districtId,
+            String structureTypeId,
+            float latitude,
+            float longitude,
+            String projectId){
+
+        ContentValues values = new ContentValues();
+        values.put("Name", projectName);
+        values.put("ComponentDescription", componentDescription);
+        values.put("StructureUseDescription", generalDescription);
+        values.put("Latitude", 0);
+        values.put("Longitude", 0);
+        values.put("StructureCreationDate", buildingDate);
+        values.put("StructureTypeId", structureTypeId);
+        values.put("DistrictId", districtId);
+        long value = db.update("Projects", values,"ProjectId="+projectId ,null);
+        return value;
+    }
+
     public Cursor getUserLogin(){
         Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE Enabled = 1", null);
         return cursor;

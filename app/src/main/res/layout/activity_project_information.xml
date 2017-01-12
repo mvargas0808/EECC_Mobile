@@ -161,16 +161,18 @@
         </ScrollView>
 
         <Button
-            android:text="Button"
+            android:text="Crear evaluación"
+            android:onClick="createEvaluation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button" />
+            android:id="@+id/btn_create_evaluation" />
 
         <Button
-            android:text="Button"
+            android:text="Editar proyecto"
+            android:onClick="editProject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button2" />
+            android:id="@+id/btn_edit_project" />
 
     </LinearLayout>
 </RelativeLayout>
