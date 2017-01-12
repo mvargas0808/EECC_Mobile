@@ -21,10 +21,7 @@
         android:fitsSystemWindows="true"
         tools:context="com.itcr.eecc.eecc.Flexion">
 
-
-
         <HorizontalScrollView
-
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center">
@@ -34,76 +31,90 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             android:gravity="center"
-            android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
                 android:paddingLeft="15dp"
+                android:layout_marginLeft="15dp"
                 android:paddingRight="15dp">
 
 
-            <GridLayout
-                android:rowCount="6"
+                <GridLayout
+                android:rowCount="7"
                 android:columnCount="5"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#009284"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp">
+                android:gravity="center">
 
                 <TextView android:text="Índice de Armado Transversal"
-                    android:layout_rowSpan="3"
+                    android:layout_rowSpan="4"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
-                    android:layout_width="98dp"
-                    android:layout_height="73dp" />
+                    android:layout_width="100dp"
+                    android:layout_height="121dp" />
 
-                <TextView android:text="Diámetro principal del armado"
+                <TextView android:text="η = Índice de Desprendimiento"
                     android:layout_columnSpan="4"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_width="399dp" />
 
-                <ImageView
-                    android:src="@drawable/iat_1"
-                    android:layout_height="wrap_content"
+                <TextView android:text="η &gt;= 0.75"
                     android:layout_columnSpan="2"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_width="199dp" />
-
-                <ImageView
-                    android:src="@drawable/iat_2"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:layout_height="32dp"
                     android:layout_width="198dp" />
 
-                <TextView android:text="Alta cuantía"
-                    android:layout_width="98dp"
+                <TextView android:text="η &lt; 0.75"
+                    android:layout_columnSpan="2"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
-                    android:layout_height="32dp" />
+                    android:layout_height="32dp"
+                    android:layout_width="198dp" />
 
-                <TextView android:text="Baja cuantía"
+                <TextView android:text="Espaciado"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:layout_height="32dp"
+                    android:layout_width="198dp" />
+
+                <TextView android:text="Espaciado"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:layout_height="32dp"
+                    android:layout_width="198dp" />
+
+                <TextView android:text="&gt; 5ϕ"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="32dp"
                     android:layout_width="98dp" />
 
-                <TextView android:text="Alta cuantía"
+                <TextView android:text="&lt; 5ϕ"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
                     android:layout_height="32dp"
                     android:layout_width="98dp" />
 
-                <TextView android:text="Baja cuantía"
+                <TextView android:text="&gt; 5ϕ"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:layout_height="32dp"
+                    android:layout_width="98dp" />
+
+                <TextView android:text="&lt; 5ϕ"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
@@ -114,8 +125,8 @@
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
-                    android:layout_width="98dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_width="100dp" />
 
                 <TextView android:text="I"
                     android:background="#FFFF"
@@ -126,7 +137,7 @@
                     android:id="@+id/iat11"
                     android:layout_width="98dp" />
 
-                <TextView android:text="II"
+                <TextView android:text="I"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
@@ -157,8 +168,8 @@
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
-                    android:layout_width="98dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_width="100dp" />
 
                 <TextView android:text="II"
                     android:background="#FFFF"
@@ -169,7 +180,7 @@
                     android:id="@+id/iat21"
                     android:layout_width="98dp" />
 
-                <TextView android:text="III"
+                <TextView android:text="II"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
@@ -181,11 +192,11 @@
                 <TextView android:text="III"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="50dp"
                     android:gravity="center"
                     android:onClick="setTransverse"
                     android:id="@+id/iat23"
-                    android:layout_width="98dp" />
+                    android:layout_width="98dp"
+                    android:layout_height="50dp" />
 
                 <TextView android:text="IV"
                     android:background="#FFFF"
@@ -200,8 +211,8 @@
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_height="50dp"
-                    android:layout_width="98dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_width="100dp" />
 
                 <TextView android:text="III"
                     android:background="#FFFF"
@@ -243,10 +254,10 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_gravity="center"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                android:layout_marginTop="70dp"
+                android:gravity="center"
+                android:layout_gravity="center">
 
                 <Button
                     android:text="@string/button_cancel"
@@ -265,13 +276,13 @@
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonTransverse"
-                    android:layout_marginTop="60dp"
-                    android:onClick="setStructuralIndex"
-                    android:layout_marginStart="16dp"
                     android:layout_below="@+id/transverseIndex"
-                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="41dp"
+                    android:onClick="setStructuralIndex"
                     android:background="@color/colorPrimaryDark"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                     android:layout_width="64dp"
@@ -279,8 +290,7 @@
                     android:id="@+id/transverseIndex"
                     android:layout_marginStart="25dp"
                     android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/buttonCancel"
-                    android:layout_marginTop="20dp" />
+                    android:layout_alignStart="@+id/buttonCancel" />
 
                 <TextView
                     android:text="Índice Armado Transversal"
@@ -288,9 +298,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_toStartOf="@+id/buttonCancel"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginTop="20dp" />
-
+                    android:layout_marginEnd="19dp" />
             </RelativeLayout>
 
     </LinearLayout>
@@ -322,4 +330,4 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer" />
-</android.support.v4.widget.DrawerLayout>
+    </android.support.v4.widget.DrawerLayout>

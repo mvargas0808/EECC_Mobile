@@ -106,6 +106,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
         JSONObject obj = new JSONObject();
         try {
             obj.put("activityType",pActivityType);
+            obj.put("evaluationId", evaluationId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

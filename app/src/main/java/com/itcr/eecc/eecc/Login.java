@@ -45,10 +45,10 @@ public class Login extends Activity implements OnClickListener {
     JSONParser jsonParser = new JSONParser();
 
     //Michael
-    //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+    private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
 
     //William
-    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
 
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -97,7 +97,10 @@ public class Login extends Activity implements OnClickListener {
                         }
 
                     } else {
+
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), Projects.class);
+                        startActivity(i);
                     }
 
 
@@ -112,7 +115,7 @@ public class Login extends Activity implements OnClickListener {
 
 
     }
-
+    // returns if the device has a connection to internet
     protected boolean getConectionState(){
         boolean connected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
