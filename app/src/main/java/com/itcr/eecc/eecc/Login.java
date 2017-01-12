@@ -47,10 +47,10 @@ public class Login extends Activity implements OnClickListener {
     JSONParser jsonParser = new JSONParser();
 
     //Michael
-    //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+    private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
 
     //William
-    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
 
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -93,16 +93,11 @@ public class Login extends Activity implements OnClickListener {
                         else {
                             Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
 
-                            //Intent i = new Intent(appContext, ProjectForm.class);
-                            //Intent i = new Intent(getApplicationContext(), ProjectForm.class);
-                            //startActivity(i);
                         }
 
                     } else {
 
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), Report.class);
-                        startActivity(i);
                     }
 
 
@@ -173,23 +168,29 @@ public class Login extends Activity implements OnClickListener {
                 if(json != null){
                     JSONArray result = (JSONArray)json.get("result");
                     Log.d("Lenght", ""+result.length());
-                    Log.d("JSON:", result.get(0).toString());
-                    String Name, LastName, Email;
-                    Name = ((JSONObject)result.get(0)).get("Name").toString();
-                    LastName = ((JSONObject)result.get(0)).get("Lastname").toString();
-                    Email = ((JSONObject)result.get(0)).get("Email").toString();
-                    mTextView.setText("Email: - " + Email);
-                    int response = createUser(Name, LastName, Email);
+                    if(result.length()!=0){
+                        Log.d("JSON:", result.get(0).toString());
+                        String Name, LastName, Email;
+                        Name = ((JSONObject)result.get(0)).get("Name").toString();
+                        LastName = ((JSONObject)result.get(0)).get("Lastname").toString();
+                        Email = ((JSONObject)result.get(0)).get("Email").toString();
+                        mTextView.setText("Email: - " + Email);
+                        int response = createUser(Name, LastName, Email);
 
-                    if(response == 1){
-                        Methods.changeScreen(appContext,Projects.class);
-                        Toast.makeText(getApplicationContext(),"Todo fue un éxito ", Toast.LENGTH_LONG).show();
-                        finish();
+                        if(response == 1){
+                            Methods.changeScreen(appContext,Projects.class);
+                            Toast.makeText(getApplicationContext(),"Todo fue un éxito ", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
+                        }
 
                     }
                     else{
                         Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
                     Toast.makeText(Login.this, Constants.ERROR_LOGGING_CONNECTION,Toast.LENGTH_SHORT).show();
                 }

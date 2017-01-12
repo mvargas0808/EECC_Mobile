@@ -292,7 +292,7 @@ public class DataBaseManager {
         + " INNER JOIN districts dis ON proj.DistrictId = dis.DistrictId"
         + " INNER JOIN cantons can ON dis.CantonId = can.CantonId"
         + " INNER JOIN provinces prov ON can.ProvinceId = prov.ProvinceId"
-        + " INNER JOIN users us ON proj.UserId = us.UserId AND us.Enabled = 1"
+        + " INNER JOIN users us ON proj.UserEmail = us.Email AND us.Enabled = 1"
         + " WHERE proj.ProjectId = '"+projectId+"'", null);
         if (cursor.moveToFirst()) {
             return cursor;
