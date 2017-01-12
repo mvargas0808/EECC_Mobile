@@ -101,6 +101,7 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
             case R.id.buttonLongitudinal:
                 if(!longitudinalValues.isEmpty()){
                     nextSubEvaluation(Flexocompresion.class, "M_Flexocompresion_Second");
+                    finish();
                 } else {
                     Toast.makeText(Flexocompresion.this,"Debe seleccionar el Índice de Armado Longitudinal",Toast.LENGTH_LONG).show();
                 }
