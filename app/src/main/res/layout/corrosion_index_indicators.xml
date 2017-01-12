@@ -24,10 +24,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize"
         android:weightSum="1">
 
         <TextView
-            android:text="Índicadores de Corrosion"
+            android:text="Indicadores de Corrosión"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

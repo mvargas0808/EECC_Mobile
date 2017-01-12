@@ -1012,6 +1012,7 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
                                 Toast.makeText(appContext, Constants.SUCCESS_INSERT_EVALUATION, Toast.LENGTH_LONG).show();
                                 String jsonString = "{'evaluationId':"+evaluationId+"}";
                                 Methods.changeScreenAndSendJson(appContext,EvaluationMenu.class,"json",new JSONObject(jsonString));
+                                finish();
                             } else {
                                 Toast.makeText(appContext, Constants.ERROR_INSERT_EVALUATION, Toast.LENGTH_LONG).show();
                             }
@@ -1035,6 +1036,7 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
                                 Toast.makeText(appContext, Constants.SUCCESS_UPDATE_EVALUATION, Toast.LENGTH_LONG).show();
                                 String jsonString = "{'evaluationId':"+evaluationId+"}";
                                 Methods.changeScreenAndSendJson(appContext,EvaluationMenu.class,"json",new JSONObject(jsonString));
+                                finish();
                             } else {
                                 Toast.makeText(appContext, Constants.ERROR_UPDATE_EVALUATION, Toast.LENGTH_LONG).show();
                             }
@@ -1056,7 +1058,7 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
                     manager.closeConnection();
 
                 } else {
-                    Toast.makeText(appContext, "No se obtuvo EvaluationID del menú de evaluaciones", Toast.LENGTH_LONG).show();
+                    Toast.makeText(appContext, Constants.ERROR_EVALUATIONID_FROM_EVA_MENU, Toast.LENGTH_LONG).show();
                 }
 
 

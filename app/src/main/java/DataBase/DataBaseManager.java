@@ -9,7 +9,9 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -263,6 +265,210 @@ public class DataBaseManager {
 
 
 
+     /*
+    *           Corrosion Index
+    *
+    */
+
+
+    public long getIAAInformationId(int pIAA_Row){
+        //SELECT IAAInformationId FROM iaainformation WHERE Row = P_IAA_Row AND Enabled = 1 LIMIT 1
+        Cursor cursor = db.rawQuery("SELECT IAAInformationId FROM iaainformation WHERE Row = '"+pIAA_Row+"' AND Enabled = 1 LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            long IAAInformationId = Long.parseLong(cursor.getString(cursor.getColumnIndex("IAAInformationId")));
+            return IAAInformationId;
+        }
+        return -1;
+
+    }
+
+    public long insertCorrosionIndex(String pEvaluationId, double pIDC, double pIAA, double pISC, long pIAAInformationId){
+
+        //INSERT INTO corrosiondamageindexes
+        // (IDC, IAA, ISC, Enabled, IAAIndicatorId,EvaluationId)
+        // VALUES (
+        // P_IDC, P_IAA, P_ISC, 1, V_IAAInformationId, P_EvaluationId);
+
+        ContentValues values = new ContentValues();
+        values.put("IDC", pIDC);
+        values.put("IAA", pIAA);
+        values.put("ISC", pISC);
+        values.put("Enabled", 1);
+        values.put("IAAIndicatorId", pIAAInformationId);
+        values.put("EvaluationId", pEvaluationId);
+
+        long value = db.insert("corrosiondamageindexes", null, values);
+        return value;
+    }
+
+    public long getIndicatorNameId(int pIndicatorRow, int pIndicatorCol){
+        // SELECT IndicatorNameId FROM indicatornames WHERE Row = P_IndicatorRow AND Col = P_IndicatorColumn AND Enabled = 1 LIMIT 1
+
+        Cursor cursor = db.rawQuery("SELECT IndicatorNameId FROM indicatornames WHERE Row = '"+pIndicatorRow+"' AND Col = '"+pIndicatorCol+"' AND Enabled = 1 LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            long IndicatorNameId = Long.parseLong(cursor.getString(cursor.getColumnIndex("IndicatorNameId")));
+            return IndicatorNameId;
+        }
+        return -1;
+
+    }
+
+    public long saveIndicatorValue(long pCorrosionIndexId, int pIndicatorValue, long pIndicatorNameId){
+
+        //INSERT INTO idcindicators
+        // (IndicatorNameId, CorrosionDamageIndexId, Value, Enabled)
+        // VALUES
+        // (V_IndicatorNameId, P_CorrosionIndexId, P_IndicatorValue,1);
+
+        ContentValues values = new ContentValues();
+        values.put("IndicatorNameId", pIndicatorNameId);
+        values.put("CorrosionDamageIndexId", pCorrosionIndexId);
+        values.put("Value", pIndicatorValue);
+        values.put("Enabled", 1);
+
+        long value = db.insert("idcindicators", null, values);
+        return value;
+    }
+
+    public JSONObject loadCorrosionIndexValues(String pEvaluationId){
+
+        //SELECT  CDI.CorrosionDamageIndexId AS "corrosionId", CDI.IDC, CDI.IAA, CDI.ISC, IAAInfo.Row AS "IAA_Row" FROM corrosiondamageindexes CDI INNER JOIN iaainformation IAAInfo ON IAAInfo.IAAInformationId = CDI.IAAIndicatorId WHERE CDI.EvaluationId = '"+pEvaluationId+"' AND CDI.Enabled = 1 LIMIT 1
+
+        JSONObject jsonResult = null;
+
+        Cursor cursor = db.rawQuery("SELECT  CDI.CorrosionDamageIndexId AS \"corrosionId\", CDI.IDC, CDI.IAA, CDI.ISC, IAAInfo.Row AS \"IAA_Row\" FROM corrosiondamageindexes CDI INNER JOIN iaainformation IAAInfo ON IAAInfo.IAAInformationId = CDI.IAAIndicatorId WHERE CDI.EvaluationId = '"+pEvaluationId+"' AND CDI.Enabled = 1 LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+
+            try {
+
+                long corrosionId = Long.parseLong(cursor.getString(cursor.getColumnIndex("corrosionId")));
+                double IDC = Double.parseDouble(cursor.getString(cursor.getColumnIndex("IDC")));
+                double ISC = Double.parseDouble(cursor.getString(cursor.getColumnIndex("ISC")));
+                double IAA = Double.parseDouble(cursor.getString(cursor.getColumnIndex("ISC")));
+                int IAA_Row = Integer.parseInt(cursor.getString(cursor.getColumnIndex("IAA_Row")));
+
+                String jsonString = "{'corrosionId':"+corrosionId+", 'IDC':"+IDC+", 'ISC':"+ISC+", 'IAA':"+IAA+", 'IAA_Row':"+IAA_Row+"}";
+                jsonResult = new JSONObject(jsonString);
+
+                return jsonResult;
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<String> getCorrosionIndicatorsValues(long pCorrosionIndexId){
+
+        // SELECT IDC.Value, IndNames.Row, IndNames.Col FROM idcindicators IDC INNER JOIN indicatornames IndNames ON IndNames.IndicatorNameId = IDC.IndicatorNameId WHERE IDC.CorrosionDamageIndexId = P_CorrosionIndexId AND  IDC.Enabled = 1;
+
+        ArrayList<String> indicators = new ArrayList<>();
+
+
+        Cursor cursor = db.rawQuery("SELECT IDC.Value, IndNames.Row, IndNames.Col FROM idcindicators IDC INNER JOIN indicatornames IndNames ON IndNames.IndicatorNameId = IDC.IndicatorNameId WHERE IDC.CorrosionDamageIndexId = '"+pCorrosionIndexId+"' AND  IDC.Enabled = 1", null);
+        if (cursor.moveToFirst()) {
+
+            do {
+                int value = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Value")));
+                int column = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Col")));
+                int row = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Row")));
+
+                String indicatorName = getIndicatorName(row);
+
+                String jsonString = "{'value':"+value+", 'column':"+column+", 'row':"+row+", 'indicatorName':'"+indicatorName+"'}";
+
+                indicators.add(jsonString);
+            } while(cursor.moveToNext());
+
+        }
+        return indicators;
+
+    }
+
+    public String getIndicatorName(int pRow){
+
+        String indicatorName = "";
+
+        switch (pRow){
+            case 1:
+                indicatorName = "carbonationDepth";
+                break;
+            case 2:
+                indicatorName = "chlorideLevel";
+                break;
+            case 3:
+                indicatorName = "cracking";
+                break;
+            case 4:
+                indicatorName = "resistivity";
+                break;
+            case 5:
+                indicatorName = "sectionLoss";
+                break;
+            case 6:
+                indicatorName = "intensity";
+                break;
+
+            default:
+                indicatorName = "";
+                break;
+        }
+
+        return indicatorName;
+    }
+
+    public long getCorrosionIndexId(String pEvaluationId){
+        //SELECT CorrosionDamageIndexId FROM corrosiondamageindexes WHERE EvaluationId = 1 AND Enabled = 1 LIMIT 1
+
+        Cursor cursor = db.rawQuery("SELECT CorrosionDamageIndexId FROM corrosiondamageindexes WHERE EvaluationId = '"+pEvaluationId+"' AND Enabled = 1 LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            long CorrosionDamageIndexId = Long.parseLong(cursor.getString(cursor.getColumnIndex("CorrosionDamageIndexId")));
+            return CorrosionDamageIndexId;
+        }
+        return -1;
+    }
+
+    public long updateCorrosionIndex(long pCorrosionIndexId, double pIDC, double pIAA, double pISC, long pIAAInformationId){
+
+        //UPDATE corrosiondamageindexes
+        //SET
+        //        IDC = P_IDC,
+        //        IAA = P_IAA,
+        //        ISC = P_ISC,
+        //        IAAIndicatorId = V_IAAInformationId
+        //WHERE
+        //        CorrosionDamageIndexId = P_CorrosionIndexId;
+
+        ContentValues values = new ContentValues();
+        values.put("IDC", pIDC);
+        values.put("IAA", pIAA);
+        values.put("ISC", pISC);
+        values.put("IAAIndicatorId", pIAAInformationId);
+
+        String whereCondition = "CorrosionDamageIndexId = '"+pCorrosionIndexId+"'";
+        String tableName = "corrosiondamageindexes";
+
+        long updateResult = db.update(tableName, values, whereCondition, null);
+
+        return updateResult;
+    }
+
+    public long disableIndicators(long pCorrosionIndexId){
+        //UPDATE idcindicators SET Enabled = 0 WHERE CorrosionDamageIndexId = P_CorrosionIndexId;
+
+        ContentValues values = new ContentValues();
+        values.put("Enabled", 0);
+
+        String whereCondition = "CorrosionDamageIndexId = '"+pCorrosionIndexId+"'";
+        String tableName = "idcindicators";
+
+        long updateResult = db.update(tableName, values, whereCondition, null);
+
+        return updateResult;
+
+    }
 
     /*
     *           Structural Damage Index

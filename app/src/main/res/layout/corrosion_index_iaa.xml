@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.itcr.eecc.eecc.CorrosionIndex">
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:weightSum="1">
+
+            <TextView
+                android:text="Índice de Agresividad Ambiental (IAA)"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="251dp">
+
+
+
+
+
+                <GridLayout
+                    android:rowCount="16"
+                    android:columnCount="3"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="380dp"
+                    android:layout_height="wrap_content"
+                    android:background="#009284"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="10dp"
+                    android:gravity="center">
+
+
+
+                    <TextView android:text="Designación"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Descripción del ambiente"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+
+                    <TextView android:text="1. Sin riesgo de corrosión"
+                        android:layout_columnSpan="3"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="380dp" />
+
+
+
+
+                    <!--          ROW     1     -->
+
+                    <TextView android:text="X0"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_11"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Para hormigones en masa, todos los ambientes excepto donde hay acciones de deshielo, abrasión o ataques químicos"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_12"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+
+
+                    <TextView android:text="2. Corrosión inducida por carbonatación"
+                        android:layout_columnSpan="3"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="380dp" />
+
+
+
+
+                    <!--          ROW     2     -->
+
+                    <TextView android:text="XC1"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_21"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Seco o permanentemente húmedo"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_22"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+
+                    <!--          ROW     3     -->
+
+                    <TextView android:text="XC2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_31"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Húmedo, raramente seco"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_32"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+                    <!--          ROW     4     -->
+
+                    <TextView android:text="XC3"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_41"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Humedad moderada"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_42"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+                    <!--          ROW     5     -->
+
+                    <TextView android:text="XC4"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_51"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Ciclos húmedos y secos"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_52"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+
+
+                    <TextView android:text="3. Corrosión inducida por cloruros de origen distinto del marino"
+                        android:layout_columnSpan="3"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="380dp" />
+
+
+
+                    <!--          ROW     6     -->
+
+                    <TextView android:text="XD1"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_61"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Moderadamente húmedo"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_62"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+                    <!--          ROW     7     -->
+
+                    <TextView android:text="XD2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_71"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Húmedo, raramente seco"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_72"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+                    <!--          ROW     8     -->
+
+                    <TextView android:text="XD3"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_81"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Ciclos húmedos y secos"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_82"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+
+                    <TextView android:text="4. Corrosión inducida por cloruros de origen marino."
+                        android:layout_columnSpan="3"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="380dp" />
+
+
+
+                    <!--          ROW     9     -->
+
+                    <TextView android:text="XS1"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_91"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent" />
+                    <TextView android:text="Exposición a la acción de la sal contenida en el aire pero no en contacto con el agua de mar"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_92"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+                    <!--          ROW     10     -->
+
+                    <TextView android:text="XS2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_101"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Permanentemente sumergidas"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_102"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+                    <!--          ROW     11     -->
+
+                    <TextView android:text="XS3"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_111"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="120dp" />
+                    <TextView android:text="Zonas expuestas a la acción de la marea o salpicaduras"
+                        android:layout_columnSpan="2"
+                        android:background="#FFFF"
+                        android:id="@+id/iaa_112"
+                        android:onClick="setIAA"
+                        android:layout_margin="1dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_width="260dp" />
+
+
+                </GridLayout>
+
+
+
+            </ScrollView>
+
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:text="Peso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ed_weight"
+                    android:editable="false"
+                    android:gravity="center" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:text="Clase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ed_class"
+                    android:editable="false"
+                    android:gravity="center" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:text="Explicación"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/ed_explanation"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_height="80dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="Evaluar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_calculateIC"
+                    android:onClick="evaluateIC"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <!--include android:id="@+id/toolbar" layout="@layout/toolbar" /-->
+
+        </android.support.design.widget.AppBarLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+
+
+
+
