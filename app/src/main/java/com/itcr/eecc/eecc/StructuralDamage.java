@@ -165,19 +165,19 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
 
                 manager.openConnection();
 
-                long structuralIndexId = manager.loadStructuralIndexToIDE(evaluationId);
-                long corrosionIndexId = manager.loadCorrosionIndexToIDE(evaluationId);
+                int structuralIndexValue = manager.loadStructuralIndexToIDE(evaluationId);
+                double corrosionIndexValue = manager.loadCorrosionIndexToIDE(evaluationId);
 
-                Toast.makeText(appContext, "IE: " + structuralIndexId + " IC: " + corrosionIndexId, Toast.LENGTH_LONG).show();
+                //Toast.makeText(appContext, "IE: " + structuralIndexValue + " IC: " + corrosionIndexValue, Toast.LENGTH_LONG).show();
 
                 manager.closeConnection();
 
-                if(structuralIndexId != -1){
-                    loadValueToTextView(Long.toString(structuralIndexId), "IE");
+                if(structuralIndexValue != -1){
+                    loadValueToTextView(Integer.toString(structuralIndexValue), "IE");
                 }
 
-                if (corrosionIndexId != -1){
-                    loadValueToTextView(Long.toString(corrosionIndexId), "IC");
+                if (corrosionIndexValue != -1){
+                    loadValueToTextView(Double.toString(corrosionIndexValue), "IC");
                 }
 
 
@@ -187,7 +187,7 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
 
 
         } else {
-            Toast.makeText(appContext, "No se obtuvo EvaluationID del menú de evaluaciones", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, Constants.ERROR_EVALUATIONID_FROM_EVA_MENU, Toast.LENGTH_LONG).show();
         }
     }
 

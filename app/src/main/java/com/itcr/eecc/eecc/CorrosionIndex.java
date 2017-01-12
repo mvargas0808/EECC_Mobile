@@ -504,7 +504,7 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
                 displayIDEValue(idcResult);
 
-                Toast.makeText(appContext, Constants.SUCCESS_IDC, Toast.LENGTH_LONG).show();
+                //Toast.makeText(appContext, Constants.SUCCESS_IDC, Toast.LENGTH_LONG).show();
 
 
             } catch (JSONException e) {

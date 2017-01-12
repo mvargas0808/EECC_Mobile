@@ -475,19 +475,19 @@ public class DataBaseManager {
     *
     */
 
-    public long loadStructuralIndexToIDE(String pEvaluationId){
+    public int loadStructuralIndexToIDE(String pEvaluationId){
         Cursor cursor = db.rawQuery("SELECT IE FROM structuralindexes WHERE EvaluationId = '"+ pEvaluationId +"' AND Enabled = 1 LIMIT 1", null);
         if (cursor.moveToFirst()) {
-            long ideInfoId = Long.parseLong(cursor.getString(cursor.getColumnIndex("IE")));
+            int ideInfoId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("IE")));
             return ideInfoId;
         }
         return -1;
     }
 
-    public long loadCorrosionIndexToIDE (String pEvaluationId){
+    public double loadCorrosionIndexToIDE (String pEvaluationId){
         Cursor cursor = db.rawQuery("SELECT ISC FROM corrosiondamageindexes WHERE EvaluationId = '"+ pEvaluationId +"' AND Enabled = 1 LIMIT 1", null);
         if (cursor.moveToFirst()) {
-            long ideInfoId = Long.parseLong(cursor.getString(cursor.getColumnIndex("ISC")));
+            double ideInfoId = Double.parseDouble(cursor.getString(cursor.getColumnIndex("ISC")));
             return ideInfoId;
         }
         return -1;
