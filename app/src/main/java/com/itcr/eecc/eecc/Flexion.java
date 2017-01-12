@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import Common.Methods;
+import DataBase.DataBaseManager;
 
 /**
  * Created by Michael on 09/01/2017.
@@ -32,6 +33,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
     private int structuralIndex;
     private Button buttonNext, buttonCancel;
     private String evaluationId;
+    DataBaseManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             default:
                 break;
         }
+
+        manager = new DataBaseManager(this);
 
         buttonCancel = (Button) findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(this);
@@ -108,6 +112,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         intent.putExtra("longitudinalValues", getLongitudinalValues());
         startActivity(intent);
+        finish();
     }
 
     // next to the corresponding SubEvaluation
@@ -277,11 +282,11 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.buttonTransverse:
                 if(!transverseValues.isEmpty()){
-                    longitudinalValues = getIntent().getIntegerArrayListExtra("longitudinalValues"); /*Cambiar a float*/
+                    longitudinalValues = getIntent().getIntegerArrayListExtra("longitudinalValues");
                     structuralIndex = Math.max(getLongitudinalValues().get(0), getTransverseValues().get(0));
 
                     Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
-                    finishCalculation();
+                    saveValidations();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Transversal",Toast.LENGTH_LONG).show();
                 }
@@ -291,7 +296,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
                     structuralIndex = simplifiedValues.get(0);
 
                     Toast.makeText(Flexion.this,"El Índice Estructural es: "+structuralIndex,Toast.LENGTH_LONG).show();
-                    finishCalculation();
+                    saveValidationsSimplified();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Evaluación Simplificada",Toast.LENGTH_LONG).show();
                 }
@@ -301,6 +306,76 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         }
     }
 
+    // save the structural index by manual into the database
+    public void saveStructuralIndex(){
+        manager.openConnection();
+        long value = manager.saveStructuralIndex(
+                structuralIndex,
+                longitudinalValues.get(0), longitudinalValues.get(1), longitudinalValues.get(2),
+                transverseValues.get(0), transverseValues.get(1), transverseValues.get(2),
+                "Flexión", Long.parseLong(evaluationId));
+        if(value == -1){
+            Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
+            finishCalculation();
+            finish();
+        }
+        manager.closeConnection();
+    }
+
+    // save the structural index by simplified into the database
+    public void saveStructuralIndexSimplified(){
+        manager.openConnection();
+        long value = manager.saveStructuralIndexSimplified(
+                structuralIndex, simplifiedValues.get(0), simplifiedValues.get(1), simplifiedValues.get(2),
+                "Flexión", Long.parseLong(evaluationId));
+        if(value == -1){
+            Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
+            finishCalculation();
+            finish();
+        }
+        manager.closeConnection();
+    }
+
+    // validates if there is a previous structural index
+    public void saveValidations(){
+        manager.openConnection();
+        long value = manager.validatePreviousStructuralIndex(Long.parseLong(evaluationId));
+        if(value == 0){
+            saveStructuralIndex();
+        } else {
+            value = manager.disablePreviousStructuralIndex(Long.parseLong(evaluationId));
+            if(value == 1){
+                saveStructuralIndex();
+            } else {
+                Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+            }
+        }
+        manager.closeConnection();
+    }
+
+    // validates if there is a previous structural index
+    public void saveValidationsSimplified(){
+        manager.openConnection();
+        long value = manager.validatePreviousStructuralIndexSimplified(Long.parseLong(evaluationId));
+        if(value == 0){
+            saveStructuralIndexSimplified();
+        } else {
+            value = manager.disablePreviousStructuralIndexSimplified(Long.parseLong(evaluationId));
+            if(value == 1){
+                saveStructuralIndexSimplified();
+            } else {
+                Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
+            }
+        }
+        manager.closeConnection();
+    }
+
+
+    // finish the calculation and send the evaluationId to the others activities
     public void finishCalculation(){
         JSONObject obj = new JSONObject();
         try {
@@ -311,6 +386,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         Intent returnToMenu = new Intent(Flexion.this, EvaluationMenu.class);
         returnToMenu.putExtra("json", obj.toString());
         startActivity(returnToMenu);
+        finish();
     }
 
     public ArrayList<Integer> getLongitudinalValues() {

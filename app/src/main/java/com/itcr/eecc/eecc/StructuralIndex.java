@@ -111,6 +111,7 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(StructuralIndex.this, pClass);
         intent.putExtra(pMessageKey, pJsonMessageValue.toString());
         startActivity(intent);
+        finish();
     }
 
     // start the corresponding SubEvaluation

@@ -23,8 +23,9 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:gravity="center">
 
 
             <TextView
@@ -43,7 +44,7 @@
 
                 <ImageView
                     android:src="@drawable/ial_1"
-                    android:layout_height="35dp"
+                    android:layout_height="61dp"
                     android:layout_rowSpan="2"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
@@ -61,15 +62,15 @@
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_height="27dp"
-                    android:layout_width="76dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_width="98dp" />
 
                 <TextView android:text="λ &gt; 10"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:layout_width="76dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_width="98dp"
+                    android:layout_height="27dp" />
 
                 <TextView android:text="&gt; 8 "
                     android:layout_height="26dp"
@@ -82,19 +83,19 @@
                     android:layout_height="26dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_width="62dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/ial11" />
+                    android:id="@+id/ial11"
+                    android:layout_width="98dp" />
 
                 <TextView android:text="2"
                     android:layout_height="26dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_width="62dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/ial12" />
+                    android:id="@+id/ial12"
+                    android:layout_width="98dp" />
 
                 <TextView android:text="&lt;= 8 "
                     android:layout_height="26dp"
@@ -107,19 +108,19 @@
                     android:layout_height="26dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_width="62dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/ial21" />
+                    android:id="@+id/ial21"
+                    android:layout_width="98dp" />
 
                 <TextView android:text="3"
                     android:layout_height="26dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_width="62dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/ial22" />
+                    android:id="@+id/ial22"
+                    android:layout_width="98dp" />
 
             </GridLayout>
 
@@ -164,8 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/buttonCancel"
-                    android:layout_marginEnd="19dp" />
+                    android:layout_toStartOf="@+id/buttonCancel" />
 
             </RelativeLayout>
 

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -94,7 +95,7 @@ public class DataBaseManager {
     public static final String CREATE_TABLE_STRUCTURETYPES = "CREATE TABLE StructureTypes (StructureTypeId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR(40) NOT NULL, Enabled BIT NOT NULL);";
 
     // Table: tokens
-    public static final String CREATE_TABLE_TOKENS = "CREATE TABLE Tokens (TokenId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Token VARCHAR(50) NOT NULL, Enabled BIT NOT NULL);";
+    public static final String CREATE_TABLE_TOKENS = "CREATE TABLE Tokens (TokenId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Token VARCHAR(50) NOT NULL, UserEmail VARCHAR (60) NOT NULL, Enabled BIT NOT NULL);";
 
     // Table: users
     public static final String CREATE_TABLE_USERS = "CREATE TABLE Users (UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (50) NOT NULL, Lastname VARCHAR (50) NOT NULL, Email VARCHAR (60) NOT NULL, LoginDate DATE NOT NULL, Enabled BIT NOT NULL);";
@@ -127,6 +128,12 @@ public class DataBaseManager {
     public Cursor getProjectList(){
         openConnection();
         Cursor cursor = db.rawQuery("SELECT * FROM Projects WHERE UserEmail = '"+getUserEmail().toString()+"' AND Enabled = '1'", null);
+        return cursor;
+    }
+
+    public Cursor getTokenList(){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT * FROM Tokens WHERE UserEmail = '"+getUserEmail().toString()+"' AND Enabled = '1'", null);
         return cursor;
     }
 
@@ -215,6 +222,7 @@ public class DataBaseManager {
         if(tokenId.equals("-1")){
             ContentValues values = new ContentValues();
             values.put("Token", token);
+            values.put("UserEmail", getUserEmail());
             values.put("Enabled", 1);
             long tokenResultId = db.insert("Tokens", null, values);
             long evaluationId = createEvaluationToken(String.valueOf(tokenResultId));
@@ -251,9 +259,236 @@ public class DataBaseManager {
         }
     }
 
+    public int getIATInformationId(int pRow, int pColumn, String pElementType){
+        Cursor cursor = db.rawQuery("SELECT IATInformationId FROM iatinformation WHERE Row = "+pRow+" AND Col = "+pColumn+" AND ElementType = '"+pElementType+"' AND Enabled = 1 LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("IATInformationId"));
+        } else {
+            return -1;
+        }
+    }
+
+    public int getIALInformationId(int pRow, int pColumn, String pElementType){
+        Cursor cursor = db.rawQuery("SELECT IALInformationId FROM ialinformation WHERE Row = "+pRow+" AND Col = "+pColumn+" AND ElementType = '"+pElementType+"' AND Enabled = 1 LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("IALInformationId"));
+        } else {
+            return -1;
+        }
+    }
+
+    public int getESInformationId(int pRow, int pColumn, String pElementType){
+        Cursor cursor = db.rawQuery("SELECT ESInformationId FROM esinformation WHERE Row = "+pRow+" AND Col = "+pColumn+" AND ElementType = '"+pElementType+"' AND Enabled = 1 LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("ESInformationId"));
+        } else {
+            return -1;
+        }
+    }
+
+    public int getStructuralIndexIdCount(long pEvaluationId){
+        Cursor cursor = db.rawQuery("SELECT COUNT(StructuralIndexId) as IndexCount FROM structuralindexes WHERE EvaluationId = "+pEvaluationId+" AND Enabled = 1 LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("IndexCount"));
+        } else {
+            return -1;
+        }
+    }
+
+    public long getStructuralIndexId(long pEvaluationId){
+        Cursor cursor = db.rawQuery("SELECT StructuralIndexId FROM structuralindexes WHERE EvaluationId = "+pEvaluationId+" AND Enabled = 1 LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getLong(cursor.getColumnIndex("StructuralIndexId"));
+        } else {
+            return -1;
+        }
+    }
+
+    public int saveStructuralIndex(float pStructuralIndex,
+        int pTransverseIndex,
+        int pTransverseRow,
+        int pTransverseColumn,
+        int pLongitudinalIndex,
+        int pLongitudinalRow,
+        int pLongitudinalColumn,
+        String pElementType,
+        long pEvaluationId){
+
+        int indexCount = getStructuralIndexIdCount(pEvaluationId);
+        int IATInformationId = getIATInformationId(pTransverseRow,pTransverseColumn,pElementType);
+        int IALInformationId = getIALInformationId(pLongitudinalRow,pLongitudinalColumn,pElementType);
+        long structuralIndexId;
+        ContentValues structuralIndexValues = new ContentValues();
+        ContentValues iatValues = new ContentValues();
+        ContentValues ialValues = new ContentValues();
+        long value;
+        if(indexCount==0){
+            structuralIndexValues.put("IE", pStructuralIndex);
+            structuralIndexValues.put("Enabled", 1);
+            structuralIndexValues.put("EvaluationType" , 1);
+            structuralIndexValues.put("EvaluationId", pEvaluationId);
+            value = db.insert("structuralindexes", null, structuralIndexValues);
+            if(value==-1){
+                return -1;
+            }
+            structuralIndexId = value;
+        } else {
+            structuralIndexId = getStructuralIndexId(pEvaluationId);
+            ContentValues updateValues = new ContentValues();
+            updateValues.put("IE", pStructuralIndex);
+            updateValues.put("EvaluationType", 1);
+
+            value = db.update("structuralindexes", updateValues,"EvaluationId = "+pEvaluationId+" AND StructuralIndexId = "+structuralIndexId+" AND Enabled = 1", null);
+            if(value==-1){
+                return -1;
+            }
+        }
+
+        iatValues.put("IATInformationId",IATInformationId);
+        iatValues.put("StructuralIndexId",structuralIndexId);
+        iatValues.put("IAT",pTransverseIndex);
+        iatValues.put("Enabled",1);
+        value = db.insert("iat", null, iatValues);
+        if(value==-1){
+            return -1;
+        }
+
+        ialValues.put("IALInformationId",IALInformationId);
+        ialValues.put("StructuralIndexId",structuralIndexId);
+        ialValues.put("IAL",pLongitudinalIndex);
+        ialValues.put("Enabled",1);
+        value = db.insert("ial", null, ialValues);
+        if(value==-1){
+            return -1;
+        }
+        return 1;
+    }
+
+    public int saveStructuralIndexSimplified(float pStructuralIndex,
+                                             int pSimplifiedIndex,
+                                             int pSimplifiedRow,
+                                             int pSimplifiedColumn,
+                                             String pElementType,
+                                             long pEvaluationId){
+
+        int indexCount = getStructuralIndexIdCount(pEvaluationId);
+        int ESInformationId = getESInformationId(pSimplifiedRow,pSimplifiedColumn,pElementType);
+        long structuralIndexId;
+        ContentValues structuralIndexValues = new ContentValues();
+        ContentValues esValues = new ContentValues();
+        long value;
+        if(indexCount==0){
+            structuralIndexValues.put("IE", pStructuralIndex);
+            structuralIndexValues.put("Enabled", 1);
+            structuralIndexValues.put("EvaluationType" , 0);
+            structuralIndexValues.put("EvaluationId", pEvaluationId);
+            value = db.insert("structuralindexes", null, structuralIndexValues);
+            if(value==-1){
+                return -1;
+            }
+            structuralIndexId = value;
+        } else {
+            structuralIndexId = getStructuralIndexId(pEvaluationId);
+            ContentValues updateValues = new ContentValues();
+            updateValues.put("IE", pStructuralIndex);
+            updateValues.put("EvaluationType", 0);
+
+            value = db.update("structuralindexes",updateValues, "EvaluationId = "+pEvaluationId+" AND StructuralIndexId = "+structuralIndexId+" AND Enabled = 1",null);
+            if(value==-1){
+                return -1;
+            }
+        }
+
+        esValues.put("ESInformationId",ESInformationId);
+        esValues.put("StructuralIndexId",structuralIndexId);
+        esValues.put("ES",pSimplifiedIndex);
+        esValues.put("Enabled",1);
+        value = db.insert("es", null, esValues);
+        if(value==-1){
+            return -1;
+        }
+        return 1;
+    }
 
 
+    public long validatePreviousStructuralIndex(long pEvaluationId){
+        long structuralIndexId = getStructuralIndexId(pEvaluationId);
+        if(structuralIndexId == -1){
+            return 0;
+        }
+        Cursor cursor = db.rawQuery("SELECT iat_Table.IATInformationId, ial_Table.IALInformationId\n" +
+                "FROM structuralindexes SI\n" +
+                "INNER JOIN iat iat_Table \n" +
+                "ON iat_Table.StructuralIndexId = SI.StructuralIndexId\n" +
+                "INNER JOIN ial ial_Table \n" +
+                "ON ial_Table.StructuralIndexId = SI.StructuralIndexId\n" +
+                "WHERE \n" +
+                "SI.StructuralIndexId = "+structuralIndexId+" AND \n" +
+                "iat_Table.Enabled = 1 AND \n" +
+                "ial_Table.Enabled = 1 \n" +
+                "LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
+    public long disablePreviousStructuralIndex(long pEvaluationId){
+        long structuralIndexId = getStructuralIndexId(pEvaluationId);
+        long value;
+        if(structuralIndexId == -1){
+            return -1;
+        }
+        ContentValues updateValuesIAT = new ContentValues();
+        updateValuesIAT.put("Enabled", 0);
+        value = db.update("iat",updateValuesIAT,"StructuralIndexId = "+structuralIndexId+";",null);
+        if(value==-1){
+            return -1;
+        }
+        ContentValues updateValuesIAL = new ContentValues();
+        updateValuesIAL.put("Enabled", 0);
+        value = db.update("ial",updateValuesIAL,"StructuralIndexId = "+structuralIndexId+";",null);
+        if(value==-1){
+            return -1;
+        }
+        return 1;
+    }
+
+    public long validatePreviousStructuralIndexSimplified(long pEvaluationId){
+        long structuralIndexId = getStructuralIndexId(pEvaluationId);
+        if(structuralIndexId==-1){
+            return 0;
+        }
+        Cursor cursor = db.rawQuery("SELECT ES_Table.ESInformationId\n" +
+                "FROM structuralindexes SI\n" +
+                "INNER JOIN es ES_Table\n" +
+                "ON ES_Table.StructuralIndexId = SI.StructuralIndexId\n" +
+                "WHERE \n" +
+                "SI.StructuralIndexId = "+structuralIndexId+" AND \n" +
+                "ES_Table.Enabled = 1\n" +
+                "LIMIT 1;", null);
+        if (cursor.moveToFirst()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public long disablePreviousStructuralIndexSimplified(long pEvaluationId){
+        long structuralIndexId = getStructuralIndexId(pEvaluationId);
+        long value;
+        if(structuralIndexId == -1){
+            return -1;
+        }
+        ContentValues updateValues = new ContentValues();
+        updateValues.put("Enabled", 0);
+        value = db.update("es",updateValues,"StructuralIndexId = "+structuralIndexId+";",null);
+        if(value==-1){
+            return -1;
+        }
+        return 1;
+    }
 
 
 

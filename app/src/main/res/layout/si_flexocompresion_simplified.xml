@@ -19,225 +19,230 @@
         android:fitsSystemWindows="true"
         tools:context="com.itcr.eecc.eecc.StructuralIndex">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:text="Flexocompresion Simplified"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView5" />
-
-
-            <GridLayout
-                android:rowCount="5"
-                android:columnCount="5"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#009284"
-                android:gravity="center">
-
-                <TextView android:text="Índice de Armado Transversal"
-                    android:layout_rowSpan="3"
-                    android:layout_width="76dp"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="86dp" />
-
-                <TextView android:text="Dimensión mínima del pilar"
-                    android:layout_columnSpan="4"
-                    android:layout_width="137dp"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content" />
-
-                <TextView android:text="a &gt; 400 mm"
-                    android:layout_columnSpan="2"
-                    android:layout_width="137dp"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content" />
-
-                <TextView android:text="a &lt;= 400 mm"
-                    android:layout_columnSpan="2"
-                    android:layout_width="137dp"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content" />
-
-                <TextView android:text="Baja cuantía longitudinal"
-                    android:layout_width="67dp"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="32dp" />
-
-                <TextView android:text="Alta cuantía longitudinal"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="32dp"
-                    android:layout_width="67dp" />
-
-                <TextView android:text="Baja cuantía longitudinal"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="32dp"
-                    android:layout_width="67dp" />
-
-                <TextView android:text="Alta cuantía longitudinal"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:gravity="center"
-                    android:layout_height="32dp"
-                    android:layout_width="67dp" />
-
-                <TextView android:text="Alta densidad de cercos"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="31dp"
-                    android:gravity="center"
-                    android:layout_width="71dp" />
-
-                <TextView android:text="I"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:id="@+id/si11"
-                    android:layout_width="67dp" />
-
-                <TextView android:text="II"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:id="@+id/si12"
-                    android:layout_width="67dp" />
-
-
-                <TextView android:text="III"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:layout_width="67dp"
-                    android:id="@+id/si13" />
-
-                <TextView android:text="IV"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:id="@+id/si14"
-                    android:layout_width="67dp" />
-
-                <TextView android:text="Baja densidad de cercos"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:layout_width="77dp" />
-
-                <TextView android:text="II"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:layout_width="67dp"
-                    android:id="@+id/si21" />
-
-                <TextView android:text="III"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:layout_width="67dp"
-                    android:id="@+id/si22" />
-
-                <TextView android:text="IV"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:layout_width="67dp"
-                    android:id="@+id/si23" />
-
-                <TextView android:text="IV"
-                    android:background="#FFFF"
-                    android:layout_margin="1dp"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:onClick="setSimplified"
-                    android:layout_width="67dp"
-                    android:id="@+id/si24" />
-
-            </GridLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:text="@string/button_cancel"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/buttonCancel"
-                    android:layout_width="170dp"
-                    android:layout_alignBaseline="@+id/buttonSimplifiedCalc"
-                    android:layout_alignBottom="@+id/buttonSimplifiedCalc"
-                    android:layout_toEndOf="@+id/buttonSimplifiedCalc"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="@android:color/white"/>
-
-                <Button
-                    android:text="@string/button_evaluateIE"
-                    android:layout_below="@+id/simplifiedIndex"
-                    android:onClick="setStructuralIndex"
-                    android:id="@+id/buttonSimplifiedCalc"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="41dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="@android:color/white"/>
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="64dp"
-                    android:layout_height="26dp"
-                    android:id="@+id/simplifiedIndex"
-                    android:layout_marginStart="25dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/buttonCancel" />
+                    android:text="Flexocompresion Simplified"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView5" />
 
-                <TextView
-                    android:text="Índice Simplificado"
+
+                <GridLayout
+                    android:rowCount="5"
+                    android:columnCount="5"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/buttonCancel"
-                    android:layout_marginEnd="19dp" />
+                    android:background="#009284"
+                    android:gravity="center">
 
-            </RelativeLayout>
+                    <TextView android:text="Índice de Armado Transversal"
+                        android:layout_rowSpan="3"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="86dp"
+                        android:layout_width="152dp" />
+
+                    <TextView android:text="Dimensión mínima del pilar"
+                        android:layout_columnSpan="4"
+                        android:layout_width="137dp"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
+
+                    <TextView android:text="a &gt; 400 mm"
+                        android:layout_columnSpan="2"
+                        android:layout_width="137dp"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
+
+                    <TextView android:text="a &lt;= 400 mm"
+                        android:layout_columnSpan="2"
+                        android:layout_width="137dp"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
+
+                    <TextView android:text="Baja cuantía longitudinal"
+                        android:layout_width="67dp"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="32dp" />
+
+                    <TextView android:text="Alta cuantía longitudinal"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="32dp"
+                        android:layout_width="67dp" />
+
+                    <TextView android:text="Baja cuantía longitudinal"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="32dp"
+                        android:layout_width="67dp" />
+
+                    <TextView android:text="Alta cuantía longitudinal"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:layout_height="32dp"
+                        android:layout_width="67dp" />
+
+                    <TextView android:text="Alta densidad de cercos"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_width="152dp" />
+
+                    <TextView android:text="I"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:id="@+id/si11"
+                        android:layout_width="67dp" />
+
+                    <TextView android:text="II"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:id="@+id/si12"
+                        android:layout_width="67dp" />
 
 
-        </LinearLayout>
+                    <TextView android:text="III"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:layout_width="67dp"
+                        android:id="@+id/si13" />
+
+                    <TextView android:text="IV"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:id="@+id/si14"
+                        android:layout_width="67dp" />
+
+                    <TextView android:text="Baja densidad de cercos"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_width="wrap_content" />
+
+                    <TextView android:text="II"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:layout_width="67dp"
+                        android:id="@+id/si21" />
+
+                    <TextView android:text="III"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:layout_width="67dp"
+                        android:id="@+id/si22" />
+
+                    <TextView android:text="IV"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:layout_width="67dp"
+                        android:id="@+id/si23" />
+
+                    <TextView android:text="IV"
+                        android:background="#FFFF"
+                        android:layout_margin="1dp"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:onClick="setSimplified"
+                        android:layout_width="67dp"
+                        android:id="@+id/si24" />
+
+                </GridLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:text="@string/button_cancel"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buttonCancel"
+                        android:layout_width="170dp"
+                        android:layout_alignBaseline="@+id/buttonSimplifiedCalc"
+                        android:layout_alignBottom="@+id/buttonSimplifiedCalc"
+                        android:layout_toEndOf="@+id/buttonSimplifiedCalc"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@android:color/white"/>
+
+                    <Button
+                        android:text="@string/button_evaluateIE"
+                        android:layout_below="@+id/simplifiedIndex"
+                        android:onClick="setStructuralIndex"
+                        android:id="@+id/buttonSimplifiedCalc"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="41dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="26dp"
+                        android:id="@+id/simplifiedIndex"
+                        android:layout_marginStart="25dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignStart="@+id/buttonCancel" />
+
+                    <TextView
+                        android:text="Índice Simplificado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/buttonCancel"
+                        android:layout_marginEnd="19dp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
