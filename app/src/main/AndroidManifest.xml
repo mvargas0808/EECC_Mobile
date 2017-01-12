@@ -40,16 +40,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoadProject" />
         <activity android:name=".ProjectInformation" />
-        <activity android:name=".EditProject"></activity>
+        <activity android:name=".EditProject" />
         <activity
             android:name=".Flexion"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Flexocompresion"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Report"></activity>
     </application>
 
 </manifest>
