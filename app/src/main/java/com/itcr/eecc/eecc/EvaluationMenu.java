@@ -24,8 +24,8 @@ import Common.Methods;
 public class EvaluationMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
-    private String evaluationId;
 
+    String evaluationId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
 
         Intent intent = getIntent();
         JSONObject json = null;
+
         try {
             json = new JSONObject(intent.getStringExtra("json"));
             evaluationId =  json.get("evaluationId").toString();
@@ -76,14 +77,14 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonCDI:
-                startSubEvaluation(CorrosionIndex.class, "CII");
+                startSubEvaluation(CorrosionIndex.class, evaluationId);
                 break;
             case R.id.buttonSI:
                 startSubEvaluation(StructuralIndex.class, "EvaluationType");
                 break;
             case R.id.buttonSDI:
-                Intent sdi = new Intent(EvaluationMenu.this, Login.class);
-                startActivity(sdi);
+                //startSubEvaluation(StructuralDamage.class, "SDI");
+                startSubEvaluation(StructuralDamage.class, evaluationId);
                 break;
             case R.id.buttonReport:
                 Intent report = new Intent(EvaluationMenu.this, Login.class);

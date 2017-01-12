@@ -21,7 +21,10 @@
         android:fitsSystemWindows="true"
         tools:context="com.itcr.eecc.eecc.Flexion">
 
+
+
         <HorizontalScrollView
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center">

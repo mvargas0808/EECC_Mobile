@@ -20,44 +20,960 @@
         tools:context="com.itcr.eecc.eecc.CorrosionIndex">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:weightSum="1">
+
+        <TextView
+            android:text="Indicadores de Corrosión"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:textColor="?attr/editTextColor"
+            android:textStyle="normal|bold"
+            android:layout_marginLeft="4dp"/>
+
+
+        <!--                TABLA           -->
 
         <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="299dp">
+
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="299dp"
+            android:layout_weight="0.92">
 
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="1">
+
+
+
+
+
+
+
+            <GridLayout
+                android:rowCount="7"
+                android:columnCount="7"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#009284"
+
+                android:gravity="center">
+
+
+
+                <TextView android:text="Indicador"
+                    android:layout_columnSpan="2"
+                    android:layout_margin="1dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_width="105dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold" />
+                <TextView android:text="Nivel I"
+                    android:layout_margin="1dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:textStyle="normal|bold"
+                    android:textColor="@color/white" />
+                <TextView android:text="Nivel II"
+                    android:layout_margin="1dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:textStyle="normal|bold"
+                    android:textColor="@color/white" />
+                <TextView android:text="Nivel III"
+                    android:layout_margin="1dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold" />
+                <TextView android:text="Nivel IV"
+                    android:layout_margin="1dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold" />
+                <TextView
+                    android:text="Valor"
+                    android:layout_margin="1dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_width="50dp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold" />
+
+
+                <!--          ROW     1     -->
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="105dp"
+                    android:layout_columnSpan="2">
+
+                    <TextView
+                    android:text="Profundidad de carbonatación"
+                    android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_columnSpan="2"
+                         />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_prof_carb"
+                        android:scaleType="center"
+                        android:background="@color/colorPrimary"/>
+
+                    </LinearLayout>
+
+                <!--TextView
+                    android:text="Profundidad de carbonatación"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_columnSpan="2" /-->
+                <!--TextView
+                    android:text="Profundidad de carbonatación"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_prof_carb"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_11"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_11"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_11"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_11"/-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_12"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_12"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_12"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_12"/-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_13"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_13"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_13"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_13"/-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_14"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_14"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_14"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_14"/-->
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:id="@+id/iat1value"
+                    android:layout_width="50dp"
+                    android:layout_height="75dp" />
+
+
+                <!--          ROW     2     -->
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="105dp"
+                    android:layout_columnSpan="2">
+
+
+                    <TextView
+                        android:text="Nivel de cloruros"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic"
+                        android:layout_columnSpan="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_niv_clo"
+                        android:scaleType="center" />
+
+                </LinearLayout>
+
+
+                <!--TextView
+                    android:text="Nivel de cloruros"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="71dp" /-->
+                <!--TextView
+                    android:text="Nivel de cloruros"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_niv_clo"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_21"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_21"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_21"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_21"/-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_22"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_22"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_22"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_22"/-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_23"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_23"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_23"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_23"/-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_24"
+                        android:onClick="setIDC"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:id="@+id/idc_24"/>
+
+                </LinearLayout>
+                <!--ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/idc_24"
+                    android:onClick="setIDC"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    android:id="@+id/idc_24"/-->
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:id="@+id/iat2value"
+                    android:layout_width="50dp" />
+
+
+                <!--          ROW     3     -->
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="105dp"
+                    android:layout_columnSpan="2"
+                    android:layout_height="75dp">
+
+
+                    <TextView
+                        android:text="Fisuración por corrosión en el recubrimiento"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic"
+                        android:layout_columnSpan="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_fisu"
+                        android:scaleType="center" />
+
+                </LinearLayout>
+
+                <!--TextView
+                    android:text="Fisuración por corrosión en el recubrimiento"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/-->
+                <!--TextView
+                    android:text="Fisuración por corrosión en el recubrimiento"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_fisu"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Sin fisuras"
+                    android:id="@+id/idc_31"/>
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#FFFF"
+                        android:onClick="setIDC"
+                        android:text="Fisuras &lt; 0.3 mm"
+                        android:id="@+id/idc_32"
+                        android:gravity="center"
+
+                        />
+
+                </LinearLayout>
+                <!--TextView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Fisuras &lt; 0.3 mm"
+                    android:id="@+id/idc_32"/-->
+
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#FFFF"
+                        android:onClick="setIDC"
+                        android:text="Fisuras &gt; 0.3 mm"
+                        android:id="@+id/idc_33"
+                        android:gravity="center"
+
+                        />
+
+                </LinearLayout>
+                <!--TextView
+                    android:layout_width="71dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Fisuras &gt; 0.3 mm"
+                    android:id="@+id/idc_33"
+                    android:textSize="14sp" /-->
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#FFFF"
+                        android:onClick="setIDC"
+                        android:text="Fisuración generalizada y estallidos"
+                        android:gravity="center"
+                        android:id="@+id/idc_34"
+                        android:textSize="14sp"
+                        />
+
+                </LinearLayout>
+                <!--TextView
+                    android:layout_width="71dp"
+                    android:layout_height="85dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="Fisuración generalizada y estallidos"
+                    android:id="@+id/idc_34"
+                    android:textSize="12sp"
+                    android:gravity="center" /-->
 
                 <TextView
-                    android:text="Índicadores de Corrosion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="103dp"
-                    android:layout_weight="0.43" />
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:id="@+id/iat3value"
+                    android:layout_width="50dp" />
 
-                <Button
-                    android:text="Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/prueba"
-                    android:layout_below="@+id/textView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="81dp" />
-            </LinearLayout>
+
+
+                <!--          ROW     4     -->
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="105dp"
+                    android:layout_columnSpan="2">
+
+
+                    <TextView
+                        android:text="Resistividad"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic"
+                        android:layout_columnSpan="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_resisti"
+                        android:scaleType="center" />
+
+                </LinearLayout>
+
+                <!--TextView
+                    android:text="Resistividad"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/-->
+                <!--TextView
+                    android:text="Resistividad"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_resisti"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="&gt; 1000"
+                    android:id="@+id/idc_41"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="500 - 1000"
+                    android:id="@+id/idc_42"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="100 - 500"
+                    android:id="@+id/idc_43"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="&lt; 100"
+                    android:id="@+id/idc_44"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:id="@+id/iat4value"
+                    android:layout_width="50dp" />
+
+
+
+
+
+
+                <!--          ROW     5     -->
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="105dp"
+                    android:layout_columnSpan="2">
+
+
+                    <TextView
+                        android:text="Pérdida sección"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic"
+                        android:layout_columnSpan="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_perdida"
+                        android:scaleType="center" />
+
+                </LinearLayout>
+
+                <!--TextView
+                    android:text="Pérdida sección"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/-->
+                <!--TextView
+                    android:text="Pérdida sección"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_perdida"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="&lt; 1 %"
+                    android:id="@+id/idc_51"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="1 - 5 %"
+                    android:id="@+id/idc_52"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="5 - 10 %"
+                    android:id="@+id/idc_53"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text=" &gt; 10 %"
+                    android:id="@+id/idc_54"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:id="@+id/iat5value"
+                    android:layout_width="50dp" />
+
+
+
+                <!--          ROW     6     -->
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="105dp"
+                    android:layout_columnSpan="2">
+
+
+                    <TextView
+                        android:text="Intensidad de corrosión"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|italic"
+                        android:layout_columnSpan="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="wrap_content" />
+
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:src="@drawable/idc_intensity"
+                        android:scaleType="center"
+                        android:layout_width="fill_parent"/>
+
+                </LinearLayout>
+
+                <!--TextView
+                    android:text="Intensidad de corrosión"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/-->
+                <!--TextView
+                    android:text="Intensidad de corrosión"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_intensity"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="&lt; 0.1"
+                    android:id="@+id/idc_61"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="0.1 - 0.5"
+                    android:id="@+id/idc_62"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="0.5 - 1"
+                    android:id="@+id/idc_63"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="#FFFF"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="&gt; 1"
+                    android:id="@+id/idc_64"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:id="@+id/iat6value"
+                    android:layout_width="50dp" />
+
+
+            </GridLayout>
+
+
+
+
+
+
+
+
+
+
+        </ScrollView>
+
         </HorizontalScrollView>
 
-    </RelativeLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Índ. de Daño por Corrosión (IDC)"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_weight="0.26" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_IDC"
+                android:layout_marginTop="10dp"
+                android:editable="false"
+                android:gravity="center"
+                android:layout_weight="0.56" />
+
+            <Button
+                android:text="Calcular"
+                android:layout_width="83dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_calculateIDC"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.18"
+                android:elevation="0dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+            android:text="Siguiente"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_GoToIAA"
+             />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 
@@ -88,7 +1004,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer" />
 

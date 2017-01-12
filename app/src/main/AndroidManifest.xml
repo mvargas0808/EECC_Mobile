@@ -14,46 +14,56 @@
         <activity
             android:name=".Login"
             android:label="@string/app_name">
-            <intent-filter>
+            <!--intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter-->
         </activity>
-
-
         <activity
             android:name=".ProjectForm"
             android:label="@string/title_activity_project_form"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Projects"
             android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".CorrosionIndex"
+            android:label="@string/CI_ScreenTitle"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".StructuralDamage"
+            android:label="@string/SDI_ScreenTitle"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+=======
+
+        <activity
             android:name=".EvaluationMenu"
             android:label="@string/text_Evaluation"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name=".CorrosionIndex"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".StructuralIndex"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:label="@string/SI_ScreenTitle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoadProject" />
+        <activity android:name=".ProjectInformation" />
+        <activity android:name=".EditProject" />
         <activity
             android:name=".Flexion"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:label="@string/Flexion_ScreenTitle"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Flexocompresion"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
+            android:label="@string/Flexo_ScreenTitle"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Report"></activity>
 
     </application>
 
