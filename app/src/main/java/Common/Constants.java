@@ -30,6 +30,8 @@ public class Constants extends AppCompatActivity {
     public static String ERROR_INSERT_EVALUATION = "No fue posible insertar la evaluación";
     public static String ERROR_UPDATE_EVALUATION = "No fue posible actualizar la evaluación";
 
+    //######### IDC
+    public static String INDICATORS_ERROR = "Favor ingrese todos los indicadores para poder calcular el IDC";
 
     /*--------------------
     * SUCCESS MESSAGES

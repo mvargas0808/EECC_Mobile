@@ -20,44 +20,568 @@
         tools:context="com.itcr.eecc.eecc.CorrosionIndex">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:weightSum="1">
 
-        <HorizontalScrollView
+        <TextView
+            android:text="Índicadores de Corrosion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="299dp"
+            android:layout_weight="0.92">
 
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="1">
+
+
+
+
+
+
+
+            <GridLayout
+                android:rowCount="7"
+                android:columnCount="7"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#009284"
+
+                android:gravity="center">
+
+
+
+                <TextView android:text="Indicador"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="189dp" />
+                <TextView android:text="Nivel I"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="71dp" />
+                <TextView android:text="Nivel II"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="71dp" />
+                <TextView android:text="Nivel III"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="71dp" />
+                <TextView android:text="Nivel IV"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="71dp" />
+                <TextView
+                    android:text="Valor"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="50dp" />
+
+
+                <!--          ROW     1     -->
 
                 <TextView
-                    android:text="Índicadores de Corrosion"
+                    android:text="Profundidad de carbonatación"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="103dp"
-                    android:layout_weight="0.43" />
+                    android:layout_columnSpan="2" />
+                <!--TextView
+                    android:text="Profundidad de carbonatación"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
 
-                <Button
-                    android:text="Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/prueba"
-                    android:layout_below="@+id/textView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="81dp" />
-            </LinearLayout>
-        </HorizontalScrollView>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_prof_carb"
+                        android:scaleType="centerCrop" />
 
-    </RelativeLayout>
+                </TextView-->
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_11"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_11"/>
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_12"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_12"/>
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_13"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_13"/>
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_14"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_14"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:id="@+id/iat1value"
+                    android:layout_width="50dp"
+                    android:layout_height="109dp" />
+
+
+                <!--          ROW     2     -->
+
+                <TextView
+                    android:text="Nivel de cloruros"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:layout_width="71dp" />
+                <!--TextView
+                    android:text="Nivel de cloruros"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_niv_clo"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_21"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_21"/>
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_22"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_22"/>
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_23"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_23"/>
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:src="@drawable/idc_24"
+                    android:onClick="setIDC"
+                    android:scaleType="centerCrop"
+                    android:gravity="center"
+                    android:id="@+id/idc_24"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:id="@+id/iat2value"
+                    android:layout_width="50dp" />
+
+
+                <!--          ROW     3     -->
+
+                <TextView
+                    android:text="Fisuración por corrosión en el recubrimiento"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/>
+                <!--TextView
+                    android:text="Fisuración por corrosión en el recubrimiento"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_fisu"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Sin fisuras"
+                    android:id="@+id/idc_31"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Fisuras &lt; 0.3 mm"
+                    android:id="@+id/idc_32"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Fisuras &gt; 0.3 mm"
+                    android:id="@+id/idc_33"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="Fisuración generalizada y estallidos"
+                    android:id="@+id/idc_34"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:id="@+id/iat3value"
+                    android:layout_width="50dp" />
+
+
+
+                <!--          ROW     4     -->
+
+                <TextView
+                    android:text="Resistividad"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/>
+                <!--TextView
+                    android:text="Resistividad"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_resisti"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="&gt; 1000"
+                    android:id="@+id/idc_41"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="500 - 1000"
+                    android:id="@+id/idc_42"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="100 - 500"
+                    android:id="@+id/idc_43"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:gravity="center"
+                    android:text="&lt; 100"
+                    android:id="@+id/idc_44"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:id="@+id/iat4value"
+                    android:layout_width="50dp" />
+
+
+
+
+
+
+                <!--          ROW     5     -->
+
+                <TextView
+                    android:text="Pérdida sección"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/>
+                <!--TextView
+                    android:text="Pérdida sección"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_perdida"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="&lt; 1 %"
+                    android:id="@+id/idc_51"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="1 - 5 %"
+                    android:id="@+id/idc_52"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="5 - 10 %"
+                    android:id="@+id/idc_53"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text=" &gt; 10 %"
+                    android:id="@+id/idc_54"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:id="@+id/iat5value"
+                    android:layout_width="50dp" />
+
+
+
+                <!--          ROW     6     -->
+
+                <TextView
+                    android:text="Intensidad de corrosión"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"/>
+                <!--TextView
+                    android:text="Intensidad de corrosión"
+                    android:layout_columnSpan="2"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/idc_intensity"
+                        android:scaleType="centerCrop" />
+
+                </TextView-->
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="&lt; 0.1"
+                    android:id="@+id/idc_61"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="0.1 - 0.5"
+                    android:id="@+id/idc_62"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="0.5 - 1"
+                    android:id="@+id/idc_63"/>
+                <TextView
+                    android:layout_width="71dp"
+                    android:layout_height="109dp"
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:onClick="setIDC"
+                    android:text="&gt; 1"
+                    android:id="@+id/idc_64"/>
+                <TextView
+                    android:text=""
+                    android:background="#FFFF"
+                    android:layout_margin="1dp"
+                    android:layout_height="109dp"
+                    android:gravity="center"
+                    android:id="@+id/iat6value"
+                    android:layout_width="50dp" />
+
+
+            </GridLayout>
+
+
+
+
+
+
+
+
+
+
+        </ScrollView>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Índ. de Daño por Corrosión (IDC)"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_weight="0.26" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_IDC"
+                android:layout_marginTop="10dp"
+                android:editable="false"
+                android:gravity="center"
+                android:layout_weight="0.56" />
+
+            <Button
+                android:text="Calcular"
+                android:layout_width="83dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_calculateIDC"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.18"
+                android:elevation="0dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+            android:text="Siguiente"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_GoToIAA"
+             />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 
@@ -88,7 +612,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer" />
 

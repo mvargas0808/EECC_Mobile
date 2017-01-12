@@ -77,7 +77,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonCDI:
-                startSubEvaluation(CorrosionIndex.class, "CII");
+                startSubEvaluation(CorrosionIndex.class, evaluationId);
                 break;
             case R.id.buttonSI:
                 startSubEvaluation(StructuralIndex.class, "EvaluationType");
