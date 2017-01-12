@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_gravity="center">
 
 
             <GridLayout
@@ -36,32 +37,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#009284"
-                android:gravity="center"
-                android:layout_marginTop="100dp">
+                android:gravity="center">
 
                 <ImageView
                     android:src="@drawable/ial_1"
-                    android:layout_height="35dp"
                     android:layout_rowSpan="2"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_width="62dp"/>
+                    android:layout_width="62dp"
+                    android:layout_height="37dp" />
 
 
                 <TextView android:text="Cercos"
                     android:layout_columnSpan="3"
-                    android:layout_width="200dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_width="202dp" />
 
                 <TextView android:text="Sin cercos"
                     android:layout_rowSpan="2"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="35dp"
                     android:layout_width="76dp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_height="37dp" />
 
                 <ImageView
                     android:src="@drawable/ial_2"
@@ -83,15 +83,15 @@
                     android:layout_margin="1dp" />
 
                 <TextView android:text="&gt; 8 mm"
-                    android:layout_height="26dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
                     android:gravity="center"
-                    android:onClick="setLongitudinal"/>
+                    android:onClick="setLongitudinal"
+                    android:layout_height="36dp" />
                 <TextView android:text="1"
                     android:layout_width="71dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:gravity="center"
@@ -100,7 +100,7 @@
                 <TextView android:text="1"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:layout_width="64dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
@@ -109,22 +109,22 @@
                     android:layout_width="61dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
                     android:id="@+id/ial13" />
                 <TextView android:text="1"
                     android:layout_rowSpan="2"
-                    android:layout_height="54dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_width="76dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
-                    android:id="@+id/ial14" />
+                    android:id="@+id/ial14"
+                    android:layout_height="74dp" />
 
                 <TextView android:text="&lt;= 8 mm"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
                     android:layout_width="62dp"
@@ -133,7 +133,7 @@
                     android:layout_width="71dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
                     android:id="@+id/ial21" />
@@ -141,7 +141,7 @@
                     android:layout_width="64dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
                     android:id="@+id/ial22" />
@@ -149,7 +149,7 @@
                     android:layout_width="61dp"
                     android:background="#FFFF"
                     android:layout_margin="1dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:gravity="center"
                     android:onClick="setLongitudinal"
                     android:id="@+id/ial23" />
@@ -158,9 +158,11 @@
             </GridLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center">
 
                 <Button
                     android:text="@string/button_cancel"
@@ -188,7 +190,7 @@
 
                 <TextView
                     android:layout_width="64dp"
-                    android:layout_height="26dp"
+                    android:layout_height="36dp"
                     android:id="@+id/longitudinalIndex"
                     android:layout_marginStart="25dp"
                     android:layout_alignParentTop="true"
