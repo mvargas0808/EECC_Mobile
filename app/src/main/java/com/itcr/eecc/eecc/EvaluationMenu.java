@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,10 +25,9 @@ import Common.Methods;
 public class EvaluationMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
-    private String evaluationIdJson;
+    private String evaluationId;
     private String projectId;
 
-    String evaluationId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
 
         try {
             json = new JSONObject(intent.getStringExtra("json"));
-            evaluationIdJson =  json.get("evaluationId").toString();
+            evaluationId =  json.get("evaluationId").toString();
             projectId = json.get("ProjectId").toString();
             Toast.makeText(getApplicationContext(), "Evaluation ID " + evaluationId, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
@@ -46,7 +46,6 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
         }
 
         setContentView(R.layout.evaluation_menu);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
