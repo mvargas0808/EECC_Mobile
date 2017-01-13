@@ -91,6 +91,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             case R.id.buttonLongitudinal:
                 if(!longitudinalValues.isEmpty()){
                     nextSubEvaluation(Flexion.class, "M_Flexion_Second");
+                    finish();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Longitudinal",Toast.LENGTH_LONG).show();
                 }

@@ -43,7 +43,6 @@
 
         </activity>
 
-
         <activity
             android:name=".EvaluationMenu"
             android:label="@string/text_Evaluation"
