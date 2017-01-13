@@ -292,7 +292,7 @@ public class DataBaseManager {
         + " INNER JOIN districts dis ON proj.DistrictId = dis.DistrictId"
         + " INNER JOIN cantons can ON dis.CantonId = can.CantonId"
         + " INNER JOIN provinces prov ON can.ProvinceId = prov.ProvinceId"
-        + " INNER JOIN users us ON proj.UserId = us.UserId AND us.Enabled = 1"
+        + " INNER JOIN users us ON proj.UserEmail = us.Email AND us.Enabled = 1"
         + " WHERE proj.ProjectId = '"+projectId+"'", null);
         if (cursor.moveToFirst()) {
             return cursor;
@@ -900,7 +900,7 @@ public class DataBaseManager {
 
 
     public Cursor getReportInformation(String evaluationId){
-        Cursor cursor = db.rawQuery(" SELECT str.EvaluationType, indcnam.Description AS IndicatorDescription, iaainf.Description AS IaaDescription, iatinf.Description AS IatDescription, ialinf.Description AS IalDescription, esinf.Description AS EsDescription, ideinf.Description AS IdeDescription, ialinf.ElementType AS IalElementType, esinf.ElementType AS EsElementType,"
+        Cursor cursor = db.rawQuery(" SELECT str.EvaluationType, indcnam.Description AS IndicatorDescription, iaainf.Description AS IaaDescription, iatinf.Description AS IatDescription, ialinf.Description AS IalDescription, esinf.Description AS EsDescription, ideinf.Description AS IdeDescription, ialinf.ElementType AS IalElementType, esinf.ElementType AS EsElementType, cdi.IDC,"
                 +" eva.*, ifnull(cdi.ISC, -1) AS ISC, ifnull(str.IE, -1) AS IE, ifnull(strdamage.IDE, -1) AS IDE, pro.Name AS ProjectName FROM evaluations eva"
                 +" INNER JOIN projects pro ON pro.ProjectId = eva.ProjectId AND pro.Enabled = 1"
                 +" LEFT JOIN corrosiondamageindexes cdi ON cdi.EvaluationId = eva.EvaluationId AND cdi.Enabled = 1"

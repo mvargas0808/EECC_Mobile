@@ -91,20 +91,13 @@ public class Login extends Activity implements OnClickListener {
                         }
                         else {
                             Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
-
-                            //Intent i = new Intent(appContext, ProjectForm.class);
-                            //Intent i = new Intent(getApplicationContext(), ProjectForm.class);
-                            //startActivity(i);
                         }
 
                     } else {
-
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), Report.class);
+                        Intent i = new Intent(getApplicationContext(), Projects.class);
                         startActivity(i);
                     }
-
-
                     break;
                 default:
                     break;
