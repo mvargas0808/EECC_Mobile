@@ -47,7 +47,10 @@ public class Login extends Activity implements OnClickListener {
     JSONParser jsonParser = new JSONParser();
 
     //Michael
-    private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
+
+    //HOSTINGER
+    private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
 
     //William
     //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
@@ -88,17 +91,15 @@ public class Login extends Activity implements OnClickListener {
 
                         if(validateEmail(user.getText().toString())){
                             new AttemptLogin().execute();
-
                         }
                         else {
                             Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), Projects.class);
-                        startActivity(i);
-                    }
+                        //Intent i = new Intent(getApplicationContext(), Projects.class);
+                        //startActivity(i);
+                    }//
                     break;
                 default:
                     break;
@@ -153,13 +154,11 @@ public class Login extends Activity implements OnClickListener {
             }
 
             JSONObject jsonResult = jsonParser.makeHttpRequest(LOGIN_URL, "POST", dataForPost);
-
             return jsonResult;
 
         }
 
         protected void onPostExecute(JSONObject json) {
-
 
             // dismiss the dialog after getting all products
             try {
@@ -183,24 +182,17 @@ public class Login extends Activity implements OnClickListener {
                         else{
                             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
                         }
-
                     }
                     else{
                         Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
                     }
-
                 } else {
                     Toast.makeText(Login.this, Constants.ERROR_LOGGING_CONNECTION,Toast.LENGTH_SHORT).show();
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
 

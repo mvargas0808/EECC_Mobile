@@ -175,5 +175,12 @@
             </LinearLayout>
         </ScrollView>
 
+        <Button
+            android:text="Salir"
+            android:onClick="exitReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_exit" />
+
     </LinearLayout>
 </RelativeLayout>

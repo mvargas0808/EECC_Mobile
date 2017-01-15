@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class Report extends AppCompatActivity {
     private String evaluationId;
     private String projectId;
     Context appContext = this;
+    Button btn_exit;
+    JSONObject json;
     TextView tvIndicator1, tvIndicator2, tvIndicator3, tvIndicator4, tvIndicator5, tvIndicator6;
     TextView tv_IDC, tv_AA, tv_IC, tvStructuralIndex, tvIEDescription, tvIALDescription, tvIATDescription, tvIEvalue, tvIDEDescription;
     @Override
@@ -32,7 +35,7 @@ public class Report extends AppCompatActivity {
             //"json", new JSONObject("{'ProjectId':"+projectId+",'evaluationId':"+evaluationId+"}"));
 
         Intent intent = getIntent();
-        JSONObject json = null;
+        json = null;
         try {
             json = new JSONObject(intent.getStringExtra("json"));
             evaluationId =  json.get("evaluationId").toString();
@@ -40,6 +43,7 @@ public class Report extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        btn_exit = (Button) findViewById(R.id.btn_exit);
         manager = new DataBaseManager(this);
         tvIndicator1 = (TextView) findViewById(R.id.tvIndicator1);
         tvIndicator2 = (TextView) findViewById(R.id.tvIndicator2);
@@ -115,5 +119,15 @@ public class Report extends AppCompatActivity {
             }
         }
         manager.closeConnection();
+    }
+
+    public void exitReport(View v){
+        try {
+            Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class,
+                    "json", new JSONObject("{'ProjectId':"+projectId+",'evaluationId':"+evaluationId+"}"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        finish();
     }
 }
