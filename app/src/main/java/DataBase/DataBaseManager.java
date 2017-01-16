@@ -38,7 +38,11 @@ public class DataBaseManager {
     private static final String SAVE_PROJECT = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/create-project.php";
     private static final String CREATE_EVALUATION = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/evaluation/create-evaluation-mobile.php";
     private static final String GET_PROJECT_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/get-project-by-token.php";
-
+    private static final String SAVE_STRUCTURAL_DAMAGE_INDEX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/structural-damage-index/save-structural-damage-index.php";
+    private static final String SAVE_CORROSION_INDEX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/corrosion-index/save-ci.php";
+    private static final String SAVE_STRUCTURAL_INDEX_MANUAL_AUX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/structural-index/save-si-manual.php";
+    private static final String SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/structural-index/save-si-simplified.php";
+    String SAVE_STRUCTURAL_INDEX_MODE = "";
 
     public DataBaseManager(Context context) {
         helper = new DBHelper(context);
@@ -299,6 +303,15 @@ public class DataBaseManager {
 
     public String getEvaluationIdbyToken(String tokenId){
         Cursor cursor = db.rawQuery("SELECT EvaluationId FROM Evaluations WHERE TokenId = '"+tokenId+"' AND Enabled = 1", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("EvaluationId"));
+        } else {
+            return "-1";
+        }
+    }
+
+    public String getEvaluationId(String tokenId, String projectId){
+        Cursor cursor = db.rawQuery("SELECT EvaluationId FROM Evaluations WHERE (TokenId = '"+tokenId+"' OR ProjectId = '"+projectId+"') AND Enabled = 1", null);
         if (cursor.moveToFirst()) {
             return cursor.getString(cursor.getColumnIndex("EvaluationId"));
         } else {
@@ -963,8 +976,7 @@ public class DataBaseManager {
 
     public Cursor getReportInformation(String evaluationId){
         Cursor cursor = db.rawQuery(" SELECT str.EvaluationType, indcnam.Description AS IndicatorDescription, iaainf.Description AS IaaDescription, iatinf.Description AS IatDescription, ialinf.Description AS IalDescription, esinf.Description AS EsDescription, ideinf.Description AS IdeDescription, ialinf.ElementType AS IalElementType, esinf.ElementType AS EsElementType, cdi.IDC,"
-                +" eva.*, ifnull(cdi.ISC, -1) AS ISC, ifnull(str.IE, -1) AS IE, ifnull(strdamage.IDE, -1) AS IDE, pro.Name AS ProjectName FROM evaluations eva"
-                +" INNER JOIN projects pro ON pro.ProjectId = eva.ProjectId AND pro.Enabled = 1"
+                +" eva.*, ifnull(cdi.ISC, -1) AS ISC, ifnull(str.IE, -1) AS IE, ifnull(strdamage.IDE, -1) AS IDE FROM evaluations eva"
                 +" LEFT JOIN corrosiondamageindexes cdi ON cdi.EvaluationId = eva.EvaluationId AND cdi.Enabled = 1"
                 +" LEFT JOIN idcindicators idcin ON cdi.CorrosionDamageIndexId = idcin.CorrosionDamageIndexId AND idcin.Enabled = 1"
                 +" LEFT JOIN indicatornames indcnam ON indcnam.IndicatorNameId = idcin.IndicatorNameId AND  indcnam.Enabled = 1"
@@ -996,16 +1008,106 @@ public class DataBaseManager {
         db.update("Tokens",values,"TokenId = "+oldTokenId+";",null);
     }
 
-    //--------------------------------------------------------------SET PROJECT SERVER INTERNET-----
 
-    public void saveProjectMySQL(String projectId, Context pAppContext, LoadProject loadproject) throws JSONException {
-        Cursor countEvaluationPoject = db.rawQuery("SELECT pro.* FROM projects pro " +
-                "INNER JOIN evaluations eva ON pro.ProjectId = eva.ProjectId " +
-                "WHERE pro.ProjectId = '"+projectId+"';", null);
-        saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluationPoject.getCount(), loadproject);
+
+    //--------------------------------------------------------------SET PROJECT SERVER INTERNET-----
+    public boolean existIDEProject(String pProjectId){
+        openConnection();
+        Cursor cursor = db.rawQuery("SELECT SDI.IDE\n" +
+                "FROM evaluations eva \n" +
+                "INNER JOIN structuraldamageindexes SDI ON SDI.EvaluationId = eva.EvaluationId\n" +
+                "INNER JOIN\n" +
+                "ide ideTable ON ideTable.StructuralDamageIndexId = SDI.StructuralDamageIndexId\n" +
+                "INNER JOIN \n" +
+                "ideinformation IDE_Info ON IDE_Info.IDEInformationId = ideTable.IDEInformationId\n" +
+                "WHERE\n" +
+                "eva.ProjectId = '"+pProjectId+"' AND\n" +
+                "ideTable.Enabled = 1 AND\n" +
+                "IDE_Info.Enabled = 1 AND\n" +
+                "eva.Enabled = 1;", null);
+        if (cursor.getCount() == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void saveTokenProjectMySQL(final String tokenId, final String tokenName, final Context pAppContext, final LoadProject loadproject){
+
+    public boolean existIDEToken(String pTokenId){
+        Cursor cursor = db.rawQuery("SELECT SDI.IDE\n" +
+                "FROM evaluations eva \n" +
+                "INNER JOIN structuraldamageindexes SDI ON SDI.EvaluationId = eva.EvaluationId\n" +
+                "INNER JOIN\n" +
+                "ide ideTable ON ideTable.StructuralDamageIndexId = SDI.StructuralDamageIndexId\n" +
+                "INNER JOIN \n" +
+                "ideinformation IDE_Info ON IDE_Info.IDEInformationId = ideTable.IDEInformationId\n" +
+                "WHERE\n" +
+                "eva.TokenId = '"+pTokenId+"' AND\n" +
+                "ideTable.Enabled = 1 AND\n" +
+                "IDE_Info.Enabled = 1 AND\n" +
+                "eva.Enabled = 1;", null);
+        if (cursor.getCount() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean existCorrosionIndex(String evaluationId){
+        Cursor getCorrosionIndex = db.rawQuery("SELECT CDI.IDC, CDI.IAA, CDI.ISC, IAAInfo.Row AS IAA_Row\n" +
+                "FROM corrosiondamageindexes CDI\n" +
+                "INNER JOIN iaainformation IAAInfo\n" +
+                "ON IAAInfo.IAAInformationId = CDI.IAAIndicatorId\n" +
+                "WHERE\n" +
+                "CDI.EvaluationId = '"+evaluationId+"' AND\n" +
+                "CDI.Enabled = 1;" , null);
+        if (getCorrosionIndex.getCount() == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean existStructuralIndex(String pEvaluationId){
+        Cursor cursor = db.rawQuery("SELECT EvaluationType FROM structuralindexes WHERE EvaluationId = '"+pEvaluationId+"' AND Enabled = 1;", null);
+        if (cursor.getCount() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public Cursor countEvaluationProject(String projectId){
+        return db.rawQuery("SELECT pro.* FROM projects pro " +
+                "INNER JOIN evaluations eva ON pro.ProjectId = eva.ProjectId " +
+                "WHERE pro.ProjectId = '"+projectId+"';", null);
+    }
+
+    public void saveProjectMySQL(String projectId, Context pAppContext, LoadProject loadproject) throws JSONException {
+        int countEvaluation = countEvaluationProject(projectId).getCount();
+        if(countEvaluation == 1){
+            System.out.println("-------------HAY EVALUACIÓN-------------------------------------");
+            if (existIDEProject(projectId)){
+                System.out.println("-------------HAY IDE-------------------------------------");
+                saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
+            }
+        } else {
+            saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
+        }
+
+        System.out.println("-------------project NO SE PUEDE-------------------------------------");
+
+    }
+
+    public void saveTokenProjectMySQL(String tokenId, String tokenName, Context pAppContext, LoadProject loadproject){
+        if (existIDEToken(tokenId)){
+            System.out.println("-------------token exist evaluation IDE-------------------------------------");
+            saveTokenProjectMySQL_Aux(tokenId, tokenName, pAppContext, loadproject);
+        }
+    }
+
+    public void saveTokenProjectMySQL_Aux(final String tokenId, final String tokenName, final Context pAppContext, final LoadProject loadproject){
         final RequestQueue queue = Volley.newRequestQueue(pAppContext);
         StringRequest postRequest = new StringRequest(Request.Method.POST, GET_PROJECT_BY_TOKEN,
                 new Response.Listener<String>()
@@ -1018,13 +1120,14 @@ public class DataBaseManager {
                             if (code.equals("1")){
                                 JSONArray result = (JSONArray)obj.get("result");
                                 String projectId = ((JSONObject)result.get(0)).get("ProjectId").toString();
-                                createEvaluation_MySQL(projectId, pAppContext);
+                                createEvaluation_MySQL(projectId, "0", tokenId, pAppContext);
 
                                 openConnection();
+                                /*
                                 ContentValues values = new ContentValues();
                                 values.put("Enabled", 0);
                                 db.update("Tokens",values,"TokenId = "+tokenId+";",null);
-
+*/
                                 loadproject.loadTokenList();
                             } else {
                                 loadproject.insertToken(tokenId);
@@ -1103,15 +1206,19 @@ public class DataBaseManager {
                         try {
                             JSONArray array = new JSONArray(response);
                             JSONObject jsonObject = array.getJSONObject(0);
-                            String projectId = jsonObject.getString("ProjectId").toString();
+                            String projectId_sql = jsonObject.getString("ProjectId").toString();
                             String code = jsonObject.getString("Code").toString();
                             if(code.equals("1")){
+                                /*
                                 ContentValues values = new ContentValues();
                                 values.put("Enabled", 0);
                                 long value = db.update("Projects",values,"ProjectId = "+pProjectId+";",null);
+                                */
                                 loadproject.loadProjectList();
+
                                 if(pEvaluationCount > 0){
-                                    createEvaluation_MySQL(projectId, pAppContext);
+                                    System.out.println("------------------------VA A CREAR LA EVALUACIÓN-------------------------");
+                                   createEvaluation_MySQL(projectId_sql, pProjectId,  "0", pAppContext);
                                 }
                             }
                         } catch (JSONException e) {
@@ -1152,7 +1259,7 @@ public class DataBaseManager {
         queue.add(postRequest);
     }
 
-    public void createEvaluation_MySQL(final String projectId, final Context pAppContext){
+    public void createEvaluation_MySQL(final String projectId_sql, final String projectId, final String tokenId, final Context pAppContext){
         final RequestQueue queue = Volley.newRequestQueue(pAppContext);
         StringRequest postRequest = new StringRequest(Request.Method.POST, CREATE_EVALUATION,
                 new Response.Listener<String>()
@@ -1160,10 +1267,29 @@ public class DataBaseManager {
                     @Override
                     public void onResponse(String response) {
                         try {
-
+                            System.out.println("--------------ENTRO A CREAR LA EVALUACIÓN---------------------"+response);
                             JSONArray array = new JSONArray(response);
                             JSONObject jsonObject = array.getJSONObject(0);
-                            String EvaluationId = jsonObject.getString("EvaluationId").toString();
+                            String evaluationId_sql = jsonObject.getString("EvaluationId").toString();
+                            System.out.println("--------------existIDEProject---------------------"+existIDEProject(projectId));
+                            if (existIDEProject(projectId) || existIDEToken(tokenId)){
+                                System.out.println("--------------1---------saveStructuralDamageIndex_MySQL---------------------");
+                                saveStructuralDamageIndex_MySQL(getEvaluationId(tokenId, projectId), evaluationId_sql, pAppContext);
+                            } if (existCorrosionIndex(getEvaluationId(tokenId, projectId))){
+                                System.out.println("------------2-----------saveCorrosionIndex_MySQL---------------------");
+                                //saveCorrosionIndex_MySQL(getEvaluationId(tokenId, projectId),evaluationId_sql, pAppContext);
+                            } if (existStructuralIndex(getEvaluationId(tokenId, projectId))){
+                                System.out.println("--------------3---------saveStructuralIndex_MySQL---------------------");
+                                if(getEvaluationType(getEvaluationId(tokenId, projectId)) == 1){
+                                    System.out.println("--------------4---------manual---------------------");
+                                    SAVE_STRUCTURAL_INDEX_MODE = SAVE_STRUCTURAL_INDEX_MANUAL_AUX;
+                                    saveStructuralIndex_MySQL(getEvaluationId(tokenId, projectId), evaluationId_sql, pAppContext);
+                                } else {
+                                    System.out.println("--------------5---------simplificada---------------------");
+                                    SAVE_STRUCTURAL_INDEX_MODE = SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX;
+                                    saveStructuralIndex_MySQL(getEvaluationId(tokenId, projectId), evaluationId_sql, pAppContext);
+                                }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -1183,7 +1309,188 @@ public class DataBaseManager {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("projectId", projectId);
+                params.put("projectId", projectId_sql);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+
+    public void saveStructuralDamageIndex_MySQL(final String evaluationId, final String evaluationId_sql, final Context pAppContext){
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, SAVE_STRUCTURAL_DAMAGE_INDEX,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("--------------------response---------"+response);
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                Cursor getSDI = db.rawQuery("SELECT SDI.IDE, SDI.StructuralIndex AS structuralIndex, SDI.CorrosionIndex AS corrosionIndex, IDE_Info.Row AS IDE_Row, IDE_Info.Col AS IDE_Col, IDE_Info.failureConsequence AS failureConsequence\n" +
+                        "FROM structuraldamageindexes SDI\n" +
+                        "INNER JOIN\n" +
+                        "ide ideTable ON ideTable.StructuralDamageIndexId = SDI.StructuralDamageIndexId\n" +
+                        "INNER JOIN \n" +
+                        "ideinformation IDE_Info ON IDE_Info.IDEInformationId = ideTable.IDEInformationId\n" +
+                        "WHERE\n" +
+                        "SDI.EvaluationId = '"+evaluationId+"' AND\n" +
+                        "SDI.Enabled = 1 AND\n" +
+                        "ideTable.Enabled = 1 AND\n" +
+                        "IDE_Info.Enabled = 1;" , null);
+                if(getSDI.getCount() == 1) {
+                    getSDI.moveToFirst();
+                    params.put("IDE", getSDI.getString(getSDI.getColumnIndex("IDE")));
+                    params.put("structuralIndex", getSDI.getString(getSDI.getColumnIndex("structuralIndex")));
+                    params.put("corrosionIndex", getSDI.getString(getSDI.getColumnIndex("corrosionIndex")));
+                    params.put("IDE_Row", getSDI.getString(getSDI.getColumnIndex("IDE_Row")));
+                    params.put("IDE_Col", getSDI.getString(getSDI.getColumnIndex("IDE_Col")));
+                    params.put("failureConsequence", getSDI.getString(getSDI.getColumnIndex("failureConsequence")));
+                    params.put("evaluationId", evaluationId_sql);
+                }
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+    public void saveCorrosionIndex_MySQL(final String evaluationId, final String evaluationId_sql, final Context pAppContext){
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, SAVE_CORROSION_INDEX,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                Cursor getCorrosionIndex = db.rawQuery("SELECT CDI.IDC, CDI.IAA, CDI.ISC, IAAInfo.Row AS IAA_Row\n" +
+                        "FROM corrosiondamageindexes CDI\n" +
+                        "INNER JOIN iaainformation IAAInfo\n" +
+                        "ON IAAInfo.IAAInformationId = CDI.IAAIndicatorId\n" +
+                        "WHERE\n" +
+                        "CDI.EvaluationId = '"+evaluationId+"' AND\n" +
+                        "CDI.Enabled = 1;" , null);
+                if(getCorrosionIndex.getCount() == 1) {
+                    getCorrosionIndex.moveToFirst();
+                    params.put("IDC", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IDC")));
+                    params.put("IAA", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IAA")));
+                    params.put("IAA_Row", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IAA_Row")));
+                    params.put("evaluationId", evaluationId_sql);
+                    //$ISC = $_POST['ISC'];
+                    //$indicators = $_POST['indicators'];
+                }
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+    public int getEvaluationType(String pEvaluationId){
+        Cursor cursor = db.rawQuery("SELECT EvaluationType FROM structuralindexes WHERE EvaluationId = '"+pEvaluationId+"' AND Enabled = 1;", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("EvaluationType"));
+        } else {
+            return -1;
+        }
+    }
+
+    public void saveStructuralIndex_MySQL(final String evaluationId, final String evaluationId_sql, final Context pAppContext){
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, SAVE_STRUCTURAL_INDEX_MODE,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("---------------------Response 2------------"+response);
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+
+                int evaluationMode = getEvaluationType(evaluationId);
+                if(evaluationMode == 1){
+                    Cursor getStructuralIndex = db.rawQuery("SELECT trans.IE AS structuralIndex, trans.IAT AS transverseIndex, trans.Row AS transverseRow, trans.Col AS transverseColumn, \n" +
+                            "longi.IAL AS longitudinalIndex, longi.Row AS longitudinalRow, longi.Col AS longitudinalColumn, longi.ElementType AS ElementType\n" +
+                            "FROM" +
+                            "(SELECT stru.StructuralIndexId, IE, IAT, iatinf.Row, iatinf.Col, ElementType FROM structuralindexes stru \n" +
+                            "INNER JOIN iat ON stru.StructuralIndexId = iat.StructuralIndexId\n" +
+                            "INNER JOIN iatinformation iatinf ON iat.IATInformationId = iatinf.IATInformationId\n" +
+                            "WHERE stru.EvaluationId = "+evaluationId+" AND stru.Enabled = 1 AND iat.Enabled = 1 AND iatinf.Enabled = 1) trans\n" +
+                            "INNER JOIN" +
+                            "(SELECT stru.StructuralIndexId, IE, IAL, ialinf.Row, ialinf.Col, ElementType FROM structuralindexes stru\n" +
+                            "INNER JOIN ial ON stru.StructuralIndexId = ial.StructuralIndexId\n" +
+                            "INNER JOIN ialinformation ialinf ON ial.IALInformationId = ialinf.IALInformationId\n" +
+                            "WHERE stru.EvaluationId = "+evaluationId+" AND stru.Enabled = 1 AND ial.Enabled = 1 AND ialinf.Enabled = 1) longi WHERE  trans.StructuralIndexId = longi.StructuralIndexId;", null);
+                    if(getStructuralIndex.getCount() == 1) {
+                        getStructuralIndex.moveToFirst();
+                        params.put("structuralIndex", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("structuralIndex")));
+                        params.put("transverseIndex", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("transverseIndex")));
+                        params.put("transverseRow", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("transverseRow")));
+                        params.put("transverseColumn", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("transverseColumn")));
+                        params.put("longitudinalIndex", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("longitudinalIndex")));
+                        params.put("longitudinalRow", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("longitudinalRow")));
+                        params.put("longitudinalColumn", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("longitudinalColumn")));
+                        params.put("elementType", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("ElementType")));
+                        params.put("evaluationId", evaluationId_sql);
+                    }
+
+                }
+                else if(evaluationMode == 0){
+                    Cursor getStructuralIndex = db.rawQuery("SELECT IE AS structuralIndex, ES AS simplifiedIndex, esinf.Row AS simplifiedRow, esinf.Col AS simplifiedColumn, ElementType FROM structuralindexes stru \n" +
+                            "INNER JOIN es ON stru.StructuralIndexId = es.StructuralIndexId\n" +
+                            "INNER JOIN esinformation esinf ON es.ESInformationId = esinf.ESInformationId\n" +
+                            "WHERE stru.EvaluationId = "+evaluationId+" AND stru.Enabled = 1 AND es.Enabled = 1 AND esinf.Enabled = 1;" , null);
+                    if(getStructuralIndex.getCount() == 1) {
+                        getStructuralIndex.moveToFirst();
+                        params.put("structuralIndex", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("structuralIndex")));
+                        params.put("simplifiedIndex", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("simplifiedIndex")));
+                        params.put("simplifiedRow", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("simplifiedRow")));
+                        params.put("simplifiedColumn", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("simplifiedColumn")));
+                        params.put("elementType", getStructuralIndex.getString(getStructuralIndex.getColumnIndex("ElementType")));
+                        params.put("evaluationId", evaluationId_sql);
+                    }
+                }
                 return params;
             }
         };
