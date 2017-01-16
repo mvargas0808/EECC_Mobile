@@ -37,6 +37,7 @@ public class DataBaseManager {
 
     private static final String GET_EMAIL_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/get-user-email-by-token.php";
     private static final String SAVE_PROJECT = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/create-project.php";
+    private static final String CREATE_EVALUATION = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/evaluation/create-evaluation.php";
 
 
     public DataBaseManager(Context context) {
@@ -1046,7 +1047,10 @@ public class DataBaseManager {
                             System.out.println("---------si-1----------"+response);
                             JSONArray array = new JSONArray(response);
                             JSONObject jsonObject = array.getJSONObject(0);
-                            String Email = jsonObject.getString("ProjectId").toString();
+                            String projectId = jsonObject.getString("ProjectId").toString();
+                            if(pEvaluationCount > 0){
+                                createEvaluation_MySQL(projectId, pAppContext);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -1079,6 +1083,37 @@ public class DataBaseManager {
                 params.put("latitude", getProject.getString(getProject.getColumnIndex("Latitude")));
                 params.put("longitude", getProject.getString(getProject.getColumnIndex("Longitude")));
                 params.put("email", pEmail);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+    public void createEvaluation_MySQL(final String projectId, final Context pAppContext){
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, CREATE_EVALUATION,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+
                 return params;
             }
         };
