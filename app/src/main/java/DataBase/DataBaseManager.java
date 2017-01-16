@@ -1047,11 +1047,6 @@ public class DataBaseManager {
                             JSONArray array = new JSONArray(response);
                             JSONObject jsonObject = array.getJSONObject(0);
                             String Email = jsonObject.getString("ProjectId").toString();
-
-                            System.out.println("---------si----------"+Email);
-                            System.out.println("---------obj----------"+Email);
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
