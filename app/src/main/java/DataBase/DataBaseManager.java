@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -13,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.itcr.eecc.eecc.JSONParser;
+import com.itcr.eecc.eecc.LoadProject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +36,8 @@ public class DataBaseManager {
 
     private static final String GET_EMAIL_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/get-user-email-by-token.php";
     private static final String SAVE_PROJECT = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/create-project.php";
-    private static final String CREATE_EVALUATION = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/evaluation/create-evaluation.php";
+    private static final String CREATE_EVALUATION = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/evaluation/create-evaluation-mobile.php";
+    private static final String GET_PROJECT_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/get-project-by-token.php";
 
 
     public DataBaseManager(Context context) {
@@ -989,16 +989,73 @@ public class DataBaseManager {
         }
     }
 
+
+    public void updateToken(String newToken, String oldTokenId){
+        ContentValues values = new ContentValues();
+        values.put("Token", newToken);
+        db.update("Tokens",values,"TokenId = "+oldTokenId+";",null);
+    }
+
     //--------------------------------------------------------------SET PROJECT SERVER INTERNET-----
 
-    public void saveProjectMySQL(String projectId, Context pAppContext) throws JSONException {
+    public void saveProjectMySQL(String projectId, Context pAppContext, LoadProject loadproject) throws JSONException {
         Cursor countEvaluationPoject = db.rawQuery("SELECT pro.* FROM projects pro " +
                 "INNER JOIN evaluations eva ON pro.ProjectId = eva.ProjectId " +
                 "WHERE pro.ProjectId = '"+projectId+"';", null);
-        saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluationPoject.getCount());
+        saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluationPoject.getCount(), loadproject);
     }
 
-    public void saveProjectMySQL_GetEmail(final String pProjectId, final Context pAppContext, final int pEvaluationCount) throws JSONException {
+    public void saveTokenProjectMySQL(final String tokenId, final String tokenName, final Context pAppContext, final LoadProject loadproject){
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, GET_PROJECT_BY_TOKEN,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            String code = obj.get("code").toString();
+                            if (code.equals("1")){
+                                JSONArray result = (JSONArray)obj.get("result");
+                                String projectId = ((JSONObject)result.get(0)).get("ProjectId").toString();
+                                createEvaluation_MySQL(projectId, pAppContext);
+
+                                openConnection();
+                                ContentValues values = new ContentValues();
+                                values.put("Enabled", 0);
+                                db.update("Tokens",values,"TokenId = "+tokenId+";",null);
+
+                                loadproject.loadTokenList();
+                            } else {
+                                loadproject.insertToken(tokenId);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("token", tokenName);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+    public void saveProjectMySQL_GetEmail(final String pProjectId, final Context pAppContext, final int pEvaluationCount, final  LoadProject loadproject ) throws JSONException {
         final RequestQueue queue = Volley.newRequestQueue(pAppContext);
         StringRequest postRequest = new StringRequest(Request.Method.POST, GET_EMAIL_BY_TOKEN,
                 new Response.Listener<String>()
@@ -1009,7 +1066,7 @@ public class DataBaseManager {
                             JSONObject obj = new JSONObject(response);
                             JSONArray result = (JSONArray)obj.get("result");
                             String Email = ((JSONObject)result.get(0)).get("Email").toString();
-                            saveProjectMySQL_Aux(pProjectId, Email, pAppContext, pEvaluationCount);
+                            saveProjectMySQL_Aux(pProjectId, Email, pAppContext, pEvaluationCount, loadproject);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -1036,7 +1093,7 @@ public class DataBaseManager {
         queue.add(postRequest);
     }
 
-    public void saveProjectMySQL_Aux(final String pProjectId, final String pEmail, final Context pAppContext, final int pEvaluationCount){
+    public void saveProjectMySQL_Aux(final String pProjectId, final String pEmail, final Context pAppContext, final int pEvaluationCount, final  LoadProject loadproject){
         final RequestQueue queue = Volley.newRequestQueue(pAppContext);
         StringRequest postRequest = new StringRequest(Request.Method.POST, SAVE_PROJECT,
                 new Response.Listener<String>()
@@ -1044,12 +1101,18 @@ public class DataBaseManager {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            System.out.println("---------si-1----------"+response);
                             JSONArray array = new JSONArray(response);
                             JSONObject jsonObject = array.getJSONObject(0);
                             String projectId = jsonObject.getString("ProjectId").toString();
-                            if(pEvaluationCount > 0){
-                                createEvaluation_MySQL(projectId, pAppContext);
+                            String code = jsonObject.getString("Code").toString();
+                            if(code.equals("1")){
+                                ContentValues values = new ContentValues();
+                                values.put("Enabled", 0);
+                                long value = db.update("Projects",values,"ProjectId = "+pProjectId+";",null);
+                                loadproject.loadProjectList();
+                                if(pEvaluationCount > 0){
+                                    createEvaluation_MySQL(projectId, pAppContext);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1096,7 +1159,14 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onResponse(String response) {
+                        try {
 
+                            JSONArray array = new JSONArray(response);
+                            JSONObject jsonObject = array.getJSONObject(0);
+                            String EvaluationId = jsonObject.getString("EvaluationId").toString();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         queue.stop();
                     }
                 },
@@ -1113,7 +1183,7 @@ public class DataBaseManager {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-
+                params.put("projectId", projectId);
                 return params;
             }
         };
