@@ -307,7 +307,6 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
         if(value == -1){
             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
         }
         manager.closeConnection();
@@ -322,7 +321,6 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
         if(value == -1){
             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
         }
         manager.closeConnection();

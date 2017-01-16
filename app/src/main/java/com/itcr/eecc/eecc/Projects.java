@@ -135,7 +135,6 @@ public class Projects extends AppCompatActivity
                         manager.openConnection();
                         if(!tokenInputDialog.getText().toString().trim().equals("")){
                             String evaluationId = manager.createProjectToken(tokenInputDialog.getText().toString());
-                            Toast.makeText(getApplicationContext(), "Este fue el id de la evaluacion " + evaluationId, Toast.LENGTH_SHORT).show();
 
                             JSONObject json = new JSONObject();
                             try {

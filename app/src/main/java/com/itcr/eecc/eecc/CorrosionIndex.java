@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -291,9 +290,6 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
             double iscValueResult = calculateIC();
 
             if (iscValueResult != -1 ){
-
-                //Toast.makeText(appContext, "Puedo calcular IC = " + iscValueResult, Toast.LENGTH_LONG).show();
-
                 if(prevActivityParams != null) {
                     try {
                         String evaluationId = prevActivityParams.get("activityType").toString();
@@ -302,11 +298,7 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
                             saveCorrosionIndex(iscValueResult, idcIndexJson, iaaIndexJson, evaluationId);
                         } else {
                             updateCorrosionIndex(iscValueResult, idcIndexJson, iaaIndexJson, evaluationId);
-                            //Toast.makeText(appContext, "Se tiene que actualizar", Toast.LENGTH_LONG).show();
                         }
-
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -396,9 +388,6 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
                     long updateResult = manager.updateCorrosionIndex(corrosionIndexId, IDC, IAA_Value, pCorrosionIndex, IAAInfoId);
 
-                    //Toast.makeText(appContext, "IC ID a actualizar = " + corrosionIndexId, Toast.LENGTH_LONG).show();
-
-                    // Corrosion Damage Indicators are going to be saved
                     if (updateResult != -1){
 
 
@@ -503,9 +492,6 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
                 IDC_EditText.setText(Double.toString(idcResult));*/
 
                 displayIDEValue(idcResult);
-
-                //Toast.makeText(appContext, Constants.SUCCESS_IDC, Toast.LENGTH_LONG).show();
-
 
             } catch (JSONException e) {
                 e.printStackTrace();

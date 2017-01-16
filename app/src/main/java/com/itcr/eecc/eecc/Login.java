@@ -177,7 +177,6 @@ public class Login extends Activity implements OnClickListener {
 
                         if(response == 1){
                             Methods.changeScreen(appContext,Projects.class);
-                            Toast.makeText(getApplicationContext(),"Todo fue un éxito ", Toast.LENGTH_LONG).show();
                             finish();
                         }
                         else{

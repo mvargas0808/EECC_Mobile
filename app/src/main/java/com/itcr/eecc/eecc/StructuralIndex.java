@@ -13,12 +13,10 @@ import android.util.Log;
 
 import android.view.MenuItem;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;

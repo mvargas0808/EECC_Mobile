@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,7 +63,6 @@ public class Report extends AppCompatActivity {
 
     public void showReport(){
         manager.openConnection();
-        System.out.println("---------------------eeeee-------------"+evaluationId);
         Cursor cursor = manager.getReportInformation(evaluationId);
         Cursor cursorIndicator = manager.getReportInformation(evaluationId);
         if (cursor != null){

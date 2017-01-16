@@ -16,14 +16,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import Common.Methods;
 import DataBase.DataBaseManager;
 
 public class LoadProject extends AppCompatActivity {

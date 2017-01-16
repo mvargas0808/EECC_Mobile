@@ -28,8 +28,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -117,7 +115,6 @@ public class ProjectForm extends AppCompatActivity
             if(value == -1){
                 Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
                 Methods.changeScreen(appContext,Projects.class);
                 finish();
             }
