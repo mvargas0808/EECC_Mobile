@@ -42,8 +42,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(DataBaseManager.CREATE_TABLE_STRUCTURETYPES);
         db.execSQL(DataBaseManager.CREATE_TABLE_TOKENS);
         db.execSQL(DataBaseManager.CREATE_TABLE_USERS);
-        db.execSQL(DataBaseManager.CREATE_TABLE_CONTACTO);
-        db.execSQL(DataBaseManager.CREATE_TABLE_USUARIO);
         db.execSQL("INSERT INTO android_metadata (locale) VALUES ('en_US');");
         db.execSQL("INSERT INTO Cantons (CantonId, CantonName, ProvinceId) VALUES (101, 'San José', 1);");
         db.execSQL("INSERT INTO Cantons (CantonId, CantonName, ProvinceId) VALUES (102, 'Escazú', 1);");
@@ -737,7 +735,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO StructureTypes (StructureTypeId, Name, Enabled) VALUES (5, 'Tanque de almacenemiento', 1);");
         db.execSQL("INSERT INTO StructureTypes (StructureTypeId, Name, Enabled) VALUES (6, 'Plataforma petrolera', 1);");
         db.execSQL("INSERT INTO StructureTypes (StructureTypeId, Name, Enabled) VALUES (7, 'Otro', 1);");
-        db.execSQL("INSERT INTO Users (UserId, Name, Lastname, Email, LoginDate, Enabled) VALUES (1, 'Bryan', 'Alfaro Porras', 'bryanalfarop@gmail.com', '2017-01-09', 1);");
+        //db.execSQL("INSERT INTO Users (UserId, Name, Lastname, Email, LoginDate, Enabled) VALUES (1, 'Bryan', 'Alfaro Porras', 'bryanalfarop@gmail.com', '2017-01-09', 1);");
     }
 
     @Override

@@ -150,7 +150,6 @@ public class LoadProject extends AppCompatActivity {
 
     public void alertLoadProjects(String projectId){
         final String projectIdFinal = projectId;
-        Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("¿Desea subir los datos a internet?");
         builder1.setCancelable(false);
@@ -159,7 +158,11 @@ public class LoadProject extends AppCompatActivity {
                 "Subir",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getApplicationContext(), "Todo fue subido", Toast.LENGTH_SHORT).show();
+                        try {
+                            setProyectMySQL(projectIdFinal);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.cancel();
                     }
                 });
@@ -176,4 +179,11 @@ public class LoadProject extends AppCompatActivity {
     }
 
 
+    public void setProyectMySQL(String projectId) throws JSONException {
+        manager.openConnection();
+        manager.saveProjectMySQL(projectId, appContext);
+        manager.closeConnection();
+        Toast.makeText(getApplicationContext(), "fINAL " + projectId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Todo fue subido", Toast.LENGTH_SHORT).show();
+    }
 }

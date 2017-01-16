@@ -4,14 +4,12 @@ package com.itcr.eecc.eecc;
         import org.json.JSONArray;
         import org.json.JSONException;
         import org.json.JSONObject;
-        import org.w3c.dom.Text;
 
         import android.app.Activity;
         import android.content.Context;
         import android.content.Intent;
         import android.net.ConnectivityManager;
         import android.net.NetworkInfo;
-        import android.nfc.tech.NfcA;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.util.Log;
@@ -22,7 +20,6 @@ package com.itcr.eecc.eecc;
         import android.widget.TextView;
         import android.widget.Toast;
 
-        import java.sql.DatabaseMetaData;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
@@ -50,7 +47,10 @@ public class Login extends Activity implements OnClickListener {
     //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
 
     //HOSTINGER
-    private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
+
+
+    private static final String LOGIN_URL = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/login.php";
 
     //William
     //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
@@ -97,8 +97,8 @@ public class Login extends Activity implements OnClickListener {
                         }
                     } else {
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
-                        //Intent i = new Intent(getApplicationContext(), Projects.class);
-                        //startActivity(i);
+                        Intent i = new Intent(getApplicationContext(), LoadProject.class);
+                        startActivity(i);
                     }//
                     break;
                 default:
@@ -167,12 +167,13 @@ public class Login extends Activity implements OnClickListener {
                     Log.d("Lenght", ""+result.length());
                     if(result.length()!=0){
                         Log.d("JSON:", result.get(0).toString());
-                        String Name, LastName, Email;
+                        String Name, LastName, Email, Token;
                         Name = ((JSONObject)result.get(0)).get("Name").toString();
                         LastName = ((JSONObject)result.get(0)).get("Lastname").toString();
                         Email = ((JSONObject)result.get(0)).get("Email").toString();
+                        Token = ((JSONObject)result.get(0)).get("Token").toString();
                         mTextView.setText("Email: - " + Email);
-                        int response = createUser(Name, LastName, Email);
+                        int response = createUser(Name, LastName, Email, Token);
 
                         if(response == 1){
                             Methods.changeScreen(appContext,Projects.class);
@@ -196,10 +197,10 @@ public class Login extends Activity implements OnClickListener {
     }
 
 
-    public int createUser(String pName, String pLastName, String pEmail){
+    public int createUser(String pName, String pLastName, String pEmail, String pToken){
         manager.openConnection();
 
-        long value = manager.createUser(pName, pLastName, pEmail);
+        long value = manager.createUser(pName, pLastName, pEmail, pToken);
 
         manager.closeConnection();
         if(value == -1){

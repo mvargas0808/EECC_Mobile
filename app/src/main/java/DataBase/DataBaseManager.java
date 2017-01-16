@@ -5,15 +5,24 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.itcr.eecc.eecc.JSONParser;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Created by Bryan on 1/7/2017.
@@ -23,6 +32,13 @@ public class DataBaseManager {
 
     private DBHelper helper;
     private SQLiteDatabase db;
+    JSONParser jsonParser = new JSONParser();
+    Context appContext;
+
+    private static final String GET_EMAIL_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/get-user-email-by-token.php";
+    private static final String SAVE_PROJECT = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/create-project.php";
+
+
     public DataBaseManager(Context context) {
         helper = new DBHelper(context);
         db = helper.getWritableDatabase();
@@ -103,7 +119,7 @@ public class DataBaseManager {
     public static final String CREATE_TABLE_TOKENS = "CREATE TABLE Tokens (TokenId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Token VARCHAR(50) NOT NULL, UserEmail VARCHAR (60) NOT NULL, Enabled BIT NOT NULL);";
 
     // Table: users
-    public static final String CREATE_TABLE_USERS = "CREATE TABLE Users (UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (50) NOT NULL, Lastname VARCHAR (50) NOT NULL, Email VARCHAR (60) NOT NULL, LoginDate DATE NOT NULL, Enabled BIT NOT NULL);";
+    public static final String CREATE_TABLE_USERS = "CREATE TABLE Users (UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (50) NOT NULL, Lastname VARCHAR (50) NOT NULL, Email VARCHAR (60) NOT NULL, Token VARCHAR(40) NOT NULL, LoginDate DATE NOT NULL, Enabled BIT NOT NULL);";
 
 
     public Cursor getStructureTypeNames(){
@@ -194,6 +210,7 @@ public class DataBaseManager {
     }
 
     public Cursor getUserLogin(){
+        openConnection();
         Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE Enabled = 1", null);
         return cursor;
     }
@@ -214,6 +231,17 @@ public class DataBaseManager {
         if (cursor.moveToFirst()) {
             do {
                 return cursor.getString(cursor.getColumnIndex("Email"));
+            } while(cursor.moveToNext());
+        } else {
+            return "-1";
+        }
+    }
+
+    private String getUserToken(){
+        Cursor cursor = getUserLogin();
+        if (cursor.moveToFirst()) {
+            do {
+                return cursor.getString(cursor.getColumnIndex("Token"));
             } while(cursor.moveToNext());
         } else {
             return "-1";
@@ -898,7 +926,7 @@ public class DataBaseManager {
         return 1;
     }
 
-    public int createUser(String pName, String pLastName, String pEmail){
+    public int createUser(String pName, String pLastName, String pEmail, String pToken){
         ContentValues insertValues = new ContentValues();
         long result;
 
@@ -909,6 +937,7 @@ public class DataBaseManager {
         insertValues.put("Name",pName);
         insertValues.put("LastName",pLastName);
         insertValues.put("Email",pEmail);
+        insertValues.put("Token",pToken);
         insertValues.put("LoginDate",getCurrentDate());
         insertValues.put("Enabled",1);
         result = db.insert("users", null, insertValues);
@@ -959,72 +988,124 @@ public class DataBaseManager {
         }
     }
 
+    //--------------------------------------------------------------SET PROJECT SERVER INTERNET-----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //SECCIÓN DE PRUEBAS
-    // Table: Contacto
-    public static final String CREATE_TABLE_CONTACTO = "CREATE TABLE Contacto (ContactoId INTEGER NOT NULL PRIMARY KEY, Contacto VARCHAR(20) NOT NULL, Enabled BIT NOT NULL);";
-
-    // Table: Usuario
-    public static final String CREATE_TABLE_USUARIO = "CREATE TABLE Usuario (UsuarioId INTEGER NOT NULL PRIMARY KEY, Nombre VARCHAR (50) NOT NULL, ContactoId INTEGER NOT NULL REFERENCES Contacto (ContactoId) ON DELETE NO ACTION ON UPDATE NO ACTION);";
-
-    public void crearContacto(Context context){
-        openConnection();
-        ContentValues values = new ContentValues();
-        values.put("Contacto", "49494949");
-        values.put("Enabled", 1);
-        long value = db.insert("Contacto", null, values);
-        Toast.makeText(context,"Resultado contacto "+value, Toast.LENGTH_LONG).show();
-
-        values = new ContentValues();
-        values.put("Nombre", "Bryan");
-        values.put("ContactoId", 1);
-        long value2 = db.insert("Usuario", null, values);
-        closeConnection();
-        //db.execSQL("SELECT last_insert_rowid();");
-        //Toast.makeText(context,"Resultado Usuario "+value2, Toast.LENGTH_LONG).show();
-
-
-
+    public void saveProjectMySQL(String projectId, Context pAppContext) throws JSONException {
+        Cursor countEvaluationPoject = db.rawQuery("SELECT pro.* FROM projects pro " +
+                "INNER JOIN evaluations eva ON pro.ProjectId = eva.ProjectId " +
+                "WHERE pro.ProjectId = '"+projectId+"';", null);
+        saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluationPoject.getCount());
     }
 
-    public void  consulta(Context context){
-
-        String[] campos = new String[] {"*"};
-        String[] args = new String[] {"1"};
-        openConnection();
-        //Cursor c = db.query("Contacto", campos, "Enabled=?", args, null, null, null);
-        Cursor c = db.rawQuery(" SELECT * FROM Contacto WHERE Enabled = '1' ", null);
-
-
-
-        //Nos aseguramos de que existe al menos un registro
-        if (c.moveToFirst()) {
-            //Recorremos el cursor hasta que no haya más registros
-            do {
-                System.out.println(c.getString(c.getColumnIndex("Contacto")));
-            } while(c.moveToNext());
-        }
-        closeConnection();
-
-        //String newvonombre = "William";
-
-        //db.execSQL("UPDATE Usuario SET Nombre = "+newvonombre+" Where ContactoId = 1; SELECT 1;");
+    public void saveProjectMySQL_GetEmail(final String pProjectId, final Context pAppContext, final int pEvaluationCount) throws JSONException {
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, GET_EMAIL_BY_TOKEN,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray result = (JSONArray)obj.get("result");
+                            String Email = ((JSONObject)result.get(0)).get("Email").toString();
+                            saveProjectMySQL_Aux(pProjectId, Email, pAppContext, pEvaluationCount);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("token", getUserToken().toString());
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
+
+    public void saveProjectMySQL_Aux(final String pProjectId, final String pEmail, final Context pAppContext, final int pEvaluationCount){
+        final RequestQueue queue = Volley.newRequestQueue(pAppContext);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, SAVE_PROJECT,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            System.out.println("---------si-1----------"+response);
+                            JSONArray array = new JSONArray(response);
+                            JSONObject jsonObject = array.getJSONObject(0);
+                            String Email = jsonObject.getString("ProjectId").toString();
+
+                            System.out.println("---------si----------"+Email);
+                            System.out.println("---------obj----------"+Email);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        queue.stop();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("---------------error------------------"+error);
+                        queue.stop();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                Cursor getProject = db.rawQuery("SELECT pro.*, strty.Name AS StructureType FROM projects pro " +
+                        "INNER JOIN structuretypes strty ON pro.StructureTypeId = strty.StructureTypeId " +
+                        "WHERE pro.ProjectId = '"+pProjectId+"' AND pro.Enabled = 1 LIMIT 1;", null);
+                getProject.moveToFirst();
+                params.put("projectName", getProject.getString(getProject.getColumnIndex("Name")));
+                params.put("buildingDate", getProject.getString(getProject.getColumnIndex("StructureCreationDate")));
+                params.put("componentDescription", getProject.getString(getProject.getColumnIndex("ComponentDescription")));
+                params.put("generalDescription", getProject.getString(getProject.getColumnIndex("StructureUseDescription")));
+                params.put("districtId", getProject.getString(getProject.getColumnIndex("DistrictId")));
+                params.put("structureType", getProject.getString(getProject.getColumnIndex("StructureType")));
+                params.put("latitude", getProject.getString(getProject.getColumnIndex("Latitude")));
+                params.put("longitude", getProject.getString(getProject.getColumnIndex("Longitude")));
+                params.put("email", pEmail);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
