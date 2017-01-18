@@ -63,11 +63,11 @@ public class Projects extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
         manager = new DataBaseManager(this);
         productsList = new ArrayList<HashMap<String, String>>();
         btnUseProject = (Button) findViewById(R.id.btn_use_project);
         loadProjectList();
+
 
         btnCreateNewProject = (Button) findViewById(R.id.btn_create_new);
 
@@ -79,6 +79,7 @@ public class Projects extends AppCompatActivity
         });
 
     }
+
 
     public void loadProjectList() {
         Cursor cursor = manager.getProjectList();

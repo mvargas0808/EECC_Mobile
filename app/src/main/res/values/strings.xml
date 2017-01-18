@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">EECC</string>
 
+
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -16,6 +18,7 @@
     <string name="text_login">Iniciar Sesión</string>
     <string name="text_password">Contraseña</string>
     <string name="text_username">Usuario</string>
+
 
     <string name="title_activity_projects">Proyectos</string>
 
