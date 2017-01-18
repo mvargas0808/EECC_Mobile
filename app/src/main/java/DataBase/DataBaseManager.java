@@ -1002,6 +1002,48 @@ public class DataBaseManager {
     }
 
 
+    public String getIndicatorsName(String evaluationId) throws JSONException {
+        Cursor cursorIndicator = db.rawQuery(" SELECT indname.Col, indname.Row, idcind.Value FROM evaluations eva\n" +
+                "        INNER JOIN corrosiondamageindexes cordin ON cordin.EvaluationId = eva.EvaluationId AND cordin.Enabled = 1\n" +
+                "        INNER JOIN idcindicators idcind ON  idcind.CorrosionDamageIndexId = cordin.CorrosionDamageIndexId AND idcind.Enabled = 1\n" +
+                "        INNER JOIN indicatornames indname ON indname.IndicatorNameId = idcind.IndicatorNameId AND indname.Enabled = 1\n" +
+                "        WHERE eva.Enabled = 1 AND eva.EvaluationId = '"+evaluationId+"';", null);
+        String value1, row1, col1, value2, row2, col2, value3, row3, col3, value4, row4, col4, value5, row5, col5, value6, row6, col6;
+        cursorIndicator.moveToFirst();
+        value1 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Value"));
+        row1 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Row"));
+        col1 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Col"));
+        cursorIndicator.moveToNext();
+        value2 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Value"));
+        row2 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Row"));
+        col2 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Col"));
+        cursorIndicator.moveToNext();
+        value3 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Value"));
+        row3 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Row"));
+        col3 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Col"));
+        cursorIndicator.moveToNext();
+        value4 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Value"));
+        row4 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Row"));
+        col4 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Col"));
+        cursorIndicator.moveToNext();
+        value5 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Value"));
+        row5 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Row"));
+        col5 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Col"));
+        cursorIndicator.moveToNext();
+        value6 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Value"));
+        row6 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Row"));
+        col6 = cursorIndicator.getString(cursorIndicator.getColumnIndex("Col"));
+
+       String result = "{\"carbonationDepth\":["+value1+","+row1+","+col1+"],";
+        result += "\"chlorideLevel\":["+value2+","+row2+","+col2+"],";
+        result += "\"cracking\":["+value3+","+row3+","+col3+"],";
+        result += "\"resistivity\":["+value4+","+row4+","+col4+"],";
+        result += "\"sectionLoss\":["+value5+","+row5+","+col5+"],";
+        result += "\"intensity\":["+value6+","+row6+","+col6+"]}";
+        return result;
+    }
+
+
     public void updateToken(String newToken, String oldTokenId){
         ContentValues values = new ContentValues();
         values.put("Token", newToken);
@@ -1087,22 +1129,16 @@ public class DataBaseManager {
     public void saveProjectMySQL(String projectId, Context pAppContext, LoadProject loadproject) throws JSONException {
         int countEvaluation = countEvaluationProject(projectId).getCount();
         if(countEvaluation == 1){
-            System.out.println("-------------HAY EVALUACIÓN-------------------------------------");
             if (existIDEProject(projectId)){
-                System.out.println("-------------HAY IDE-------------------------------------");
                 saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
             }
         } else {
             saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
         }
-
-        System.out.println("-------------project NO SE PUEDE-------------------------------------");
-
     }
 
     public void saveTokenProjectMySQL(String tokenId, String tokenName, Context pAppContext, LoadProject loadproject){
         if (existIDEToken(tokenId)){
-            System.out.println("-------------token exist evaluation IDE-------------------------------------");
             saveTokenProjectMySQL_Aux(tokenId, tokenName, pAppContext, loadproject);
         }
     }
@@ -1123,11 +1159,9 @@ public class DataBaseManager {
                                 createEvaluation_MySQL(projectId, "0", tokenId, pAppContext);
 
                                 openConnection();
-                                /*
                                 ContentValues values = new ContentValues();
                                 values.put("Enabled", 0);
                                 db.update("Tokens",values,"TokenId = "+tokenId+";",null);
-*/
                                 loadproject.loadTokenList();
                             } else {
                                 loadproject.insertToken(tokenId);
@@ -1142,7 +1176,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
@@ -1180,7 +1213,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
@@ -1209,15 +1241,12 @@ public class DataBaseManager {
                             String projectId_sql = jsonObject.getString("ProjectId").toString();
                             String code = jsonObject.getString("Code").toString();
                             if(code.equals("1")){
-                                /*
                                 ContentValues values = new ContentValues();
                                 values.put("Enabled", 0);
                                 long value = db.update("Projects",values,"ProjectId = "+pProjectId+";",null);
-                                */
                                 loadproject.loadProjectList();
 
                                 if(pEvaluationCount > 0){
-                                    System.out.println("------------------------VA A CREAR LA EVALUACIÓN-------------------------");
                                    createEvaluation_MySQL(projectId_sql, pProjectId,  "0", pAppContext);
                                 }
                             }
@@ -1231,7 +1260,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
@@ -1267,25 +1295,18 @@ public class DataBaseManager {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            System.out.println("--------------ENTRO A CREAR LA EVALUACIÓN---------------------"+response);
                             JSONArray array = new JSONArray(response);
                             JSONObject jsonObject = array.getJSONObject(0);
                             String evaluationId_sql = jsonObject.getString("EvaluationId").toString();
-                            System.out.println("--------------existIDEProject---------------------"+existIDEProject(projectId));
                             if (existIDEProject(projectId) || existIDEToken(tokenId)){
-                                System.out.println("--------------1---------saveStructuralDamageIndex_MySQL---------------------");
                                 saveStructuralDamageIndex_MySQL(getEvaluationId(tokenId, projectId), evaluationId_sql, pAppContext);
                             } if (existCorrosionIndex(getEvaluationId(tokenId, projectId))){
-                                System.out.println("------------2-----------saveCorrosionIndex_MySQL---------------------");
-                                //saveCorrosionIndex_MySQL(getEvaluationId(tokenId, projectId),evaluationId_sql, pAppContext);
+                                saveCorrosionIndex_MySQL(getEvaluationId(tokenId, projectId),evaluationId_sql, pAppContext);
                             } if (existStructuralIndex(getEvaluationId(tokenId, projectId))){
-                                System.out.println("--------------3---------saveStructuralIndex_MySQL---------------------");
                                 if(getEvaluationType(getEvaluationId(tokenId, projectId)) == 1){
-                                    System.out.println("--------------4---------manual---------------------");
                                     SAVE_STRUCTURAL_INDEX_MODE = SAVE_STRUCTURAL_INDEX_MANUAL_AUX;
                                     saveStructuralIndex_MySQL(getEvaluationId(tokenId, projectId), evaluationId_sql, pAppContext);
                                 } else {
-                                    System.out.println("--------------5---------simplificada---------------------");
                                     SAVE_STRUCTURAL_INDEX_MODE = SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX;
                                     saveStructuralIndex_MySQL(getEvaluationId(tokenId, projectId), evaluationId_sql, pAppContext);
                                 }
@@ -1300,7 +1321,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
@@ -1324,7 +1344,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onResponse(String response) {
-                        System.out.println("--------------------response---------"+response);
                         queue.stop();
                     }
                 },
@@ -1332,7 +1351,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
@@ -1375,7 +1393,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onResponse(String response) {
-
                         queue.stop();
                     }
                 },
@@ -1383,7 +1400,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
@@ -1403,10 +1419,16 @@ public class DataBaseManager {
                     getCorrosionIndex.moveToFirst();
                     params.put("IDC", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IDC")));
                     params.put("IAA", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IAA")));
-                    params.put("IAA_Row", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IAA_Row")));
+                    params.put("IAA_Row", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("ISC")));
+                    params.put("ISC", getCorrosionIndex.getString(getCorrosionIndex.getColumnIndex("IAA_Row")));
                     params.put("evaluationId", evaluationId_sql);
-                    //$ISC = $_POST['ISC'];
-                    //$indicators = $_POST['indicators'];
+                    String indicators = null;
+                    try {
+                        indicators = getIndicatorsName(evaluationId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    params.put("indicators", indicators);
                 }
                 return params;
             }
@@ -1430,7 +1452,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onResponse(String response) {
-                        System.out.println("---------------------Response 2------------"+response);
                         queue.stop();
                     }
                 },
@@ -1438,7 +1459,6 @@ public class DataBaseManager {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("---------------error------------------"+error);
                         queue.stop();
                     }
                 }
