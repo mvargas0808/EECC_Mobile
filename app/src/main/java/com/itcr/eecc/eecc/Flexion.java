@@ -91,6 +91,7 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
             case R.id.buttonLongitudinal:
                 if(!longitudinalValues.isEmpty()){
                     nextSubEvaluation(Flexion.class, "M_Flexion_Second");
+                    finish();
                 } else {
                     Toast.makeText(Flexion.this,"Debe seleccionar el Índice de Armado Longitudinal",Toast.LENGTH_LONG).show();
                 }
@@ -316,7 +317,6 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         if(value == -1){
             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
         }
         manager.closeConnection();
@@ -331,7 +331,6 @@ public class Flexion extends AppCompatActivity implements View.OnClickListener, 
         if(value == -1){
             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
         }
         manager.closeConnection();

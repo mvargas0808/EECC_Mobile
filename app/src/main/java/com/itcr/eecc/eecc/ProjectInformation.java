@@ -112,9 +112,10 @@ public class ProjectInformation extends AppCompatActivity implements NavigationV
         manager.closeConnection();
     }
 
+
+
     public void alertMessageCreateEvaluation(String projectId){
         final String projectIdFinal = projectId;
-        Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("¿Desea crear una nueva evaluación en el sistema?");
         builder1.setCancelable(false);

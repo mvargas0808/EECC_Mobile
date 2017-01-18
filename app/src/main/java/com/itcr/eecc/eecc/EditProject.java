@@ -4,8 +4,11 @@ package com.itcr.eecc.eecc;
         import android.app.Dialog;
         import android.app.DialogFragment;
         import android.content.Context;
+        import android.content.DialogInterface;
+        import android.content.Intent;
         import android.database.Cursor;
         import android.os.Bundle;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.ActionBarDrawerToggle;
         import android.support.v7.widget.Toolbar;
         import android.view.View;
@@ -70,7 +73,7 @@ public class EditProject extends AppCompatActivity
         manager = new DataBaseManager(this);
         btnGetDate = (Button) findViewById(R.id.btn_getDate);
         btnSaveEdit = (Button) findViewById(R.id.btn_saveEdit);
-        btnCancelProject = (Button) findViewById(R.id.btn_cancelProyect);
+        btnCancelProject = (Button) findViewById(R.id.btn_cancelProyectEdit);
         tvDate = (TextView) findViewById(R.id.tv_date);
         tvRequiereProject = (TextView) findViewById(R.id.tv_requiere_project);
         tvRequiereComponent = (TextView) findViewById(R.id.tv_requiere_component);
@@ -114,6 +117,34 @@ public class EditProject extends AppCompatActivity
         }
         manager.closeConnection();
 
+    }
+
+    public void cancelProject(View v){
+        alertMessageCancelEdit();
+    }
+
+    public void alertMessageCancelEdit(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Si cancela este proceso, toda la información que ha cambiado se perderá");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = new Intent(getApplicationContext(), Projects.class);
+                        startActivity(i);
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Cancelar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     public void showPickerDate(View v){

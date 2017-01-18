@@ -60,4 +60,5 @@
     <string name="button_next">Siguiente</string>
     <string name="button_evaluateIE">Evaluar IE</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="loginTitle">Instituto Tecnológico de Costa Rica \n Proyecto de Ingeniería de Software </string>
 </resources>

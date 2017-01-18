@@ -101,6 +101,7 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
             case R.id.buttonLongitudinal:
                 if(!longitudinalValues.isEmpty()){
                     nextSubEvaluation(Flexocompresion.class, "M_Flexocompresion_Second");
+                    finish();
                 } else {
                     Toast.makeText(Flexocompresion.this,"Debe seleccionar el Índice de Armado Longitudinal",Toast.LENGTH_LONG).show();
                 }
@@ -306,7 +307,6 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
         if(value == -1){
             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
         }
         manager.closeConnection();
@@ -321,7 +321,6 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
         if(value == -1){
             Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(),"Todo fue un éxito "+value, Toast.LENGTH_LONG).show();
             finishCalculation();
         }
         manager.closeConnection();

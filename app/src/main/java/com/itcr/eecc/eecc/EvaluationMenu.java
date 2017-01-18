@@ -1,6 +1,7 @@
 package com.itcr.eecc.eecc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +24,10 @@ import Common.Methods;
 public class EvaluationMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Button buttonCDI, buttonSI, buttonSDI, buttonReport;
+    private String evaluationId;
+    private String projectId;
+    Context appContext = this;
 
-    String evaluationId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +39,12 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
         try {
             json = new JSONObject(intent.getStringExtra("json"));
             evaluationId =  json.get("evaluationId").toString();
-            Toast.makeText(getApplicationContext(), "Evaluation ID " + evaluationId, Toast.LENGTH_LONG).show();
+            projectId = json.get("ProjectId").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         setContentView(R.layout.evaluation_menu);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,8 +88,13 @@ public class EvaluationMenu extends AppCompatActivity implements View.OnClickLis
                 startSubEvaluation(StructuralDamage.class, evaluationId);
                 break;
             case R.id.buttonReport:
-                Intent report = new Intent(EvaluationMenu.this, Login.class);
-                startActivity(report);
+                try {
+                    Methods.changeScreenAndSendJson(appContext, Report.class,
+                            "json", new JSONObject("{'ProjectId':"+projectId+",'evaluationId':"+evaluationId+"}"));
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;

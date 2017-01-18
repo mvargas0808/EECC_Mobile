@@ -16,14 +16,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import Common.Methods;
 import DataBase.DataBaseManager;
 
 public class LoadProject extends AppCompatActivity {
@@ -81,14 +76,14 @@ public class LoadProject extends AppCompatActivity {
                 // getting values from selected ListItem
                 String TokenId = ((TextView) view.findViewById(R.id.pidToken)).getText()
                         .toString();
-                alertLoadTokens(TokenId);
+                String TokenName = ((TextView) view.findViewById(R.id.nameToken)).getText()
+                        .toString();
+                alertLoadTokens(TokenId, TokenName);
             }
         });
     }
 
-    public void alertLoadTokens(String projectId){
-        final String projectIdFinal = projectId;
-        Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
+    public void alertLoadTokens(final String tokenId, final String tokenName){
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("¿Desea subir la evaluación a internet?");
         builder1.setCancelable(false);
@@ -97,7 +92,11 @@ public class LoadProject extends AppCompatActivity {
                 "Subir",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getApplicationContext(), "Todo fue subido", Toast.LENGTH_SHORT).show();
+                        try {
+                            setTokenProyectMySQL(tokenId, tokenName);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.cancel();
                     }
                 });
@@ -150,7 +149,6 @@ public class LoadProject extends AppCompatActivity {
 
     public void alertLoadProjects(String projectId){
         final String projectIdFinal = projectId;
-        Toast.makeText(getApplicationContext(), "fINAL " + projectIdFinal, Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("¿Desea subir los datos a internet?");
         builder1.setCancelable(false);
@@ -159,7 +157,11 @@ public class LoadProject extends AppCompatActivity {
                 "Subir",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getApplicationContext(), "Todo fue subido", Toast.LENGTH_SHORT).show();
+                        try {
+                            setProyectMySQL(projectIdFinal);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.cancel();
                     }
                 });
@@ -176,4 +178,49 @@ public class LoadProject extends AppCompatActivity {
     }
 
 
+    public void setProyectMySQL(String projectId) throws JSONException {
+        manager.openConnection();
+        manager.saveProjectMySQL(projectId, appContext, this);
+        manager.closeConnection();
+    }
+
+    public void setTokenProyectMySQL(String tokenId, String tokenName) throws JSONException {
+        manager.openConnection();
+        manager.saveTokenProjectMySQL(tokenId, tokenName, appContext, this);
+        manager.closeConnection();
+    }
+
+    public void insertToken(final String tokenId){
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
+        View mView = layoutInflaterAndroid.inflate(R.layout.token_input_dialog_change, null);
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
+        alertDialogBuilderUserInput.setView(mView);
+
+        final EditText tokenInputDialog = (EditText) mView.findViewById(R.id.tokenInputDialog);
+        alertDialogBuilderUserInput
+                .setCancelable(false)
+                .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogBox, int id) {
+                        //This is the evaluatioin value
+                        manager.openConnection();
+                        if(!tokenInputDialog.getText().toString().trim().equals("")){
+                            manager.updateToken(tokenInputDialog.getText().toString(), tokenId);
+                            loadTokenList();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "ERROR Token invalido", Toast.LENGTH_LONG).show();
+                        }
+                        manager.closeConnection();
+                    }
+                })
+
+                .setNegativeButton("Cancelar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                dialogBox.cancel();
+                            }
+                        });
+
+        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.show();
+    }
 }

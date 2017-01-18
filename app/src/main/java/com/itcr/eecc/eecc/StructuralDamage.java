@@ -24,9 +24,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import Common.Constants;
@@ -1044,13 +1041,6 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
                         } else {
                             Toast.makeText(appContext, Constants.ERROR_UPDATE_EVALUATION, Toast.LENGTH_LONG).show();
                         }
-
-                        /*long IDE_Id = manager.updateStructuralDamageIndex(IDE,structuralIndex,corrosionIndex,evaluationId);
-
-                        long relatedIDEInfo_Id = manager.updateRalatedIDEInformation(IDE_Id,ideInformationId);
-
-                        Toast.makeText(appContext, "NEW: infoID: " + ideInformationId + " IDE_ID " + IDE_Id + "Related " + relatedIDEInfo_Id, Toast.LENGTH_LONG).show();
-                        */
                     }
 
 

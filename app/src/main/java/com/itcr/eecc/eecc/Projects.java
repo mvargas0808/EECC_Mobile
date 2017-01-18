@@ -2,7 +2,6 @@ package com.itcr.eecc.eecc;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -137,7 +136,6 @@ public class Projects extends AppCompatActivity
                         manager.openConnection();
                         if(!tokenInputDialog.getText().toString().trim().equals("")){
                             String evaluationId = manager.createProjectToken(tokenInputDialog.getText().toString());
-                            Toast.makeText(getApplicationContext(), "Este fue el id de la evaluacion " + evaluationId, Toast.LENGTH_SHORT).show();
 
                             JSONObject json = new JSONObject();
                             try {

@@ -32,25 +32,83 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView16"
                     android:textAlignment="center"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:text="INDICADORES DE CORROSIÓN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView11" />
+                    android:id="@+id/textView11"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIndicator1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIndicator2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIndicator3" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIndicator4" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIndicator5" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIndicator6" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tv_IDC" />
 
                 <TextView
                     android:text="AGRESIVIDAD AMBIENTAL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView17" />
+                    android:id="@+id/textView17"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tv_AA" />
 
                 <TextView
                     android:text="ÍNDICE DE CORROSIÓN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView25" />
+                    android:id="@+id/textView25"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tv_IC" />
 
                 <TextView
                     android:text="Índice estructural"
@@ -58,19 +116,39 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView27"
                     android:textAlignment="center"
+                    android:textStyle="normal|bold"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:text="ÍNDICE ESTRUCTURAL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvStructuralIndex"
                     android:textStyle="normal|bold" />
 
                 <TextView
-                    android:text="ÍNDICE ESTRUCTURAL - Elemento en flexión"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView24" />
+                    android:visibility="gone"
+                    android:id="@+id/tvIEDescription" />
 
                 <TextView
-                    android:text="ÍNDICE ESTRUCTURAL - Elemento en flexocompresión"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView23" />
+                    android:visibility="gone"
+                    android:id="@+id/tvIALDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIATDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/tvIEvalue" />
 
                 <TextView
                     android:text="Índice daño estructural"
@@ -78,22 +156,31 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView26"
                     android:textAlignment="center"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:text="ÍNDICE DE DAÑO ESTRUCTURAL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView22" />
+                    android:id="@+id/textView22"
+                    android:textStyle="normal|bold" />
 
                 <TextView
-                    android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView21" />
+                    android:visibility="gone"
+                    android:id="@+id/tvIDEDescription" />
 
             </LinearLayout>
         </ScrollView>
+
+        <Button
+            android:text="Salir"
+            android:onClick="exitReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_exit" />
 
     </LinearLayout>
 </RelativeLayout>

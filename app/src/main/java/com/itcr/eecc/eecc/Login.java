@@ -4,7 +4,6 @@ package com.itcr.eecc.eecc;
         import org.json.JSONArray;
         import org.json.JSONException;
         import org.json.JSONObject;
-        import org.w3c.dom.Text;
 
         import android.app.Activity;
         import android.content.Context;
@@ -21,7 +20,6 @@ package com.itcr.eecc.eecc;
         import android.widget.TextView;
         import android.widget.Toast;
 
-        import java.sql.DatabaseMetaData;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
@@ -48,8 +46,14 @@ public class Login extends Activity implements OnClickListener {
     //Michael
     //private static final String LOGIN_URL = "http://192.168.0.216:81/admin/Proyecto/eecc/EECC_Web/php/controllers/user/login.php";
 
+    //HOSTINGER
+    //private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
+
+
+    private static final String LOGIN_URL = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/login.php";
+
     //William
-    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
 
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -87,21 +91,15 @@ public class Login extends Activity implements OnClickListener {
 
                         if(validateEmail(user.getText().toString())){
                             new AttemptLogin().execute();
-
                         }
                         else {
                             Toast.makeText(Login.this,"Formato de correo inválido",Toast.LENGTH_SHORT).show();
-
-                            //Intent i = new Intent(appContext, ProjectForm.class);
-                            //Intent i = new Intent(getApplicationContext(), ProjectForm.class);
-                            //startActivity(i);
                         }
-
                     } else {
-
                         Toast.makeText(Login.this,"Ingrese los credenciales",Toast.LENGTH_SHORT).show();
                     }
 
+                    //}//
 
                     break;
                 default:
@@ -157,28 +155,34 @@ public class Login extends Activity implements OnClickListener {
             }
 
             JSONObject jsonResult = jsonParser.makeHttpRequest(LOGIN_URL, "POST", dataForPost);
-
             return jsonResult;
 
         }
 
         protected void onPostExecute(JSONObject json) {
 
-
             // dismiss the dialog after getting all products
             try {
-
-
                 if(json != null){
                     JSONArray result = (JSONArray)json.get("result");
                     Log.d("Lenght", ""+result.length());
                     if(result.length()!=0){
                         Log.d("JSON:", result.get(0).toString());
-                        //mTextView.setText("Email: - " + ((JSONObject)result.get(0)).get("Email").toString());
+                        String Name, LastName, Email, Token;
+                        Name = ((JSONObject)result.get(0)).get("Name").toString();
+                        LastName = ((JSONObject)result.get(0)).get("Lastname").toString();
+                        Email = ((JSONObject)result.get(0)).get("Email").toString();
+                        Token = ((JSONObject)result.get(0)).get("Token").toString();
+                        mTextView.setText("Email: - " + Email);
+                        int response = createUser(Name, LastName, Email, Token);
 
-                        Methods.changeScreen(appContext,Projects.class);
-                        finish();
-
+                        if(response == 1){
+                            Methods.changeScreen(appContext,Projects.class);
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Ha ocurrido un error", Toast.LENGTH_LONG).show();
+                        }
                     }
                     else{
                         Toast.makeText(Login.this,"Credenciales inválidas",Toast.LENGTH_SHORT).show();
@@ -186,19 +190,25 @@ public class Login extends Activity implements OnClickListener {
                 } else {
                     Toast.makeText(Login.this, Constants.ERROR_LOGGING_CONNECTION,Toast.LENGTH_SHORT).show();
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
 
+    public int createUser(String pName, String pLastName, String pEmail, String pToken){
+        manager.openConnection();
 
+        long value = manager.createUser(pName, pLastName, pEmail, pToken);
+
+        manager.closeConnection();
+        if(value == -1){
+            return -1;
+        }
+        return 1;
+
+    }
 
     // Returns if a text input is empty
     public  boolean isInputEmpty(String pInputId){
