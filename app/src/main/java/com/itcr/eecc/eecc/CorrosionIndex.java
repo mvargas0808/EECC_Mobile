@@ -161,6 +161,7 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
                     displayIDEValue(IDC);
 
+                    manager.openConnection();
                     ArrayList<String> indicators = manager.getCorrosionIndicatorsValues(corrosionIndexId);
 
                     if(indicators.size() > 0){
@@ -329,7 +330,7 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
             long IAAInfoId = manager.getIAAInformationId(IAA_Row);
 
             if (IAAInfoId != -1){
-
+                manager.openConnection();
                 long corrosionIndexId = manager.insertCorrosionIndex(pEvaluationId,IDC,IAA_Value,pCorrosionIndex,IAAInfoId);
 
                 // Corrosion Damage Indicators are going to be saved
@@ -381,16 +382,16 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
             long IAAInfoId = manager.getIAAInformationId(IAA_Row);
 
             if (IAAInfoId != -1){
-
+                manager.openConnection();
                 long corrosionIndexId = manager.getCorrosionIndexId(pEvaluationId);
 
                 if (corrosionIndexId != -1){
-
+                    manager.openConnection();
                     long updateResult = manager.updateCorrosionIndex(corrosionIndexId, IDC, IAA_Value, pCorrosionIndex, IAAInfoId);
 
                     if (updateResult != -1){
 
-
+                        manager.openConnection();
                         long disableResult = manager.disableIndicators(corrosionIndexId);
 
                         if (disableResult != -1){
@@ -449,10 +450,11 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
             int indicatorRow = pIndicatorInfoJson.getInt("row");
             int indicatorCol = pIndicatorInfoJson.getInt("column");
             int indicatorValue = pIndicatorInfoJson.getInt("value");
-
+            pManager.openConnection();
             long indicatorNameId = pManager.getIndicatorNameId(indicatorRow, indicatorCol);
 
             if (indicatorNameId != -1){
+                pManager.openConnection();
                 long indicadorResult = pManager.saveIndicatorValue(pCorrosionIndexId, indicatorValue, indicatorNameId);
                 return indicadorResult;
             } else {
@@ -901,6 +903,9 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
             Methods.changeScreen(this, LoadProject.class);
             finish();
         } else if (id == R.id.nav_logout) {
+            manager.openConnection();
+            manager.disableUsers();
+            manager.closeConnection();
             Methods.changeScreen(this,Login.class);
             finish();
         }

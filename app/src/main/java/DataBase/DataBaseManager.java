@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,14 +36,14 @@ public class DataBaseManager {
     JSONParser jsonParser = new JSONParser();
     Context appContext;
 
-    private static final String GET_EMAIL_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/get-user-email-by-token.php";
-    private static final String SAVE_PROJECT = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/create-project.php";
-    private static final String CREATE_EVALUATION = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/evaluation/create-evaluation-mobile.php";
-    private static final String GET_PROJECT_BY_TOKEN = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/project/get-project-by-token.php";
-    private static final String SAVE_STRUCTURAL_DAMAGE_INDEX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/structural-damage-index/save-structural-damage-index.php";
-    private static final String SAVE_CORROSION_INDEX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/corrosion-index/save-ci.php";
-    private static final String SAVE_STRUCTURAL_INDEX_MANUAL_AUX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/structural-index/save-si-manual.php";
-    private static final String SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/structural-index/save-si-simplified.php";
+    private static final String GET_EMAIL_BY_TOKEN = "http://bryansp.esy.es/php/controllers/user/get-user-email-by-token.php";
+    private static final String SAVE_PROJECT = "http://bryansp.esy.es/php/controllers/project/create-project.php";
+    private static final String CREATE_EVALUATION = "http://bryansp.esy.es/php/controllers/evaluation/create-evaluation-mobile.php";
+    private static final String GET_PROJECT_BY_TOKEN = "http://bryansp.esy.es/php/controllers/project/get-project-by-token.php";
+    private static final String SAVE_STRUCTURAL_DAMAGE_INDEX = "http://bryansp.esy.es/php/controllers/structural-damage-index/save-structural-damage-index.php";
+    private static final String SAVE_CORROSION_INDEX = "http://bryansp.esy.es/php/controllers/corrosion-index/save-ci.php";
+    private static final String SAVE_STRUCTURAL_INDEX_MANUAL_AUX = "http://bryansp.esy.es/php/controllers/structural-index/save-si-manual.php";
+    private static final String SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX = "http://bryansp.esy.es/php/controllers/structural-index/save-si-simplified.php";
     String SAVE_STRUCTURAL_INDEX_MODE = "";
 
     public DataBaseManager(Context context) {
@@ -1131,15 +1133,21 @@ public class DataBaseManager {
         if(countEvaluation == 1){
             if (existIDEProject(projectId)){
                 saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
+                Toast.makeText(pAppContext, "El proceso fue realizado exitosamente", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(pAppContext, "Aun no se ha calculado el índ. Daño Estructural.", Toast.LENGTH_LONG).show();
             }
         } else {
             saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
+            Toast.makeText(pAppContext, "El proceso fue realizado exitosamente", Toast.LENGTH_LONG).show();
         }
     }
 
     public void saveTokenProjectMySQL(String tokenId, String tokenName, Context pAppContext, LoadProject loadproject){
         if (existIDEToken(tokenId)){
             saveTokenProjectMySQL_Aux(tokenId, tokenName, pAppContext, loadproject);
+        } else {
+            Toast.makeText(pAppContext, "Aun no se ha calculado el índ. Daño Estructural.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -1157,12 +1165,12 @@ public class DataBaseManager {
                                 JSONArray result = (JSONArray)obj.get("result");
                                 String projectId = ((JSONObject)result.get(0)).get("ProjectId").toString();
                                 createEvaluation_MySQL(projectId, "0", tokenId, pAppContext);
-
                                 openConnection();
                                 ContentValues values = new ContentValues();
                                 values.put("Enabled", 0);
                                 db.update("Tokens",values,"TokenId = "+tokenId+";",null);
                                 loadproject.loadTokenList();
+                                Toast.makeText(pAppContext, "El proceso fue realizado exitosamente", Toast.LENGTH_LONG).show();
                             } else {
                                 loadproject.insertToken(tokenId);
                             }
@@ -1268,6 +1276,7 @@ public class DataBaseManager {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
+                openConnection();
                 Cursor getProject = db.rawQuery("SELECT pro.*, strty.Name AS StructureType FROM projects pro " +
                         "INNER JOIN structuretypes strty ON pro.StructureTypeId = strty.StructureTypeId " +
                         "WHERE pro.ProjectId = '"+pProjectId+"' AND pro.Enabled = 1 LIMIT 1;", null);

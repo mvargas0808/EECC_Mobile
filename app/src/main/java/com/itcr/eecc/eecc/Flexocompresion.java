@@ -393,6 +393,9 @@ public class Flexocompresion extends AppCompatActivity implements View.OnClickLi
             Methods.changeScreen(this, LoadProject.class);
             finish();
         } else if (id == R.id.nav_logout) {
+            manager.openConnection();
+            manager.disableUsers();
+            manager.closeConnection();
             Methods.changeScreen(this,Login.class);
             finish();
         }

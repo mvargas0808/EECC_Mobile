@@ -30,8 +30,11 @@ package com.itcr.eecc.eecc;
         import org.json.JSONException;
         import org.json.JSONObject;
 
+        import java.text.ParseException;
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
         import java.util.Calendar;
+        import java.util.Date;
         import java.util.List;
         import Common.ElementKey;
         import Common.Methods;
@@ -44,7 +47,7 @@ public class EditProject extends AppCompatActivity
 
     Spinner spProvince, spCanton, spDistrict, spStructuretype;
     Button btnGetDate, btnSaveEdit, btnCancelProject;
-    TextView tvDate, tvRequiereProject, tvRequiereComponent, tvRequiereStructure;
+    TextView tvDate, tvRequiereProject, tvRequiereComponent, tvRequiereStructure, tv_requiere_date;
     EditText txtProjectName, txtComponent, txtStructure;
     DialogFragment newFragment;
     ElementKey ekProvincias, ekCantons, ekDistricts, ekStructureType;
@@ -78,6 +81,7 @@ public class EditProject extends AppCompatActivity
         tvRequiereProject = (TextView) findViewById(R.id.tv_requiere_project);
         tvRequiereComponent = (TextView) findViewById(R.id.tv_requiere_component);
         tvRequiereStructure = (TextView) findViewById(R.id.tv_requiere_structure);
+        tv_requiere_date = (TextView) findViewById(R.id.tv_requiere_date);
         txtProjectName = (EditText) findViewById(R.id.txt_projectName);
         txtComponent = (EditText) findViewById(R.id.txt_component);
         txtStructure = (EditText) findViewById(R.id.txt_structure);
@@ -163,7 +167,7 @@ public class EditProject extends AppCompatActivity
                     ekStructureType.getKey(spStructuretype.getSelectedItem().toString()),
                     0,
                     0,
-                    "1");
+                    projectId);
             if(value == -1){
                 Toast.makeText(getApplicationContext(),"A ocurrido un error", Toast.LENGTH_LONG).show();
             } else {
@@ -191,6 +195,17 @@ public class EditProject extends AppCompatActivity
         } if (txtStructure.getText().toString().trim().equals("")) {
             tvRequiereStructure.setVisibility(View.VISIBLE);
             state = false;
+        } if (!tvDate.getText().toString().equals("aaaa-mm-dd")){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = formatter.parse(tvDate.getText().toString());
+                if(date.after(new Date())){
+                    tv_requiere_date.setVisibility(View.VISIBLE);
+                    state = false;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return state;
     }
@@ -199,6 +214,7 @@ public class EditProject extends AppCompatActivity
         tvRequiereProject.setVisibility(View.GONE);
         tvRequiereComponent.setVisibility(View.GONE);
         tvRequiereStructure.setVisibility(View.GONE);
+        tv_requiere_date.setVisibility(View.GONE);
 
     }
 
@@ -368,6 +384,9 @@ public class EditProject extends AppCompatActivity
             Methods.changeScreen(this, LoadProject.class);
             finish();
         } else if (id == R.id.nav_logout) {
+            manager.openConnection();
+            manager.disableUsers();
+            manager.closeConnection();
             Methods.changeScreen(this,Login.class);
             finish();
         }

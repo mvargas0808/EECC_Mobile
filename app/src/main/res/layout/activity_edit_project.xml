@@ -126,6 +126,14 @@
                         android:textAlignment="center" />
 
                     <TextView
+                        android:text="Fecha invalida"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_requiere_date"
+                        android:textColor="@color/FFFE0000" />
+
+                    <TextView
                         android:text="Tipo de estructura"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

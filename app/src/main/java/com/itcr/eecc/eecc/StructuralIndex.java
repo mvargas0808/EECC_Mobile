@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Common.Methods;
+import DataBase.DataBaseManager;
 
 
 public class StructuralIndex extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -30,10 +31,12 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
     private RadioGroup radioType;
     private ImageView iaa1;
     private String evaluationId;
+    DataBaseManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        manager = new DataBaseManager(this);
         
         Intent intent = getIntent();
         JSONObject json;
@@ -138,6 +141,9 @@ public class StructuralIndex extends AppCompatActivity implements View.OnClickLi
             Methods.changeScreen(this, LoadProject.class);
             finish();
         } else if (id == R.id.nav_logout) {
+            manager.openConnection();
+            manager.disableUsers();
+            manager.closeConnection();
             Methods.changeScreen(this,Login.class);
             finish();
         }

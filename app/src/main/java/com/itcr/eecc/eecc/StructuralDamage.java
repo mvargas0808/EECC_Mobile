@@ -1206,6 +1206,9 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
             Methods.changeScreen(this, LoadProject.class);
             finish();
         } else if (id == R.id.nav_logout) {
+            manager.openConnection();
+            manager.disableUsers();
+            manager.closeConnection();
             Methods.changeScreen(this,Login.class);
             finish();
         }

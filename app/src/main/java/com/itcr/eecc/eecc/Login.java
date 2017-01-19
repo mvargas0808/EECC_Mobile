@@ -4,6 +4,7 @@ package com.itcr.eecc.eecc;
         import org.json.JSONObject;
         import android.app.Activity;
         import android.content.Context;
+        import android.database.Cursor;
         import android.net.ConnectivityManager;
         import android.net.NetworkInfo;
         import android.os.AsyncTask;
@@ -46,10 +47,10 @@ public class Login extends Activity implements OnClickListener {
     //private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
 
 
-    //private static final String LOGIN_URL = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/login.php";
+    private static final String LOGIN_URL = "http://bryansp.esy.es/php/controllers/user/login.php";
 
     //William
-    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
 
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -61,6 +62,7 @@ public class Login extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         manager = new DataBaseManager(this);
+        activeLogin();
 
         // setup input fields
         user = (EditText) findViewById(R.id.inputUsername);
@@ -73,7 +75,16 @@ public class Login extends Activity implements OnClickListener {
         mSubmit.setOnClickListener(this);
 
         mTextView = (TextView) findViewById(R.id.textView2);
+    }
 
+    private void activeLogin(){
+        manager.openConnection();
+        Cursor cursorcount = manager.getUserLogin();
+        if(cursorcount.getCount() == 1){
+            Methods.changeScreen(appContext,Projects.class);
+            finish();
+        }
+        manager.closeConnection();
     }
 
     @Override

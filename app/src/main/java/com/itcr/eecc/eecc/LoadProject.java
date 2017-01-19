@@ -17,8 +17,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import Common.Methods;
 import DataBase.DataBaseManager;
 
 public class LoadProject extends AppCompatActivity {
@@ -179,15 +183,24 @@ public class LoadProject extends AppCompatActivity {
 
 
     public void setProyectMySQL(String projectId) throws JSONException {
-        manager.openConnection();
-        manager.saveProjectMySQL(projectId, appContext, this);
-        manager.closeConnection();
+        if(Methods.isOnlineNet()){
+            manager.openConnection();
+            manager.saveProjectMySQL(projectId, appContext, this);
+            manager.closeConnection();
+        } else {
+            Toast.makeText(getApplicationContext(), "No cuenta con una conexión a internet", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public void setTokenProyectMySQL(String tokenId, String tokenName) throws JSONException {
-        manager.openConnection();
-        manager.saveTokenProjectMySQL(tokenId, tokenName, appContext, this);
-        manager.closeConnection();
+        if(Methods.isOnlineNet()){
+            manager.openConnection();
+            manager.saveTokenProjectMySQL(tokenId, tokenName, appContext, this);
+            manager.closeConnection();
+        } else {
+            Toast.makeText(getApplicationContext(), "No cuenta con una conexión a internet", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void insertToken(final String tokenId){
