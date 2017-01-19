@@ -365,7 +365,8 @@ public class EditProject extends AppCompatActivity
             Methods.changeScreen(this, Projects.class);
             finish();
         } else if (id == R.id.nav_upload) {
-
+            Methods.changeScreen(this, LoadProject.class);
+            finish();
         } else if (id == R.id.nav_logout) {
             Methods.changeScreen(this,Login.class);
             finish();

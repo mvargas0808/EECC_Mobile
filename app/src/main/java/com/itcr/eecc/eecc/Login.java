@@ -46,10 +46,10 @@ public class Login extends Activity implements OnClickListener {
     //private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
 
 
-    private static final String LOGIN_URL = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/login.php";
+    //private static final String LOGIN_URL = "http://192.168.0.13/bryan/ProyectoVerano/EECC_Web/php/controllers/user/login.php";
 
     //William
-    //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
+    private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";
 
 
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
