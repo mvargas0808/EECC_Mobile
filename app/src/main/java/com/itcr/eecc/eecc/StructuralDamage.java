@@ -968,11 +968,11 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
         if(isIDECalculated()){
 
             try {
-                String IC_String = Methods.convertDoubleToString(jsonIDEValues.getDouble("corrosionIndex"));
-                String IE_String = Methods.convertDoubleToString(jsonIDEValues.getDouble("structuralIndex"));
+                double IC = jsonIDEValues.getDouble("corrosionIndex");
+                double IE = jsonIDEValues.getDouble("structuralIndex");
 
-                double corrosionIndex = Methods.convertStringToDecimal(IC_String);
-                double structuralIndex = Methods.convertStringToDecimal(IE_String);
+                double corrosionIndex = Math.rint(IC*100)/100;
+                double structuralIndex = Math.rint(IE*100)/100;
                 String IDE = jsonIDEValues.getString("IDE");
                 String failureConsequence = jsonIDEValues.getString("FailConsequence");
                 int IDE_Row = jsonIDEValues.getInt("IDE_Row");
@@ -1081,9 +1081,11 @@ public class StructuralDamage extends AppCompatActivity implements View.OnClickL
         String IE_String = IE_EditText.getText().toString();
 
         if (validateIDERequiredValues(IC_String, IE_String)) {
+            double IC = Double.parseDouble(IC_String);
+            double IE = Double.parseDouble(IE_String);
 
-            double corrosionIndex = Methods.convertStringToDecimal(IC_String);
-            double structuralIndex = Methods.convertStringToDecimal(IE_String);
+            double corrosionIndex = Math.rint(IC*100)/100;
+            double structuralIndex = Math.rint(IE*100)/100;
 
             if ((corrosionIndex >= 0 &&  corrosionIndex <= 4) && (structuralIndex >= 0 && structuralIndex <= 4)){
 

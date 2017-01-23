@@ -33,178 +33,190 @@
     tools:context="com.itcr.eecc.eecc.ProjectInformation"
     android:layout_marginTop="?attr/actionBarSize">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:text="Información del proyecto"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView20"
-            android:textSize="18sp"
-            android:gravity="center_horizontal" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="337dp"
-            android:layout_marginTop="30dp">
+            android:orientation="vertical" >
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
 
-                <GridLayout
+                <TextView
+                    android:text="Información del proyecto"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:rowCount="8"
-                    android:columnCount="2"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_gravity="center">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView20"
+                    android:textSize="18sp"
+                    android:gravity="center_horizontal" />
 
-                    <TextView
-                        android:text="Nombre del proyecto:"
-                        android:layout_width="175dp"
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="337dp"
+                    android:layout_marginTop="30dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView1"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                        android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_projectname"
-                        android:padding="5dp"/>
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:rowCount="8"
+                            android:columnCount="2"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_gravity="center">
 
-                    <TextView
-                        android:text="Responsable:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView3"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Nombre del proyecto:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView1"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_responsable"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_projectname"
+                                android:padding="5dp"/>
 
-                    <TextView
-                        android:text="Tipo de estructura:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView4"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Responsable:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView3"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_structuretype"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_responsable"
+                                android:padding="5dp"/>
 
-                    <TextView
-                        android:text="Ubicación:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView5"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Tipo de estructura:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView4"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_location"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_structuretype"
+                                android:padding="5dp"/>
 
-                    <TextView
-                        android:text="Descripción de los componentes:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView6"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Ubicación:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView5"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_component_description"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_location"
+                                android:padding="5dp"/>
 
-                    <TextView
-                        android:text="Uso general de la estructura:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView7"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Descripción de los componentes:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView6"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_generaluse"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_component_description"
+                                android:padding="5dp"/>
 
-                    <TextView
-                        android:text="Fecha de creación del proyecto:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView8"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Uso general de la estructura:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView7"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_creationprojectdate"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_generaluse"
+                                android:padding="5dp"/>
 
-                    <TextView
-                        android:text="Fecha de creación de la estructura:"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView9"
-                        android:padding="5dp"
-                        android:textStyle="normal|bold" />
+                            <TextView
+                                android:text="Fecha de creación del proyecto:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView8"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_creationstructruedate"
-                        android:padding="5dp"/>
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_creationprojectdate"
+                                android:padding="5dp"/>
 
-                </GridLayout>
+                            <TextView
+                                android:text="Fecha de creación de la estructura:"
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView9"
+                                android:padding="5dp"
+                                android:textStyle="normal|bold" />
+
+                            <TextView
+                                android:layout_width="175dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_creationstructruedate"
+                                android:padding="5dp"/>
+
+                        </GridLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <Button
+                    android:text="Crear evaluación"
+                    android:onClick="createEvaluation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_create_evaluation"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"
+                    android:layout_marginBottom="7dp"/>
+
+                <Button
+                    android:text="Editar proyecto"
+                    android:onClick="editProject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_edit_project"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:textStyle="normal|bold"/>
+
             </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:text="Crear evaluación"
-            android:onClick="createEvaluation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_create_evaluation"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/white"
-            android:textStyle="normal|bold"
-            android:layout_marginBottom="7dp"/>
-
-        <Button
-            android:text="Editar proyecto"
-            android:onClick="editProject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_edit_project"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/white"
-            android:textStyle="normal|bold"/>
-
-    </LinearLayout>
 </RelativeLayout>
 
 

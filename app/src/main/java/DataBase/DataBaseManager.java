@@ -36,15 +36,14 @@ public class DataBaseManager {
     JSONParser jsonParser = new JSONParser();
     Context appContext;
 
-    private static final String GET_EMAIL_BY_TOKEN = "http://bryansp.esy.es/php/controllers/user/get-user-email-by-token.php";
-    private static final String SAVE_PROJECT = "http://bryansp.esy.es/php/controllers/project/create-project.php";
-    private static final String CREATE_EVALUATION = "http://bryansp.esy.es/php/controllers/evaluation/create-evaluation-mobile.php";
-    private static final String GET_PROJECT_BY_TOKEN = "http://bryansp.esy.es/php/controllers/project/get-project-by-token.php";
-    private static final String SAVE_STRUCTURAL_DAMAGE_INDEX = "http://bryansp.esy.es/php/controllers/structural-damage-index/save-structural-damage-index.php";
-    private static final String SAVE_CORROSION_INDEX = "http://bryansp.esy.es/php/controllers/corrosion-index/save-ci.php";
-    private static final String SAVE_STRUCTURAL_INDEX_MANUAL_AUX = "http://bryansp.esy.es/php/controllers/structural-index/save-si-manual.php";
-    private static final String SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX = "http://bryansp.esy.es/php/controllers/structural-index/save-si-simplified.php";
-    String SAVE_STRUCTURAL_INDEX_MODE = "";
+    private static final String GET_EMAIL_BY_TOKEN = "http://eecc.esy.es/php/controllers/user/get-user-email-by-token.php";
+    private static final String SAVE_PROJECT = "http://eecc.esy.es/php/controllers/project/create-project.php";
+    private static final String CREATE_EVALUATION = "http://eecc.esy.es/php/controllers/evaluation/create-evaluation-mobile.php";
+    private static final String GET_PROJECT_BY_TOKEN = "http://eecc.esy.es/php/controllers/project/get-project-by-token.php";
+    private static final String SAVE_STRUCTURAL_DAMAGE_INDEX = "http://eecc.esy.es/php/controllers/structural-damage-index/save-structural-damage-index.php";
+    private static final String SAVE_CORROSION_INDEX = "http://eecc.esy.es/php/controllers/corrosion-index/save-ci.php";
+    private static final String SAVE_STRUCTURAL_INDEX_MANUAL_AUX = "http://eecc.esy.es/php/controllers/structural-index/save-si-manual.php";
+    private static final String SAVE_STRUCTURAL_INDEX_SIMPLIFIED_AUX = "http://eecc.esy.es/php/controllers/structural-index/save-si-simplified.php";    String SAVE_STRUCTURAL_INDEX_MODE = "";
 
     public DataBaseManager(Context context) {
         helper = new DBHelper(context);
@@ -190,6 +189,12 @@ public class DataBaseManager {
         values.put("DistrictId", districtId);
         long value = db.insert("Projects", null, values);
         return value;
+    }
+
+    public long deleteProyect(String proyectId){
+        ContentValues values = new ContentValues();
+        values.put("Enabled", 0);
+        return db.update("Projects",values,"ProjectId = '"+proyectId+"';",null);
     }
 
     public long editProject(
@@ -1133,13 +1138,11 @@ public class DataBaseManager {
         if(countEvaluation == 1){
             if (existIDEProject(projectId)){
                 saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
-                Toast.makeText(pAppContext, "El proceso fue realizado exitosamente", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(pAppContext, "Aun no se ha calculado el índ. Daño Estructural.", Toast.LENGTH_LONG).show();
             }
         } else {
             saveProjectMySQL_GetEmail(projectId, pAppContext, countEvaluation, loadproject);
-            Toast.makeText(pAppContext, "El proceso fue realizado exitosamente", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -1253,10 +1256,10 @@ public class DataBaseManager {
                                 values.put("Enabled", 0);
                                 long value = db.update("Projects",values,"ProjectId = "+pProjectId+";",null);
                                 loadproject.loadProjectList();
-
                                 if(pEvaluationCount > 0){
                                    createEvaluation_MySQL(projectId_sql, pProjectId,  "0", pAppContext);
                                 }
+                                Toast.makeText(pAppContext, "El proceso fue realizado exitosamente", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

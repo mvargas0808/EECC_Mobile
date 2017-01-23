@@ -35,6 +35,7 @@ public class LoadProject extends AppCompatActivity {
 
     Button btnUseProject;
 
+
     Context appContext = this;
 
     @Override
@@ -42,12 +43,12 @@ public class LoadProject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_project);
 
+
         manager = new DataBaseManager(this);
 
         btnUseProject = (Button) findViewById(R.id.btn_use_project);
         loadProjectList();
         loadTokenList();
-
     }
 
     public void loadTokenList(){
@@ -217,7 +218,7 @@ public class LoadProject extends AppCompatActivity {
                         //This is the evaluatioin value
                         manager.openConnection();
                         if(!tokenInputDialog.getText().toString().trim().equals("")){
-                            manager.updateToken(tokenInputDialog.getText().toString(), tokenId);
+                            manager.updateToken(tokenInputDialog.getText().toString().toUpperCase(), tokenId);
                             loadTokenList();
                         } else {
                             Toast.makeText(getApplicationContext(), "ERROR Token invalido", Toast.LENGTH_LONG).show();

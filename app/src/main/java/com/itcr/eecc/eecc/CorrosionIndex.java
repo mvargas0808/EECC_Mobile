@@ -476,15 +476,11 @@ public class CorrosionIndex extends AppCompatActivity implements View.OnClickLis
 
             try {
 
-                String resultString = "";
-
                 //Sumatoria of indicators / number of indicators
 
                 double sum = (carbonationDepth.getDouble("value") + chlorideLevel.getDouble("value") + cracking.getDouble("value") + resistivity.getDouble("value") + sectionLoss.getDouble("value") + intensity.getDouble("value"))/6;
 
-                resultString = Double.toString(sum);
-
-                double idcResult = Methods.convertStringToDecimal(resultString);
+                double idcResult = Math.rint(sum*100)/100;
 
                 idcIndexJson = null;
                 idcIndexJson = new JSONObject("{'IDC':"+idcResult+"}");

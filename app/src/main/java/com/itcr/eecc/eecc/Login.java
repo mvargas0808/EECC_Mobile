@@ -47,7 +47,7 @@ public class Login extends Activity implements OnClickListener {
     //private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/login.php";
 
 
-    private static final String LOGIN_URL = "http://bryansp.esy.es/php/controllers/user/login.php";
+    private static final String LOGIN_URL = "http://eecc.esy.es/php/controllers/user/valid-login-android.php";
 
     //William
     //private static final String LOGIN_URL = "http://192.168.0.105:8081/EECC_Web/php/controllers/user/login.php";

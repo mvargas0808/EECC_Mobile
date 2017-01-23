@@ -96,10 +96,10 @@ public class Methods extends AppCompatActivity {
 
 
 
-    public static double convertStringToDecimal(String pNumber){
+    public static double convertStringToDecimal(int pNumber){
         DecimalFormat precision = new DecimalFormat("0.00");
-        double number = Double.parseDouble(pNumber);
-        return Double.parseDouble(precision.format(number));
+        //double number = Double.parseDouble(pNumber);
+        return 3;
     }
 
     public static String convertIntToString(int pNumber){

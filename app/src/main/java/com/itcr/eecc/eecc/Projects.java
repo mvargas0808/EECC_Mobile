@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -78,6 +80,7 @@ public class Projects extends AppCompatActivity
             }
         });
 
+
     }
 
 
@@ -119,6 +122,52 @@ public class Projects extends AppCompatActivity
                 }
             }
         });
+
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View view,
+                                           int pos, long id) {
+                String projectId = ((TextView) view.findViewById(R.id.pid)).getText()
+                        .toString();
+                alertMessageCreateEvaluation(projectId);
+                return true;
+            }
+        });
+    }
+
+    public void alertMessageCreateEvaluation(final String projectId){
+        final String projectIdFinal = projectId;
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("¿Desea eliminar el proyecto?\n(Toda la información se perderá y no será recuperada)");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton(
+                "Eliminar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        manager.openConnection();
+                        long code = manager.deleteProyect(projectId);
+                        if(code == 1){
+                            Toast.makeText(getApplicationContext(), "El proyecto fue eliminado", Toast.LENGTH_LONG).show();
+                            finish();
+                            startActivity(getIntent());
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Ha ocurrido un error", Toast.LENGTH_LONG).show();
+                        }
+
+                        manager.closeConnection();
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Cancelar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     public void insertToken(View v){
@@ -135,7 +184,7 @@ public class Projects extends AppCompatActivity
                         //This is the evaluatioin value
                         manager.openConnection();
                         if(!tokenInputDialog.getText().toString().trim().equals("")){
-                            String evaluationId = manager.createProjectToken(tokenInputDialog.getText().toString());
+                            String evaluationId = manager.createProjectToken(tokenInputDialog.getText().toString().toUpperCase());
 
                             JSONObject json = new JSONObject();
                             try {
@@ -206,7 +255,6 @@ public class Projects extends AppCompatActivity
             finish();
         } else if (id == R.id.nav_upload) {
             Methods.changeScreen(this, LoadProject.class);
-            finish();
         } else if (id == R.id.nav_logout) {
             manager.openConnection();
             manager.disableUsers();
@@ -224,6 +272,5 @@ public class Projects extends AppCompatActivity
     public void changeScreenTitle(String pNewTitle){
         getSupportActionBar().setTitle(pNewTitle);
     }
-
 
 }

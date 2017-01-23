@@ -25,72 +25,82 @@
 
         <!--include layout="@layout/content_projects" /-->
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/activity_project_list"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_marginTop="?attr/actionBarSize"
-            tools:context="com.itcr.eecc.eecc.Projects">
-
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="1"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1">
 
-                <TextView
-                    android:text="Para subir a internet un proyecto tan solo pulse sobre el"
+                <LinearLayout
+                    android:id="@+id/activity_project_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView12"
-                    android:layout_weight="0.08"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:text="Lista de proyectos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView13"
-                    android:layout_weight="0.10"
-                    android:layout_marginTop="20dp" />
-
-                <include
-                    android:id="@+id/some_id_if_needed"
-                    layout="@layout/project_list_items"
-                    android:layout_below="@+id/btn_create_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="117dp"
-                    android:layout_weight="0.71" />
-
-                <TextView
-                    android:text="Identificadores de proyectos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView14"
-                    android:layout_weight="0.12"
-                    android:layout_marginTop="20dp" />
-
-                <include
-                    android:id="@+id/some_id_if_needed"
-                    layout="@layout/token_list_items"
-                    android:layout_below="@+id/btn_create_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="149dp" />
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    tools:context="com.itcr.eecc.eecc.Projects"
+                    android:layout_weight="1.73">
 
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="487dp"
+                        android:weightSum="1"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true">
+
+                        <TextView
+                            android:text="Para subir a internet un proyecto tan solo pulse sobre el"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView12"
+                            android:layout_weight="0.08"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:text="Lista de proyectos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView13"
+                            android:layout_weight="0.10"
+                            android:layout_marginTop="20dp" />
+
+                        <include
+                            android:id="@+id/some_id_if_needed"
+                            layout="@layout/project_list_items"
+                            android:layout_below="@+id/btn_create_new"
+                            android:layout_width="match_parent"
+                            android:layout_height="117dp"
+                            android:layout_weight="0.71" />
+
+                        <TextView
+                            android:text="Identificadores de proyectos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView14"
+                            android:layout_weight="0.12"
+                            android:layout_marginTop="20dp" />
+
+                        <include
+                            android:id="@+id/some_id_if_needed"
+                            layout="@layout/token_list_items"
+                            android:layout_below="@+id/btn_create_new"
+                            android:layout_width="match_parent"
+                            android:layout_height="149dp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
-
-        </LinearLayout>
-
-
+        </ScrollView>
 
 
         <android.support.design.widget.AppBarLayout
