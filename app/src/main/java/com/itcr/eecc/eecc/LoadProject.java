@@ -86,6 +86,17 @@ public class LoadProject extends AppCompatActivity {
                 alertLoadTokens(TokenId, TokenName);
             }
         });
+
+        listViewToken.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View view,
+                                           int pos, long id) {
+                String tokenId = ((TextView) view.findViewById(R.id.pidToken)).getText()
+                        .toString();
+                insertToken(tokenId);
+                return true;
+            }
+        });
     }
 
     public void alertLoadTokens(final String tokenId, final String tokenName){

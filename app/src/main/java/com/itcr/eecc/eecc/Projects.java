@@ -77,6 +77,7 @@ public class Projects extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Methods.changeScreen(appContext, ProjectForm.class);
+                finish();
             }
         });
 
@@ -191,6 +192,7 @@ public class Projects extends AppCompatActivity
                                 //Cambiar de pantalla a la evaluación
                                 json.put("evaluationId",evaluationId);
                                 Methods.changeScreenAndSendJson(appContext, EvaluationMenu.class, "json", json);
+                                finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
